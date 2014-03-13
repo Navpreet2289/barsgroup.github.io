@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description></description><lastBuildDate>Thu, 13 Mar 2014 16:31:46 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hello World!</title><link>http://barsgroup.github.io//posts/hello.html</link><description>&lt;h3&gt;Hello World!&lt;/h3&gt;
+&lt;div class="code"&gt;&lt;pre&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;"Hello world!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><guid>http://barsgroup.github.io//posts/hello.html</guid><pubDate>Thu, 13 Mar 2014 12:30:46 GMT</pubDate></item></channel></rss>

@@ -5,73 +5,55 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
-  <loc>http://barsgroup.github.io/</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
- </url>
- <url>
-  <loc>http://barsgroup.github.io/2014/</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
- </url>
- <url>
   <loc>http://barsgroup.github.io/2014/index.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
-  <loc>http://barsgroup.github.io/_source/cache/posts/hello.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://barsgroup.github.io/_source/files/index.html</loc>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/archive.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
-  <loc>http://barsgroup.github.io/categories/</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://barsgroup.github.io/blog/index.html</loc>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/categories/index.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
- </url>
- <url>
-  <loc>http://barsgroup.github.io/galleries/</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/galleries/index.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
-  <loc>http://barsgroup.github.io/index-1.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://barsgroup.github.io/galleries/rss.xml</loc>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/index.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
- </url>
- <url>
-  <loc>http://barsgroup.github.io/listings/</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/listings/index.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <lastmod>2014-03-14</lastmod>
  </url>
  <url>
-  <loc>http://barsgroup.github.io/posts/hello.html</loc>
-  <lastmod>2014-03-13</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://barsgroup.github.io/posts/post.html</loc>
+  <lastmod>2014-03-14</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/rss.xml</loc>
+  <lastmod>2014-03-14</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/index.html</loc>
+  <lastmod>2014-03-14</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/title.html</loc>
+  <lastmod>2014-03-14</lastmod>
  </url>
 </urlset>

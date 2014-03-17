@@ -1,2 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Mon, 17 Mar 2014 15:27:43 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>post</title><link>http://barsgroup.github.io/posts/post.html</link><description>&lt;p&gt;Write your post here.&lt;/p&gt;</description><guid>http://barsgroup.github.io/posts/post.html</guid><pubDate>Fri, 14 Mar 2014 10:26:50 GMT</pubDate></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Mon, 17 Mar 2014 18:00:03 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Changelog 10-02</title><link>http://barsgroup.github.io/posts/changelog-10-02-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;m3-core 2.0.10&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Оптимизирован m3.actions.utils.create_search_filter&lt;/li&gt;
+&lt;li&gt;Изменения касательно мониторинга:&lt;/li&gt;
+&lt;li&gt;Отрефакторен мониторинг контроллеров&lt;/li&gt;
+&lt;li&gt;Теперь URL контроллера получается только один раз.&lt;/li&gt;
+&lt;li&gt;Исправлен формат отсылаемых контекстов.&lt;/li&gt;
+&lt;li&gt;Функция отправки контекстов на удаленный сервер.&lt;/li&gt;
+&lt;li&gt;Расширен набор отправляемой с метриками информации.&lt;/li&gt;
+&lt;li&gt;README для подключения метрик.&lt;/li&gt;
+&lt;li&gt;Теперь неудавшееся удаление потомка BaseObjectModel сопровождается
+исключением RelatedError&lt;/li&gt;
+&lt;li&gt;Поправлено поведение safe_delete для mptt-моделей&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;m3-ext 2.0.5&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Добавлены два плагина: MonthPickerPlugin и TreeHeaderFilters. Так же
+добавилась js-а, которая переопределяет NumberField для работы с
+денежными форматами&lt;/li&gt;
+&lt;li&gt;Изменение размера поля для выбора из справочника при вызове
+setReadOnly теперь не должно происходить&lt;/li&gt;
+&lt;li&gt;Теперь PIL не требуется, пока не нужен (пока не используются
+ExtImageUploadField)&lt;/li&gt;
+&lt;li&gt;Теперь ExtDictSelectField.deafult_text экранируется&lt;/li&gt;
+&lt;li&gt;Добавлен плагин для одновременнрй группировки и заморозки столбцов&lt;/li&gt;
+&lt;li&gt;Исправлен баг погинации ExtObjectGrid&lt;/li&gt;
+&lt;li&gt;Добавлен показ сообщения о множественном выделении в ExtObjectGrig
+при попытке редактирования нескольких записей&lt;/li&gt;
+&lt;li&gt;Теперь есть маска при выборе элемента в поле выбора справочника&lt;/li&gt;
+&lt;li&gt;Поправлено вычисление размера последней колонки в гриде&lt;/li&gt;
+&lt;li&gt;Исправлена ошибка рендеринга MultiGroupingGrid при изначально
+заданных группировках&lt;/li&gt;
+&lt;li&gt;Добавлен css-fix для нормального отображения группирующих колонок в
+Google Chrome&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;report_generator 2.1.3.0 (2.0.4.0 - для старого m3)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Удалены зависимости от различных паков-справочников (например,
+ObjectPack). Теперь для того, чтобы в выборе типа
+справочника для параметров формы появился какой-либо справочник, в его
+паке должен быть метод &lt;code&gt;get_select_url&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Исправлен ошибка неполной отдачи файла, если сервер запущен в OS MS
+Windows&lt;/li&gt;
+&lt;li&gt;Исправлена ошибка при попытке показать текст запроса без полей для
+&lt;code&gt;SELECT&lt;/code&gt; - клиенту выводится соответствующее сообщение&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;simple_report 1.3.6.0&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Поддержка RTF-формата. Реализован минимум возможностей.&lt;/li&gt;
+&lt;li&gt;XLS. Во избежании порчи выходного файла (границ ячеек) при замене
+тегов None замещается пустой строкой&lt;/li&gt;
+&lt;li&gt;XLS. Полный перенос стилей из шаблона. Работает для неизменяемых
+ячеек (Теперь возможно использовать в шаблоне несколько цветов в 1 ячейке)&lt;/li&gt;
+&lt;li&gt;DOCX Исправление смещения ссылок и других элементов после подстановки&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://barsgroup.github.io/posts/changelog-10-02-2014.html</guid><pubDate>Mon, 10 Feb 2014 13:08:18 GMT</pubDate></item><item><title>Changelog 12.13</title><link>http://barsgroup.github.io/posts/changelog-3122013.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;m3-ext 2.0.4.0&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Поправлено поведение метода make_read_only у визуальных компонентов&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;m3-core 2.0.9.2&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;В инфо-регистре, при удалении нескольких записей происходило пересохранение удаленных записей. Исправлено.&lt;/li&gt;
+&lt;li&gt;Исправление изменений атриубута класса filter_fields внутри метода экземпляра BaseDictionaryModelActions.&lt;/li&gt;
+&lt;li&gt;Отправка в statsd статистики запросов по контроллерам интегрирована в платформу (включается опционально).&lt;/li&gt;
+&lt;li&gt;Интегрирован сбор метрик по пользователям.&lt;/li&gt;
+&lt;li&gt;Оптимизирована генерация запросов поиска в реестрах/справочниках посредством m3.actions.utils.create_search_filter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;registry 2.0.1&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Перенесены изменеия из версии m3-1.5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;report-generator 2.0.2&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Использование как обычных названий полей, так и verbose&lt;/li&gt;
+&lt;li&gt;Запросы и модели можно использовать во внешнем запросе сколько угодно раз. На клиенте автоматически генерируется alias.&lt;/li&gt;
+&lt;li&gt;Возможность добавлять "пустые" секции (без параметров), они будут внесены в отчет без изменений&lt;/li&gt;
+&lt;li&gt;В условиях запроса (where) появился новый тип параметра - константа&lt;/li&gt;
+&lt;li&gt;Условия запроса теперь можно комбинировать (в sql расставляются скобки)&lt;/li&gt;
+&lt;li&gt;Исправлено отображение полей типа DateTimeField в отчете - раньше бралась только дата&lt;/li&gt;
+&lt;li&gt;Исправлена подстановка значений (раньше просто скрывались некоторые колонки в отчете)&lt;/li&gt;
+&lt;li&gt;Удаление LEFT OUTER JOIN в запросе при некоторых условиях. Позволяет реализовывать сложные вьюхи,
+из которых потом можно выбирать лишь несколько полей
+Примеры из postgresql:
+http://wiki.postgresql.org/wiki/What%27s_new_in_PostgreSQL_9.0 - Join Removal
+http://rhaas.blogspot.ru/2010/06/why-join-removal-is-cool.html
+Но в постгресе почему-то не всегда работает, поэтому реализовали здесь.&lt;/li&gt;
+&lt;li&gt;Оператор IN в условиях запроса. принимает JSON вида [1, 2, 3] или ["1", "2"]&lt;/li&gt;
+&lt;li&gt;Для полей-ссылок на другие модели приписывается префикс "ID - "&lt;/li&gt;
+&lt;li&gt;В деревьях полей (все поля, поля группировки, поля условий) в 1 колонке выводится подсказка о типе поля&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;simple-report 1.3.4&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DOCX. Исправление ошибки поиска и замены тега при сохранении шаблона в Microsoft Word и 4 версии LibreOffice.
+Теперь лучше использовать замену тегов с символами '#' вокруг параметра&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://barsgroup.github.io/posts/changelog-3122013.html</guid><pubDate>Fri, 13 Dec 2013 13:00:14 GMT</pubDate></item><item><title>Переход на концепцию m3 2.0</title><link>http://barsgroup.github.io/posts/move-to-m3-20.html</link><description>&lt;div&gt;&lt;p&gt;По итогам svg-шек, grep-ов и прочей магии получили следующую картину по рефакторингу пакета m3:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;core&lt;ul&gt;
+&lt;li&gt;registry - Пока просто выделяется в отдельный &lt;a href="https://bitbucket.org/barsgroup/registry"&gt;контриб&lt;/a&gt;.
+Следующие версии предполагают безумный рефакторинг&lt;/li&gt;
+&lt;li&gt;history - Нигде не используется и удаляется&lt;/li&gt;
+&lt;li&gt;middleware.py - Выкидывается все, кроме AutoLogout и помещается в core/&lt;strong&gt;init&lt;/strong&gt;.py&lt;/li&gt;
+&lt;li&gt;json - Encoder пока оставляем, переносится в core/&lt;strong&gt;init&lt;/strong&gt;.py&lt;/li&gt;
+&lt;li&gt;exceptions - Удаляется, AppLogicException перемещается в &lt;strong&gt;init&lt;/strong&gt;.py&lt;/li&gt;
+&lt;li&gt;plugins - Перемещается в &lt;a href="https://bitbucket.org/barsgroup/m3-legacy"&gt;m3_legacy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;excel_reporting - Перемещен в отдельный &lt;a href="https://bitbucket.org/barsgroup/excel-reporting"&gt;контриб&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;notifications - Нигде не используется и удаляется&lt;/li&gt;
+&lt;li&gt;replication - Нигде не используется и удаляется&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;contrib&lt;ul&gt;
+&lt;li&gt;setup_environ - Удаляется, нужен был для встраивания prepare_env.py&lt;/li&gt;
+&lt;li&gt;designer - Там лежит management-команда для запуска дизайнера, переезжает в сам контриб дизайнера
+data&lt;/li&gt;
+&lt;li&gt;mie - Удаляется. Используется совсем немного в Школах.&lt;/li&gt;
+&lt;li&gt;caching - Переносится в core&lt;/li&gt;
+&lt;li&gt;proxy - Нигде не используется и удаляется
+db&lt;/li&gt;
+&lt;li&gt;mptt_util - Внутри находится механизм перестройки mptt-дерева, пока непонятно куда вынести.
+Использовать последнюю версию &lt;a href="https://github.com/django-mptt/django-mptt"&gt;mptt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;alchemy_wrapper - Используется в report-generator'e и ЭПК.  Из ЭПК выпиливается и переносится в report-generator&lt;/li&gt;
+&lt;li&gt;ddl - Злостно удаляется&lt;/li&gt;
+&lt;li&gt;__init__ - Частично внутренности этого модуля переедут в &lt;a href="https://bitbucket.org/barsgroup/m3-legacy"&gt;m3_legacy&lt;/a&gt;
+после более глубокого исследования&lt;/li&gt;
+&lt;li&gt;api - Перемещено в &lt;a href="https://bitbucket.org/barsgroup/m3-legacy"&gt;m3_legacy&lt;/a&gt;
+helpers&lt;/li&gt;
+&lt;li&gt;logger - Будет перемещен в &lt;a href="https://bitbucket.org/barsgroup/m3-legacy"&gt;m3_legacy&lt;/a&gt;
+и по-возможности будет использоваться внутри себя django-подход&lt;/li&gt;
+&lt;li&gt;loader - Перемещается в &lt;a href="https://bitbucket.org/barsgroup/m3-legacy"&gt;m3_legacy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;urls - Перемещается в core/actions.py&lt;/li&gt;
+&lt;li&gt;ui - Будет удален. Так же будет выпелен из ui/actions/results.py, из m3_users и Родплаты&lt;/li&gt;
+&lt;li&gt;validation - Перемещается в m3_legacy&lt;/li&gt;
+&lt;li&gt;queries - Будет удален. Проекты, которые используют данный модуль - m3_contragents, Род. Плата, Закупки&lt;/li&gt;
+&lt;li&gt;Содержимое &lt;strong&gt;init&lt;/strong&gt;.py - Перемещается в &lt;a href="https://bitbucket.org/barsgroup/m3-legacy"&gt;m3_legacy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;icons - в пакет с &lt;a href="https://bitbucket.org/barsgroup/m3-ext"&gt;m3-ext&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;js - Будет удален&lt;/li&gt;
+&lt;li&gt;datastructures - Удаляется&lt;/li&gt;
+&lt;li&gt;datagrouping, datagrouping_alchemy - Переносится в отдельный пакет. И рефакториться в следующих версиях модуля.&lt;/li&gt;
+&lt;li&gt;config - Будет удален&lt;/li&gt;
+&lt;li&gt;checksum - Будет перенесен в отдельный пакет&lt;/li&gt;
+&lt;li&gt;users - BaseUserProfile выкидывается, декоратор authenticated_user_required перенесется в core&lt;/li&gt;
+&lt;li&gt;autonum - Нигде не используется, будет удален&lt;/li&gt;
+&lt;li&gt;sqlite - Будет удален&lt;/li&gt;
+&lt;li&gt;mocks - Будет удален&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;misc - Удаляется&lt;/li&gt;
+&lt;li&gt;templatetags - Единственная функция переедет в core&lt;/li&gt;
+&lt;li&gt;ui/actions/packs и ui/actions/dicts - Переносятся в отдельный пакет, например, simple_dict&lt;/li&gt;
+&lt;li&gt;m3_workflow - Удаляется&lt;/li&gt;
+&lt;li&gt;ui вместе со статикой - переносится в отдельный пакет &lt;a href="https://bitbucket.org/barsgroup/m3-ext"&gt;m3-ext&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ui/actions/ переедет в core&lt;/li&gt;
+&lt;li&gt;ui/actions/gears, ui/actions/app_ui - переедет в &lt;a href="https://bitbucket.org/barsgroup/m3-ext"&gt;m3-ext&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://bitbucket.org/barsgroup/m3-legacy"&gt;m3_legacy&lt;/a&gt; - Пакет, который будет содержать устаревший код,
+в нем будут исправляться только ошибки, которых и так минимальное количество. Этот контриб далее поддерживаться не будет.&lt;/p&gt;
+&lt;p&gt;Все, что останется войдет в сборку m3 2.0. Эта версия будет содержать нужный код, который просто изменил текущее местоположение,
+рефакторинг будет производиться в следующих версиях.&lt;/p&gt;
+&lt;p&gt;Так же для перехода на новую версию подготовлен &lt;a href="https://gist.github.com/prefer/7e831f6909afcdfc814e"&gt;скрипт&lt;/a&gt;
+для понимания какие импорты сломались и как их починить.&lt;/p&gt;&lt;/div&gt;</description><guid>http://barsgroup.github.io/posts/move-to-m3-20.html</guid><pubDate>Tue, 25 Jun 2013 13:42:44 GMT</pubDate></item><item><title>Release m3 1.0</title><link>http://barsgroup.github.io/posts/release-m3-10.html</link><description>&lt;div&gt;&lt;p&gt;В то далекое время весь код находился внутри одной библиотеки m3.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;В базовое окно для линейного, иерархического и сомещенного справочника &lt;tt class="docutils literal"&gt;m3.ui.ext.windows.complex.ExtDictionaryWindow&lt;/tt&gt;
+добавлен режим множественного выбора.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.ui.ext.panels.grids.ExtMultiGroupinGrid&lt;/tt&gt; добавлен атрибут &lt;tt class="docutils literal"&gt;header_style&lt;/tt&gt; -- стиль заголовка колонки.
+А также метод &lt;tt class="docutils literal"&gt;render_base_config&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;В &lt;tt class="docutils literal"&gt;m3.ui.ext.misc.store.ExtDataStore&lt;/tt&gt; добавлена возможность прописывать в шаблоне даты.&lt;/li&gt;
+&lt;li&gt;В методе &lt;tt class="docutils literal"&gt;render_base_config&lt;/tt&gt; класса &lt;tt class="docutils literal"&gt;m3.ui.ext.fields.simple.ExtStringField&lt;/tt&gt; реализовано экранирование значений с
+обратным слэшем.&lt;/li&gt;
+&lt;li&gt;В модуль &lt;tt class="docutils literal"&gt;m3.ui.ext.containers.grids&lt;/tt&gt; добавлены два класса &lt;tt class="docutils literal"&gt;ExtLiveGridCheckBoxSelModel&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;ExtLiveGridRowSelModel&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.ui.ext.containers.forms.ExtForm&lt;/tt&gt; добавлен метод &lt;tt class="docutils literal"&gt;try_to_list&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.ui.ext.containers.forms.ExtPanel&lt;/tt&gt; добавлен атрибут &lt;tt class="docutils literal"&gt;title_collapse&lt;/tt&gt;. Атрибут указывает нужно ли сворачивать
+панель при щелчке на заголовке.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.ui.actions.dicts.tree.BaseTreeDictionaryActions&lt;/tt&gt; добавлен метод &lt;tt class="docutils literal"&gt;get_default_action&lt;/tt&gt;, который возвращает
+экшн по-умолчанию.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.ui.actions.dicts.tree.BaseTreeDictionaryModelActions&lt;/tt&gt; добавлена настройка &lt;tt class="docutils literal"&gt;list_drag_and_drop&lt;/tt&gt; разрешающая
+перетаскивание элементов из грида в другие группы дерева.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.ui.actions.dicts.simple.BaseDictionaryActions&lt;/tt&gt; добавлен метод &lt;tt class="docutils literal"&gt;get_default_action&lt;/tt&gt;, который возвращает
+экшн по-умолчанию.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.ui.actions.results.ActionRedirectResult&lt;/tt&gt; добавлен атрибут &lt;tt class="docutils literal"&gt;context&lt;/tt&gt; и метод &lt;tt class="docutils literal"&gt;prepare_request&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;В метод &lt;tt class="docutils literal"&gt;convert_value&lt;/tt&gt; класса &lt;tt class="docutils literal"&gt;m3.ui.actions.context.ActionContext&lt;/tt&gt; добавлена проверка версии Python, т.к. в версиях
+ниже 2.7 в &lt;cite&gt;Decimal&lt;/cite&gt; не поддерживается создание из &lt;cite&gt;float&lt;/cite&gt;.&lt;/li&gt;
+&lt;li&gt;В классе &lt;tt class="docutils literal"&gt;Action&lt;/tt&gt; добавлена проверка прав в родительском элементе из экшена&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.ui.app_ui.DesktopLauncher&lt;/tt&gt; добавлен метод &lt;tt class="docutils literal"&gt;_set_default_handler&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Добавлен модуль &lt;tt class="docutils literal"&gt;m3_tags&lt;/tt&gt;. Там описан темплейт таг, который возвращает URL экшена.&lt;/li&gt;
+&lt;li&gt;В метод &lt;tt class="docutils literal"&gt;deleteOkHandler&lt;/tt&gt; классa &lt;tt class="docutils literal"&gt;Ext.m3.ObjectGrid&lt;/tt&gt; добавлена проверка на ошибки уровня приложения.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;Ext.m3.MultiSelectField&lt;/tt&gt; добавлен метод &lt;tt class="docutils literal"&gt;fireChangeEventOnDemand&lt;/tt&gt;, который имитирует поведение &lt;tt class="docutils literal"&gt;Ext.form.Field.onBlur()&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;Ext.ux.form.FileUploadField&lt;/tt&gt; добавлены события &lt;tt class="docutils literal"&gt;change&lt;/tt&gt; (отрабатывает, когда изменилось значение) и
+&lt;tt class="docutils literal"&gt;beforechange&lt;/tt&gt; (срабатывает до изменения поля)&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;Ext.m3.EditWindow&lt;/tt&gt; добавлен метод &lt;tt class="docutils literal"&gt;clearModificationFlag&lt;/tt&gt;, который отбрасывает признаки модифицированности формы.&lt;/li&gt;
+&lt;li&gt;Для &lt;tt class="docutils literal"&gt;Ext.m3.AdvancedComboBox&lt;/tt&gt; корректирована функция &lt;tt class="docutils literal"&gt;getWidth&lt;/tt&gt;, которая вычисляет ширину поля.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;Ext.m3.AddrField&lt;/tt&gt; добавлено событие &lt;tt class="docutils literal"&gt;change_corps&lt;/tt&gt;, которое срабатывает при изменение корпуса.&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.helpers.datagrouping.RecordProxy&lt;/tt&gt; добавлен атрибут &lt;tt class="docutils literal"&gt;grouped&lt;/tt&gt; -- список атрибуто, по которым происходит
+группироровка&lt;/li&gt;
+&lt;li&gt;В класс &lt;tt class="docutils literal"&gt;m3.helpers.datagrouping.GroupingRecordProvider&lt;/tt&gt; добавлен атрибут &lt;tt class="docutils literal"&gt;detail_attrs_map&lt;/tt&gt; -- словарь, определяющий
+дополнительные поля, которые добавляются в узловые записи, создаваемые самим провайдером.&lt;/li&gt;
+&lt;li&gt;Добавлен контриб &lt;cite&gt;setupenv&lt;/cite&gt;&lt;/li&gt;
+&lt;li&gt;Добавлен контриб &lt;cite&gt;prepare_env&lt;/cite&gt;&lt;/li&gt;
+&lt;li&gt;Множественные исправления, которые можно увидеть выполнив, например, визуальное сравнение веток через TortoiseHG.&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://barsgroup.github.io/posts/release-m3-10.html</guid><pubDate>Tue, 01 Jan 2013 12:54:07 GMT</pubDate></item></channel></rss>

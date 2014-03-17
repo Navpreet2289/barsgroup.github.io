@@ -89,7 +89,7 @@ NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ('/index.html', u'Обзор'),
         ('/modules.html', u'Модули'),
-        ('/usages.html', u'Использование'),
+        ('/where-usages.html', u'Где используется'),
         ('/blog', u'Блог'),
         ('/stories', u' Вики'),
         # ('/archive.html', u'Архив'),
@@ -242,7 +242,11 @@ INDEX_PATH = "blog"
 # relative URL.
 #
 # If you don't need any of these, just set to []
-# REDIRECTIONS = []
+REDIRECTIONS = [
+    ('index.html', '/stories/main.html'),
+    ('modules.html', '/stories/modules.html'),
+    ('where-usages.html', '/stories/where-usages.html'),
+]
 
 # Commands to execute to deploy. Can be anything, for example,
 # you may use rsync:

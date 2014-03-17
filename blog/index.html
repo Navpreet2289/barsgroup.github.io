@@ -47,7 +47,7 @@
                     
                 <li><a href="../index.html">Обзор</a>
                 </li><li><a href="../modules.html">Модули</a>
-                </li><li><a href="../usages.html">Использование</a>
+                </li><li><a href="../where-usages.html">Где используется</a>
                 </li><li><a href="../blog">Блог</a>
                 </li><li><a href="../stories"> Вики</a>
 
@@ -69,13 +69,245 @@
     <div class="span8">
     
         <article class="postbox h-entry post-text">
-        <h1 class="p-name"><a href="../posts/post.html" class="u-url">post</a>
+        <h1 class="p-name"><a href="../posts/changelog-10-02-2014.html" class="u-url">Changelog 10-02</a>
         <small>  
-             Опубликовано: <time class="published dt-published" datetime="2014-03-14T14:26:50+04:00">14:26 14-03-2014</time>
+             Опубликовано: <time class="published dt-published" datetime="2014-02-10T17:08:18+04:00">17:08 10-02-2014</time>
         </small></h1>
         <hr>
         <div class="e-content">
-        <p>Write your post here.</p>
+        <div><p><strong>m3-core 2.0.10</strong></p>
+<ul>
+<li>Оптимизирован m3.actions.utils.create_search_filter</li>
+<li>Изменения касательно мониторинга:</li>
+<li>Отрефакторен мониторинг контроллеров</li>
+<li>Теперь URL контроллера получается только один раз.</li>
+<li>Исправлен формат отсылаемых контекстов.</li>
+<li>Функция отправки контекстов на удаленный сервер.</li>
+<li>Расширен набор отправляемой с метриками информации.</li>
+<li>README для подключения метрик.</li>
+<li>Теперь неудавшееся удаление потомка BaseObjectModel сопровождается
+исключением RelatedError</li>
+<li>Поправлено поведение safe_delete для mptt-моделей</li>
+</ul>
+<p><strong>m3-ext 2.0.5</strong></p>
+<ul>
+<li>Добавлены два плагина: MonthPickerPlugin и TreeHeaderFilters. Так же
+добавилась js-а, которая переопределяет NumberField для работы с
+денежными форматами</li>
+<li>Изменение размера поля для выбора из справочника при вызове
+setReadOnly теперь не должно происходить</li>
+<li>Теперь PIL не требуется, пока не нужен (пока не используются
+ExtImageUploadField)</li>
+<li>Теперь ExtDictSelectField.deafult_text экранируется</li>
+<li>Добавлен плагин для одновременнрй группировки и заморозки столбцов</li>
+<li>Исправлен баг погинации ExtObjectGrid</li>
+<li>Добавлен показ сообщения о множественном выделении в ExtObjectGrig
+при попытке редактирования нескольких записей</li>
+<li>Теперь есть маска при выборе элемента в поле выбора справочника</li>
+<li>Поправлено вычисление размера последней колонки в гриде</li>
+<li>Исправлена ошибка рендеринга MultiGroupingGrid при изначально
+заданных группировках</li>
+<li>Добавлен css-fix для нормального отображения группирующих колонок в
+Google Chrome</li>
+</ul>
+<p><strong>report_generator 2.1.3.0 (2.0.4.0 - для старого m3)</strong></p>
+<ul>
+<li>Удалены зависимости от различных паков-справочников (например,
+ObjectPack). Теперь для того, чтобы в выборе типа
+справочника для параметров формы появился какой-либо справочник, в его
+паке должен быть метод <code>get_select_url</code></li>
+<li>Исправлен ошибка неполной отдачи файла, если сервер запущен в OS MS
+Windows</li>
+<li>Исправлена ошибка при попытке показать текст запроса без полей для
+<code>SELECT</code> - клиенту выводится соответствующее сообщение</li>
+</ul>
+<p><strong>simple_report 1.3.6.0</strong></p>
+<ul>
+<li>Поддержка RTF-формата. Реализован минимум возможностей.</li>
+<li>XLS. Во избежании порчи выходного файла (границ ячеек) при замене
+тегов None замещается пустой строкой</li>
+<li>XLS. Полный перенос стилей из шаблона. Работает для неизменяемых
+ячеек (Теперь возможно использовать в шаблоне несколько цветов в 1 ячейке)</li>
+<li>DOCX Исправление смещения ссылок и других элементов после подстановки</li>
+</ul></div>
+        </div>
+            
+
+        </article>
+        <article class="postbox h-entry post-text">
+        <h1 class="p-name"><a href="../posts/changelog-3122013.html" class="u-url">Changelog 12.13</a>
+        <small>  
+             Опубликовано: <time class="published dt-published" datetime="2013-12-13T17:00:14+04:00">17:00 13-12-2013</time>
+        </small></h1>
+        <hr>
+        <div class="e-content">
+        <div><p><strong>m3-ext 2.0.4.0</strong></p>
+<ul>
+<li>Поправлено поведение метода make_read_only у визуальных компонентов</li>
+</ul>
+<p><strong>m3-core 2.0.9.2</strong></p>
+<ul>
+<li>В инфо-регистре, при удалении нескольких записей происходило пересохранение удаленных записей. Исправлено.</li>
+<li>Исправление изменений атриубута класса filter_fields внутри метода экземпляра BaseDictionaryModelActions.</li>
+<li>Отправка в statsd статистики запросов по контроллерам интегрирована в платформу (включается опционально).</li>
+<li>Интегрирован сбор метрик по пользователям.</li>
+<li>Оптимизирована генерация запросов поиска в реестрах/справочниках посредством m3.actions.utils.create_search_filter</li>
+</ul>
+<p><strong>registry 2.0.1</strong></p>
+<ul>
+<li>Перенесены изменеия из версии m3-1.5</li>
+</ul>
+<p><strong>report-generator 2.0.2</strong></p>
+<ol>
+<li>Использование как обычных названий полей, так и verbose</li>
+<li>Запросы и модели можно использовать во внешнем запросе сколько угодно раз. На клиенте автоматически генерируется alias.</li>
+<li>Возможность добавлять "пустые" секции (без параметров), они будут внесены в отчет без изменений</li>
+<li>В условиях запроса (where) появился новый тип параметра - константа</li>
+<li>Условия запроса теперь можно комбинировать (в sql расставляются скобки)</li>
+<li>Исправлено отображение полей типа DateTimeField в отчете - раньше бралась только дата</li>
+<li>Исправлена подстановка значений (раньше просто скрывались некоторые колонки в отчете)</li>
+<li>Удаление LEFT OUTER JOIN в запросе при некоторых условиях. Позволяет реализовывать сложные вьюхи,
+из которых потом можно выбирать лишь несколько полей
+Примеры из postgresql:
+http://wiki.postgresql.org/wiki/What%27s_new_in_PostgreSQL_9.0 - Join Removal
+http://rhaas.blogspot.ru/2010/06/why-join-removal-is-cool.html
+Но в постгресе почему-то не всегда работает, поэтому реализовали здесь.</li>
+<li>Оператор IN в условиях запроса. принимает JSON вида [1, 2, 3] или ["1", "2"]</li>
+<li>Для полей-ссылок на другие модели приписывается префикс "ID - "</li>
+<li>В деревьях полей (все поля, поля группировки, поля условий) в 1 колонке выводится подсказка о типе поля</li>
+</ol>
+<p><strong>simple-report 1.3.4</strong></p>
+<ul>
+<li>DOCX. Исправление ошибки поиска и замены тега при сохранении шаблона в Microsoft Word и 4 версии LibreOffice.
+Теперь лучше использовать замену тегов с символами '#' вокруг параметра</li>
+</ul></div>
+        </div>
+            
+
+        </article>
+        <article class="postbox h-entry post-text">
+        <h1 class="p-name"><a href="../posts/move-to-m3-20.html" class="u-url">Переход на концепцию m3 2.0</a>
+        <small>  
+             Опубликовано: <time class="published dt-published" datetime="2013-06-25T17:42:44+04:00">17:42 25-06-2013</time>
+        </small></h1>
+        <hr>
+        <div class="e-content">
+        <div><p>По итогам svg-шек, grep-ов и прочей магии получили следующую картину по рефакторингу пакета m3:</p>
+<ul>
+<li>core<ul>
+<li>registry - Пока просто выделяется в отдельный <a href="https://bitbucket.org/barsgroup/registry">контриб</a>.
+Следующие версии предполагают безумный рефакторинг</li>
+<li>history - Нигде не используется и удаляется</li>
+<li>middleware.py - Выкидывается все, кроме AutoLogout и помещается в core/<strong>init</strong>.py</li>
+<li>json - Encoder пока оставляем, переносится в core/<strong>init</strong>.py</li>
+<li>exceptions - Удаляется, AppLogicException перемещается в <strong>init</strong>.py</li>
+<li>plugins - Перемещается в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a></li>
+<li>excel_reporting - Перемещен в отдельный <a href="https://bitbucket.org/barsgroup/excel-reporting">контриб</a></li>
+<li>notifications - Нигде не используется и удаляется</li>
+<li>replication - Нигде не используется и удаляется</li>
+</ul>
+</li>
+<li>contrib<ul>
+<li>setup_environ - Удаляется, нужен был для встраивания prepare_env.py</li>
+<li>designer - Там лежит management-команда для запуска дизайнера, переезжает в сам контриб дизайнера
+data</li>
+<li>mie - Удаляется. Используется совсем немного в Школах.</li>
+<li>caching - Переносится в core</li>
+<li>proxy - Нигде не используется и удаляется
+db</li>
+<li>mptt_util - Внутри находится механизм перестройки mptt-дерева, пока непонятно куда вынести.
+Использовать последнюю версию <a href="https://github.com/django-mptt/django-mptt">mptt</a></li>
+<li>alchemy_wrapper - Используется в report-generator'e и ЭПК.  Из ЭПК выпиливается и переносится в report-generator</li>
+<li>ddl - Злостно удаляется</li>
+<li>__init__ - Частично внутренности этого модуля переедут в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a>
+после более глубокого исследования</li>
+<li>api - Перемещено в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a>
+helpers</li>
+<li>logger - Будет перемещен в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a>
+и по-возможности будет использоваться внутри себя django-подход</li>
+<li>loader - Перемещается в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a></li>
+<li>urls - Перемещается в core/actions.py</li>
+<li>ui - Будет удален. Так же будет выпелен из ui/actions/results.py, из m3_users и Родплаты</li>
+<li>validation - Перемещается в m3_legacy</li>
+<li>queries - Будет удален. Проекты, которые используют данный модуль - m3_contragents, Род. Плата, Закупки</li>
+<li>Содержимое <strong>init</strong>.py - Перемещается в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a></li>
+<li>icons - в пакет с <a href="https://bitbucket.org/barsgroup/m3-ext">m3-ext</a></li>
+<li>js - Будет удален</li>
+<li>datastructures - Удаляется</li>
+<li>datagrouping, datagrouping_alchemy - Переносится в отдельный пакет. И рефакториться в следующих версиях модуля.</li>
+<li>config - Будет удален</li>
+<li>checksum - Будет перенесен в отдельный пакет</li>
+<li>users - BaseUserProfile выкидывается, декоратор authenticated_user_required перенесется в core</li>
+<li>autonum - Нигде не используется, будет удален</li>
+<li>sqlite - Будет удален</li>
+<li>mocks - Будет удален</li>
+</ul>
+</li>
+<li>misc - Удаляется</li>
+<li>templatetags - Единственная функция переедет в core</li>
+<li>ui/actions/packs и ui/actions/dicts - Переносятся в отдельный пакет, например, simple_dict</li>
+<li>m3_workflow - Удаляется</li>
+<li>ui вместе со статикой - переносится в отдельный пакет <a href="https://bitbucket.org/barsgroup/m3-ext">m3-ext</a></li>
+<li>ui/actions/ переедет в core</li>
+<li>ui/actions/gears, ui/actions/app_ui - переедет в <a href="https://bitbucket.org/barsgroup/m3-ext">m3-ext</a></li>
+</ul>
+<p><a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a> - Пакет, который будет содержать устаревший код,
+в нем будут исправляться только ошибки, которых и так минимальное количество. Этот контриб далее поддерживаться не будет.</p>
+<p>Все, что останется войдет в сборку m3 2.0. Эта версия будет содержать нужный код, который просто изменил текущее местоположение,
+рефакторинг будет производиться в следующих версиях.</p>
+<p>Так же для перехода на новую версию подготовлен <a href="https://gist.github.com/prefer/7e831f6909afcdfc814e">скрипт</a>
+для понимания какие импорты сломались и как их починить.</p></div>
+        </div>
+            
+
+        </article>
+        <article class="postbox h-entry post-text">
+        <h1 class="p-name"><a href="../posts/release-m3-10.html" class="u-url">Release m3 1.0</a>
+        <small>  
+             Опубликовано: <time class="published dt-published" datetime="2013-01-01T16:54:07+04:00">16:54 01-01-2013</time>
+        </small></h1>
+        <hr>
+        <div class="e-content">
+        <div><p>В то далекое время весь код находился внутри одной библиотеки m3.</p>
+<ul class="simple">
+<li>В базовое окно для линейного, иерархического и сомещенного справочника <tt class="docutils literal">m3.ui.ext.windows.complex.ExtDictionaryWindow</tt>
+добавлен режим множественного выбора.</li>
+<li>В класс <tt class="docutils literal">m3.ui.ext.panels.grids.ExtMultiGroupinGrid</tt> добавлен атрибут <tt class="docutils literal">header_style</tt> -- стиль заголовка колонки.
+А также метод <tt class="docutils literal">render_base_config</tt>.</li>
+<li>В <tt class="docutils literal">m3.ui.ext.misc.store.ExtDataStore</tt> добавлена возможность прописывать в шаблоне даты.</li>
+<li>В методе <tt class="docutils literal">render_base_config</tt> класса <tt class="docutils literal">m3.ui.ext.fields.simple.ExtStringField</tt> реализовано экранирование значений с
+обратным слэшем.</li>
+<li>В модуль <tt class="docutils literal">m3.ui.ext.containers.grids</tt> добавлены два класса <tt class="docutils literal">ExtLiveGridCheckBoxSelModel</tt> и <tt class="docutils literal">ExtLiveGridRowSelModel</tt></li>
+<li>В класс <tt class="docutils literal">m3.ui.ext.containers.forms.ExtForm</tt> добавлен метод <tt class="docutils literal">try_to_list</tt>.</li>
+<li>В класс <tt class="docutils literal">m3.ui.ext.containers.forms.ExtPanel</tt> добавлен атрибут <tt class="docutils literal">title_collapse</tt>. Атрибут указывает нужно ли сворачивать
+панель при щелчке на заголовке.</li>
+<li>В класс <tt class="docutils literal">m3.ui.actions.dicts.tree.BaseTreeDictionaryActions</tt> добавлен метод <tt class="docutils literal">get_default_action</tt>, который возвращает
+экшн по-умолчанию.</li>
+<li>В класс <tt class="docutils literal">m3.ui.actions.dicts.tree.BaseTreeDictionaryModelActions</tt> добавлена настройка <tt class="docutils literal">list_drag_and_drop</tt> разрешающая
+перетаскивание элементов из грида в другие группы дерева.</li>
+<li>В класс <tt class="docutils literal">m3.ui.actions.dicts.simple.BaseDictionaryActions</tt> добавлен метод <tt class="docutils literal">get_default_action</tt>, который возвращает
+экшн по-умолчанию.</li>
+<li>В класс <tt class="docutils literal">m3.ui.actions.results.ActionRedirectResult</tt> добавлен атрибут <tt class="docutils literal">context</tt> и метод <tt class="docutils literal">prepare_request</tt>.</li>
+<li>В метод <tt class="docutils literal">convert_value</tt> класса <tt class="docutils literal">m3.ui.actions.context.ActionContext</tt> добавлена проверка версии Python, т.к. в версиях
+ниже 2.7 в <cite>Decimal</cite> не поддерживается создание из <cite>float</cite>.</li>
+<li>В классе <tt class="docutils literal">Action</tt> добавлена проверка прав в родительском элементе из экшена</li>
+<li>В класс <tt class="docutils literal">m3.ui.app_ui.DesktopLauncher</tt> добавлен метод <tt class="docutils literal">_set_default_handler</tt></li>
+<li>Добавлен модуль <tt class="docutils literal">m3_tags</tt>. Там описан темплейт таг, который возвращает URL экшена.</li>
+<li>В метод <tt class="docutils literal">deleteOkHandler</tt> классa <tt class="docutils literal">Ext.m3.ObjectGrid</tt> добавлена проверка на ошибки уровня приложения.</li>
+<li>В класс <tt class="docutils literal">Ext.m3.MultiSelectField</tt> добавлен метод <tt class="docutils literal">fireChangeEventOnDemand</tt>, который имитирует поведение <tt class="docutils literal">Ext.form.Field.onBlur()</tt>.</li>
+<li>В класс <tt class="docutils literal">Ext.ux.form.FileUploadField</tt> добавлены события <tt class="docutils literal">change</tt> (отрабатывает, когда изменилось значение) и
+<tt class="docutils literal">beforechange</tt> (срабатывает до изменения поля)</li>
+<li>В класс <tt class="docutils literal">Ext.m3.EditWindow</tt> добавлен метод <tt class="docutils literal">clearModificationFlag</tt>, который отбрасывает признаки модифицированности формы.</li>
+<li>Для <tt class="docutils literal">Ext.m3.AdvancedComboBox</tt> корректирована функция <tt class="docutils literal">getWidth</tt>, которая вычисляет ширину поля.</li>
+<li>В класс <tt class="docutils literal">Ext.m3.AddrField</tt> добавлено событие <tt class="docutils literal">change_corps</tt>, которое срабатывает при изменение корпуса.</li>
+<li>В класс <tt class="docutils literal">m3.helpers.datagrouping.RecordProxy</tt> добавлен атрибут <tt class="docutils literal">grouped</tt> -- список атрибуто, по которым происходит
+группироровка</li>
+<li>В класс <tt class="docutils literal">m3.helpers.datagrouping.GroupingRecordProvider</tt> добавлен атрибут <tt class="docutils literal">detail_attrs_map</tt> -- словарь, определяющий
+дополнительные поля, которые добавляются в узловые записи, создаваемые самим провайдером.</li>
+<li>Добавлен контриб <cite>setupenv</cite></li>
+<li>Добавлен контриб <cite>prepare_env</cite></li>
+<li>Множественные исправления, которые можно увидеть выполнив, например, визуальное сравнение веток через TortoiseHG.</li>
+</ul></div>
         </div>
             
 

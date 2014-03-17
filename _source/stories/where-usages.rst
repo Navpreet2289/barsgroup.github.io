@@ -1,5 +1,5 @@
-.. title: Использование
-.. slug: usages
+.. title: Где используется
+.. slug: where-usages
 .. date: 2014/03/17 15:18:06
 .. tags: 
 .. link: 
@@ -33,8 +33,8 @@
      * Межтерриториальные расчеты
      * `ТФОМС <http://bars-open.ru/solution/zdravookhranenie/elektronnyy-tfoms/>`_
 
-Скриншоты
-=========
+Скриншоты проектов
+==================
 
 .. slides::
 

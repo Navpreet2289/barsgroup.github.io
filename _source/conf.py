@@ -88,10 +88,12 @@ TRANSLATIONS_PATTERN = "{path}.{ext}.{lang}"
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ('/index.html', u'Обзор'),
+        ('/modules.html', u'Модули'),
+        ('/usages.html', u'Использование'),
         ('/blog', u'Блог'),
         ('/stories', u' Вики'),
-        ('/archive.html', u'Архив'),
-        ('/categories/index.html', u'Тэги'),
+        # ('/archive.html', u'Архив'),
+        # ('/categories/index.html', u'Тэги'),
         # ('/rss.xml', 'RSS'),
     ),
 }
@@ -613,6 +615,10 @@ SOCIAL_BUTTONS_CODE = ""
 # Extra things you want in the pages HEAD tag. This will be added right
 # before </head>
 EXTRA_HEAD_DATA = """
+"""
+# Google Analytics or whatever else you use. Added to the bottom of <body>
+# in the default template (base.tmpl).
+BODY_END = """
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -624,9 +630,6 @@ EXTRA_HEAD_DATA = """
 
 </script>
 """
-# Google Analytics or whatever else you use. Added to the bottom of <body>
-# in the default template (base.tmpl).
-# BODY_END = ""
 
 # The possibility to extract metadata from the filename by using a
 # regular expression.

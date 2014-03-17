@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta charset="utf-8">
+    <meta name="author" content="BARS Group">
+    <title>Переход на концепцию m3 2.0 | M3</title>
+    
+            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/rst.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/theme.css" rel="stylesheet" type="text/css">
+      <link rel="canonical" href="http://barsgroup.github.io/posts/move-to-m3-20.html">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+            <link rel="icon" href="../favicon.png" sizes="16x16">
+
+    
+
+
+
+
+
+    
+
+</head>
+<body>
+<!-- Menubar -->
+<div class="navbar navbar-fixed-top" id="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+            <a class="brand" href="http://barsgroup.github.io/">
+            M3
+            </a>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                <li><a href="../index.html">Обзор</a>
+                </li><li><a href="../modules.html">Модули</a>
+                </li><li><a href="../where-usages.html">Где используется</a>
+                </li><li><a href="../blog">Блог</a>
+                </li><li><a href="../stories"> Вики</a>
+
+                </li></ul>
+                <ul class="nav pull-right">
+                
+                
+                    <li>
+			<a href="../posts/move-to-m3-20.md" id="sourcelink">Источник</a>
+		</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Menubar -->
+<div class="container-fluid" id="container-fluid">
+    <!--Body content-->
+    <div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+    
+    <article class="postbox post-text">
+    <div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
+    
+    <h1 class="p-name" itemprop="headline name">Переход на концепцию m3 2.0</h1>
+
+    <hr>
+    <small>
+        Опубликовано: <time class="published dt-published" datetime="2013-06-25T17:42:44+04:00" itemprop="datePublished">17:42 25-06-2013</time>
+        
+
+		
+
+          |  
+		
+    </small>
+    <hr>
+    <div class="e-content" itemprop="articleBody text">
+    <div><p>По итогам svg-шек, grep-ов и прочей магии получили следующую картину по рефакторингу пакета m3:</p>
+<ul>
+<li>core<ul>
+<li>registry - Пока просто выделяется в отдельный <a href="https://bitbucket.org/barsgroup/registry">контриб</a>.
+Следующие версии предполагают безумный рефакторинг</li>
+<li>history - Нигде не используется и удаляется</li>
+<li>middleware.py - Выкидывается все, кроме AutoLogout и помещается в core/<strong>init</strong>.py</li>
+<li>json - Encoder пока оставляем, переносится в core/<strong>init</strong>.py</li>
+<li>exceptions - Удаляется, AppLogicException перемещается в <strong>init</strong>.py</li>
+<li>plugins - Перемещается в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a></li>
+<li>excel_reporting - Перемещен в отдельный <a href="https://bitbucket.org/barsgroup/excel-reporting">контриб</a></li>
+<li>notifications - Нигде не используется и удаляется</li>
+<li>replication - Нигде не используется и удаляется</li>
+</ul>
+</li>
+<li>contrib<ul>
+<li>setup_environ - Удаляется, нужен был для встраивания prepare_env.py</li>
+<li>designer - Там лежит management-команда для запуска дизайнера, переезжает в сам контриб дизайнера
+data</li>
+<li>mie - Удаляется. Используется совсем немного в Школах.</li>
+<li>caching - Переносится в core</li>
+<li>proxy - Нигде не используется и удаляется
+db</li>
+<li>mptt_util - Внутри находится механизм перестройки mptt-дерева, пока непонятно куда вынести.
+Использовать последнюю версию <a href="https://github.com/django-mptt/django-mptt">mptt</a></li>
+<li>alchemy_wrapper - Используется в report-generator'e и ЭПК.  Из ЭПК выпиливается и переносится в report-generator</li>
+<li>ddl - Злостно удаляется</li>
+<li>__init__ - Частично внутренности этого модуля переедут в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a>
+после более глубокого исследования</li>
+<li>api - Перемещено в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a>
+helpers</li>
+<li>logger - Будет перемещен в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a>
+и по-возможности будет использоваться внутри себя django-подход</li>
+<li>loader - Перемещается в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a></li>
+<li>urls - Перемещается в core/actions.py</li>
+<li>ui - Будет удален. Так же будет выпелен из ui/actions/results.py, из m3_users и Родплаты</li>
+<li>validation - Перемещается в m3_legacy</li>
+<li>queries - Будет удален. Проекты, которые используют данный модуль - m3_contragents, Род. Плата, Закупки</li>
+<li>Содержимое <strong>init</strong>.py - Перемещается в <a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a></li>
+<li>icons - в пакет с <a href="https://bitbucket.org/barsgroup/m3-ext">m3-ext</a></li>
+<li>js - Будет удален</li>
+<li>datastructures - Удаляется</li>
+<li>datagrouping, datagrouping_alchemy - Переносится в отдельный пакет. И рефакториться в следующих версиях модуля.</li>
+<li>config - Будет удален</li>
+<li>checksum - Будет перенесен в отдельный пакет</li>
+<li>users - BaseUserProfile выкидывается, декоратор authenticated_user_required перенесется в core</li>
+<li>autonum - Нигде не используется, будет удален</li>
+<li>sqlite - Будет удален</li>
+<li>mocks - Будет удален</li>
+</ul>
+</li>
+<li>misc - Удаляется</li>
+<li>templatetags - Единственная функция переедет в core</li>
+<li>ui/actions/packs и ui/actions/dicts - Переносятся в отдельный пакет, например, simple_dict</li>
+<li>m3_workflow - Удаляется</li>
+<li>ui вместе со статикой - переносится в отдельный пакет <a href="https://bitbucket.org/barsgroup/m3-ext">m3-ext</a></li>
+<li>ui/actions/ переедет в core</li>
+<li>ui/actions/gears, ui/actions/app_ui - переедет в <a href="https://bitbucket.org/barsgroup/m3-ext">m3-ext</a></li>
+</ul>
+<p><a href="https://bitbucket.org/barsgroup/m3-legacy">m3_legacy</a> - Пакет, который будет содержать устаревший код,
+в нем будут исправляться только ошибки, которых и так минимальное количество. Этот контриб далее поддерживаться не будет.</p>
+<p>Все, что останется войдет в сборку m3 2.0. Эта версия будет содержать нужный код, который просто изменил текущее местоположение,
+рефакторинг будет производиться в следующих версиях.</p>
+<p>Так же для перехода на новую версию подготовлен <a href="https://gist.github.com/prefer/7e831f6909afcdfc814e">скрипт</a>
+для понимания какие импорты сломались и как их починить.</p></div>
+    </div>
+    </div>
+    
+        <ul class="pager">
+            <li class="previous">
+                <a href="../posts/release-m3-10.html" rel="prev">← Предыдущая запись</a>
+            </li>
+            <li class="next">
+                <a href="../posts/changelog-3122013.html" rel="next">Следующая запись →</a>
+            </li>
+        </ul>
+
+        
+
+    
+
+    </article>
+
+    </div>
+    </div>
+    <!--End of body content-->
+</div>
+<div class="footerbox">
+    Contents © 2014         <a href="mailto:dev@bars-open.ru">BARS Group</a> - Powered by         <a href="http://getnikola.com" rel="nofollow">Nikola</a>         
+</div>
+
+            <script src="../assets/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+            <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script>
+
+
+    
+
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});
+    $(window).on('hashchange', function(){
+        if (location.hash && $(location.hash)[0]) {
+            $('body').animate({scrollTop: $(location.hash).offset().top - $('#navbar').outerHeight(true)*1.2 }, 1);
+        }
+    });
+    $(document).ready(function(){$(window).trigger('hashchange')});
+    </script>
+    
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49005120-1', 'barsgroup.github.io');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

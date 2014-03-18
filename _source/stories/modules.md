@@ -28,6 +28,7 @@
 
 
 [m3-legacy](http://m3-legacy.readthedocs.org/) - устаревший (deprecated) функционал
+
 [objectpack](http://objectpack.readthedocs.org/) - Расширяет возможности *m3-core* и *m3-ext* и
 позволяет экстремально быстро разрабатывать справочники для различных учётных систем.
 

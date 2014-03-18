@@ -1,0 +1,556 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta charset="utf-8">
+    <meta name="author" content="БАРС Груп">
+    <title>Рекомендации к переходу на Python 3 | M3</title>
+    
+            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/rst.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/theme.css" rel="stylesheet" type="text/css">
+      <link rel="canonical" href="http://barsgroup.github.io/stories/move-to-python3.html">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+            <link rel="icon" href="../favicon.png" sizes="16x16">
+
+    
+
+
+
+    
+
+</head>
+<body>
+<!-- Menubar -->
+<div class="navbar navbar-fixed-top" id="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+            <a class="brand" href="http://barsgroup.github.io/">
+            M3
+            </a>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                <li><a href="../index.html">Обзор</a>
+                </li><li><a href="../modules.html">Модули</a>
+                </li><li><a href="../where-usages.html">Где используется</a>
+                </li><li><a href="../blog">Блог</a>
+                </li><li><a href="../stories"> Вики</a>
+
+                </li></ul>
+                <ul class="nav pull-right">
+                
+                
+                    <li>
+			<a href="../stories/move-to-python3.md" id="sourcelink">Источник</a>
+		</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Menubar -->
+<div class="container-fluid" id="container-fluid">
+    <!--Body content-->
+    <div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+    
+    <h1>Рекомендации к переходу на Python 3</h1>
+    <div><h2>Содержание</h2>
+<ol>
+<li><a href="../stories/move-to-python3.html#purpose-of-the-manual">Цель руководства</a></li>
+<li><a href="../stories/move-to-python3.html#about-libriries">О используемых библиотеках</a></li>
+<li><a href="../stories/move-to-python3.html#common-differences">Основные отличия Python 3.x от 2.х</a><ol>
+<li><a href="../stories/move-to-python3.html#print">print</a></li>
+<li><a href="../stories/move-to-python3.html#dict">dict</a></li>
+<li><a href="../stories/move-to-python3.html#map-filter">map, filter</a></li>
+<li><a href="../stories/move-to-python3.html#range-xrange">range, xrange (zip, izip)</a></li>
+<li><a href="../stories/move-to-python3.html#operators-more-than">&lt;, &lt;=, &gt;=, &gt;</a></li>
+<li><a href="../stories/move-to-python3.html#sorted-list-sort">sorted(), list.sort()</a></li>
+<li><a href="../stories/move-to-python3.html#cmp">cmp</a></li>
+<li><a href="../stories/move-to-python3.html#int-long">int, long</a></li>
+<li><a href="../stories/move-to-python3.html#slash">Оператор "/"</a></li>
+<li><a href="../stories/move-to-python3.html#unicode">unicode, str, bytes</a></li>
+<li><a href="../stories/move-to-python3.html#relative-imports">Относительные импорты</a></li>
+<li><a href="../stories/move-to-python3.html#metaclass">Метаклассы</a></li>
+<li><a href="../stories/move-to-python3.html#callable">callable</a></li>
+<li><a href="../stories/move-to-python3.html#exceptions">exception</a></li>
+<li><a href="../stories/move-to-python3.html#moved-modules">Перемещенные модули</a></li>
+</ol>
+</li>
+<li><a href="../stories/move-to-python3.html#useful-links">Полезные ссылки</a></li>
+</ol>
+<h2><a name="purpose-of-the-manual">Цель руководства</a></h2>
+<p>Руководство является рекомендацией по переносу кода на версию языка Python 3.x .
+В руководстве приведены основные способы и приемы, используемые при портировании проектов.</p>
+<p><strong>Цели руководства</strong>:
+предоставить советы и рекомендации по изменению кода для его одинакового выполнения
+разными версиями интерпретатора Python (2.6, 2.7, 3.2, 3.3);</p>
+<h2><a name="about-libriries">О используемых библиотеках</a></h2>
+<p>Для наиболее легкого написания кода одинаково работающего как в Python 2.6, 2.7 так и в Python 3.2, 3.3
+рекомендуется использовать бибилотеку <a href="https://pypi.python.org/pypi/six">six</a>.</p>
+<p>В ней собрано большее количество инструментов позволяющих писать кросверсионный код для Python 2.x-3.x.
+Для нахождения мест подлежащих изменению рекомендуется воспользоваться утилитами
+<a href="http://docs.python.org/2.7/library/2to3.html">2to3</a> или <a href="https://github.com/mitsuhiko/python-modernize">python-modernize</a>.</p>
+<h2><a name="common-differences">Основные отличия Python 3.x от 2.х</a></h2>
+<h3><a name="print">print</a></h3>
+<p>Выражение <em>print</em> заменено функцией <em>print()</em>:</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="k">print</span> <span class="s">'something'</span>
+<span class="k">print</span> <span class="s">'something'</span><span class="p">,</span> <span class="c">#  Запятая в конце - без перехода на новую строку</span>
+<span class="k">print</span> <span class="o">&gt;&gt;</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="s">'fatal error'</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="k">print</span><span class="p">(</span><span class="s">'something'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'something'</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">''</span><span class="p">)</span> <span class="c">#  end - keyword-аргумент</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'fatal error'</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>
+<p>Каждый модуль, где используется <em>print</em> добавить импорт <em>print_function</em>,
+что позволит в Python 2.x использовать новую функцию <em>print</em></p>
+<div class="code"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Заменить выражение <em>print</em> на вызов функции <em>print_function</em></p>
+</li>
+</ul>
+<h3><a name="dict">dict</a></h3>
+<p>Методы <em>items()</em>, <em>values()</em>, <em>keys()</em> у объектов <em>dict</em> теперь возвращают не список, а итерируемый объект.
+Поэтому необходимо следить за результатом вызовов этих методов, например:</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="n">list_</span> <span class="o">=</span> <span class="n">dict_</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="n">list_</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="n">list_</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">dict_</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</pre></div>
+
+
+<p>Также методы <em>iterkeys()</em>, <em>iteritems()</em> and <em>itervalues()</em> теперь не поддерживаются в python 3.x.
+Так же нет метода <em>has_key</em> в объектах словаря.</p>
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>
+<p>В случаях, где используются методы списка:</p>
+<ul>
+<li>заменить их на функции как в случае с методом списка <em>sort</em> и функцией <em>sorted</em></li>
+<li>создать список из итератора явным вызовом функции <em>list</em></li>
+</ul>
+</li>
+<li>
+<p>В местах использования результатов этих функций как итерируемых объектов
+(как при проходе по ним с помощью цикла for item in d.items()) оставить всё как есть</p>
+</li>
+<li>
+<p>Заменить вызов метода <em>has_key</em>  на выражение(инструкцию) <em>in</em>.</p>
+</li>
+<li>
+<p>При создании классов, объекты которого будут иметь интерфейс объектов <em>dict</em>,
+вместо  метода <em>has_key</em> описывать метод <em>__contains__</em></p>
+</li>
+</ul>
+<h3><a name="map-filter">map, filter</a></h3>
+<p><em>map()</em> и <em>filter()</em> возвращают итераторы в python 3.x.
+Теперь нельзя использовать <em>map()</em> для side-эффектов функций не возвращающих результат.
+Если передаваемые последовательности не одинаковой длины <em>map()</em> остановит обработку на кратчайшей из последовательностей.</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">map</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]):</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="o">&lt;</span><span class="nb">map</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0xb6e99a8c</span><span class="o">&gt;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">map</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="o">&lt;</span><span class="nb">map</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0xb6e99acc</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">[]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]):</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>
+<p>Если в этом месте действительно нужен список, то самый быстрый способ исправить это - обернуть в <em>list()</em>:</p>
+<div class="code"><pre><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="o">...</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Однако лучше использовать списковые выражения или переписать код так чтобы не нуждаться в списке вообще.:</p>
+<div class="code"><pre><span class="c"># Было</span>
+<span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="c"># Стало</span>
+<span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Не использовать <em>map</em> для side-эффектов функций. Вместо этого корректнее использовать цикл for:</p>
+<div class="code"><pre><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]:</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Честно? Кто-то пользовался тем, что <em>map()</em> добавляет <em>None</em> для коротких последовательностей?</p>
+</li>
+</ul>
+<h3><a name="range-xrange">range, xrange (zip, izip)</a></h3>
+<p><em>xrange</em> и <em>itertools.izip</em> (Lazy-реализация <em>range</em> и <em>zip</em>, соответственно, возвращающая итератор вместо списка)
+теперь называется <em>range</em> и <em>zip</em>, старый <em>range</em>/<em>zip</em> - отменён за ненадобностью.</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c">#  список</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c">#  итератор</span>
+<span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span> <span class="c">#  список</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">itertools</span><span class="o">.</span><span class="n">izip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span> <span class="c">#  итератор</span>
+<span class="o">&lt;</span><span class="n">itertools</span><span class="o">.</span><span class="n">izip</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x911194c</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c">#  итератор</span>
+<span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s">'xrange'</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span> <span class="c">#  итератор</span>
+<span class="o">&lt;</span><span class="nb">zip</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0xb6ec9aec</span><span class="o">&gt;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">itertools</span><span class="o">.</span><span class="n">izip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">AttributeError</span><span class="p">:</span> <span class="s">'module'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">'izip'</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>
+<p>Если нет особой необходимости в использовании lazy реализации <em>xrange</em>/<em>itertools.izip</em>,
+то достаточно заменить везде <em>xrange</em> на <em>range</em>.</p>
+</li>
+<li>
+<p>Если такая необходимость есть (например при больших числах),
+тогда необходимо импортировать <em>xrange</em>/<em>zip</em> из бибилиотеки <em>six</em>:</p>
+<div class="code"><pre><span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">zip</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Если результатом должен быть обязательно список, то можно обернуть в <em>list()</em>:</p>
+<div class="code"><pre><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">...</span><span class="p">))</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3><a name="operators-more-than">&lt;, &lt;=, &gt;=, &gt;</a></h3>
+<p>Операторы сравнения теперь возбуждают исключение <em>TypeError</em> при сравнении несравнимых типов</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="bp">None</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="bp">None</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">unorderable</span> <span class="n">types</span><span class="p">:</span> <span class="nb">int</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">NoneType</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Не сравнивать! Если программа работает только из-за того что числа всегда больше чем <em>None</em>, то это странная программа!</li>
+</ul>
+<h3><a name="sorted-list-sort">sorted(), list.sort()</a></h3>
+<p>Не поддерживают аргумент cmp.</p>
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Переписать код с использованием аргумента <em>key</em></li>
+<li>Или использовать функцию <em>functools.cmp_to_key</em><div class="code"><pre><span class="nb">sorted</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">strcoll</span><span class="p">))</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3><a name="cmp">cmp</a></h3>
+<p>Функции <em>cmp()</em> в python 3.x нет. Специальный метод <em>__cmp__()</em> перестал использоваться.</p>
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Вместо функции <em>cmp()</em> можно использовать выражение <em>(a &gt; b) - (a &lt; b)</em></li>
+<li>Вместо метода <em>__cmp__()</em> нужно использовать метод <em>__lt__()</em> для сортировки</li>
+</ul>
+<h3><a name="int-long">int, long</a></h3>
+<p>Тип <em>long</em> теперь называется <em>int</em>.</p>
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Не использовать литерал L в конце чисел</li>
+<li>
+<p>В некоторых местах пригодится <em>integer_types</em> из библиотеки <em>six</em></p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">long</span><span class="p">))</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">integer_types</span><span class="p">)</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3><a name="slash">Оператор “/”</a></h3>
+<p>Оператор / теперь всегда возвращает <em>float</em> независимо от типов операндов</p>
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Если нужно целочисленное деление то использовать оператор //</li>
+<li>Для использования в Python 2.x нового оператора деления добавить в импорт <em>division</em><div class="code"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3><a name="unicode">unicode, str, bytes</a></h3>
+<p>Теперь есть только один строковый тип - <em>str</em>,
+схожий по поведению с типом <em>unicode</em> из Python 2.x.
+Базового типа для строк <em>basestring</em> в python 3 не существует.
+Все строки превращаются в юникодные. Литерал <em>u</em> для юникодных строк теперь не обязателен
+(Его добавили только в версии python 3.3, как часть обратной совместимости).</p>
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>
+<p>Для сохранения совместимости с Python 2.x заменить <em>str</em> и <em>unicode</em> на <em>text_type</em> из библиотеки <em>six</em>.
+<em>text_type</em> будет равен <em>unicode</em> для Python 2.x и <em>str</em> для Python 3.x</p>
+</li>
+<li>
+<p>Так же заменить <em>basestring</em> на <em>string_types</em> из библиотеки <em>six</em>.
+<em>string_types</em> равен <em>(basestring,)</em> для Python 2.x и <em>(str, )</em> для Python 3.x</p>
+</li>
+</ul>
+<h3><a name="relative-imports">Относительный импорт</a></h3>
+<p>Теперь импорты модулей находящихся в том же пакете,
+что и модуль откуда производиться импоритрование должны начинаться с точки.</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">models</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">models</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Переделать все относительные импорты на <em>from .</em></li>
+</ul>
+<h3><a name="metaclass">Метаклассы</a></h3>
+<p>Изменился синтаксис задания метакласса классу</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">M</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">M</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>
+<p>Заменить атрибут класса <em>__metaclass__</em> на наследование от результата функции <em>with_metaclass</em> из библиотеки <em>six</em></p>
+<p>Конструкцию вида:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">M</span>
+</pre></div>
+
+
+<p>Заменить на:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">A</span><span class="p">),</span> <span class="n">B</span><span class="p">):</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3><a name="callable">callable</a></h3>
+<p>Функция callable удалена в python 3.x.</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span>
+        <span class="bp">True</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">map</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Callable</span><span class="p">)</span>
+    <span class="bp">True</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Использовать функцию callable из библиотеки six<div class="code"><pre><span class="n">six</span><span class="o">.</span><span class="n">callable</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3><a name="exceptions">Исключения</a></h3>
+<p>В python 3.x синтаксис обработки исключений типа except <exception>, err: - запрещён.
+Вместо запятой обязательно использовать ключевое слово <em>as</em>.</exception></p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">a</span><span class="o">=</span><span class="n">b</span><span class="o">/</span><span class="n">c</span>
+<span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">err</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">a</span><span class="o">=</span><span class="n">b</span><span class="o">/</span><span class="n">c</span>
+<span class="k">except</span> <span class="ne">ZeroDivisionError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">err</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Использовать везде только новый синтаксис обработки исключений</li>
+</ul>
+<h3><a name="moved-modules">Перемещенные модули</a></h3>
+<p>В Python 3.x были перемещены/переименованны некоторые модули.</p>
+<p><strong>python 2.x</strong>:</p>
+<div class="code"><pre><span class="kn">from</span> <span class="nn">cStringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+</pre></div>
+
+
+<p><strong>python 3.x</strong>:</p>
+<div class="code"><pre><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+</pre></div>
+
+
+<p><strong>Что делать:</strong></p>
+<ul>
+<li>Для совместимости с Python 2.x эти модули можно импортировать из библиотеки six<div class="code"><pre><span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="n">cStringIO</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3><a name="useful-links">Полезные ссылки</a></h3>
+<p><a href="http://docs.python.org/3.0/whatsnew/3.0.html">http://docs.python.org/3.0/whatsnew/3.0.html</a></p>
+<p><a href="http://docs.python.org/dev/howto/pyporting">http://docs.python.org/dev/howto/pyporting</a></p>
+<p><a href="http://python3porting.com/">http://python3porting.com/</a></p>
+<p><a href="https://docs.djangoproject.com/en/dev/topics/python3/">https://docs.djangoproject.com/en/dev/topics/python3/</a></p>
+<p><a href="http://pythonhosted.org/six/">http://pythonhosted.org/six/</a></p></div>
+
+    </div>
+    </div>
+    <!--End of body content-->
+</div>
+<div class="footerbox">
+    Contents © 2014         <a href="http://bars-open.ru/">БАРС Груп</a> - Powered by         <a href="http://getnikola.com" rel="nofollow">Nikola</a>         
+</div>
+
+            <script src="../assets/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+            <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script>
+
+
+    
+
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});
+    $(window).on('hashchange', function(){
+        if (location.hash && $(location.hash)[0]) {
+            $('body').animate({scrollTop: $(location.hash).offset().top - $('#navbar').outerHeight(true)*1.2 }, 1);
+        }
+    });
+    $(document).ready(function(){$(window).trigger('hashchange')});
+    </script>
+    
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49005120-1', 'barsgroup.github.io');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

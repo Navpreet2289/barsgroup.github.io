@@ -29,7 +29,7 @@
 
 [m3-legacy](http://m3-legacy.readthedocs.org/) - устаревший (deprecated) функционал
 
-[objectpack](http://objectpack.readthedocs.org/) - Расширяет возможности *m3-core* и *m3-ext* и
+[objectpack](http://objectpack.readthedocs.org/) - расширяет возможности *m3-core* и *m3-ext* и
 позволяет экстремально быстро разрабатывать справочники для различных учётных систем.
 
 Работа с пользователями
@@ -61,9 +61,9 @@
 -----------------
 
 [simple-report](http://simple-report.readthedocs.org/) -
-Позволяет разработчику составлять отчеты таких форматов docx, doc, rtf; xlsx, xls.
+позволяет разработчику составлять отчеты таких форматов docx, doc, rtf; xlsx, xls.
 
-[report-generator](http://report-generator.readthedocs.org/) - Конструктор отчетов предназначен для создания простых отчетов,
+[report-generator](http://report-generator.readthedocs.org/) - конструктор отчетов предназначен для создания простых отчетов,
 которые могут отображать произвольный набор данных.
 На выходе отдает заполненный данными отчет в виде электронного документа различных форматов.
 
@@ -73,13 +73,13 @@
 Тестирование
 ------------
 
-[wellbehaved](http://wellbehaved.readthedocs.org/) - Обертка вокруг средства BDD-тестирования behave, добавляющая шаблонизацию тестов и возможность подключения плагинов.
+[wellbehaved](http://wellbehaved.readthedocs.org/) - обертка вокруг средства BDD-тестирования behave, добавляющая шаблонизацию тестов и возможность подключения плагинов.
 
 [django-wellbehaved](https://bitbucket.org/barsgroup/django-wellbehaved) -
-Обертка вокруг питоновского проекта behave (который, в свою очередь, является портом Cucumber из Ruby),
+обертка вокруг питоновского проекта behave (который, в свою очередь, является портом Cucumber из Ruby),
 позволяющая автоматически прогонять feature-файлы в качестве Django-тестов.
 
-[wellsmoked](https://bitbucket.org/barsgroup/wellsmoked) - Приложение для запуска smoke-тестов, записанных с помощью [debuggie](https://bitbucket.org/barsgroup/debuggie).
+[wellsmoked](https://bitbucket.org/barsgroup/wellsmoked) - приложение для запуска smoke-тестов, записанных с помощью [debuggie](https://bitbucket.org/barsgroup/debuggie).
 
 Работа со СМЭВ
 -----------------
@@ -132,7 +132,7 @@
 [m3-consolequery](https://bitbucket.org/barsgroup/m3-consolequery) - предназначен для написания sql-запросов администратором
 системы
 
-[m3-designer](http://m3-designer.readthedocs.org/) - Дизайнер UI-интерфейсов в браузере с генерации python-кода в виде
+[m3-designer](http://m3-designer.readthedocs.org/) - дизайнер UI-интерфейсов в браузере с генерации python-кода в виде
 m3-ext компонент
 
 

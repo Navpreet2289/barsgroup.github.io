@@ -9,15 +9,16 @@ import datetime
 
 
 # Data about this site
-BLOG_AUTHOR = "BARS Group"
+BLOG_AUTHOR = "БАРС Груп"
 BLOG_TITLE = "M3"
+COMPANY_URL = "http://bars-open.ru/"
 # This is the main URL for your site. It will be used
 # in a prominent link
 SITE_URL = "http://barsgroup.github.io/"
 # This is the URL where nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://getnikola.com/"
-BLOG_EMAIL = "dev@bars-open.ru"
+# BLOG_EMAIL = "dev@bars-open.ru"
 BLOG_TWITTER = "barsgroup"
 # BLOG_DESCRIPTION = "This is a demo site for Nikola."
 
@@ -403,8 +404,8 @@ LICENSE = ""
 # src="http://i.creativecommons.org/l/by-nc-sa/2.5/ar/88x31.png"></a>"""
 
 # A small copyright notice for the page footer (in HTML).
-CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="http://getnikola.com" rel="nofollow">Nikola</a>         {license}'
-CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
+CONTENT_FOOTER = 'Contents &copy; {date}         <a href="{url}">{author}</a> - Powered by         <a href="http://getnikola.com" rel="nofollow">Nikola</a>         {license}'
+CONTENT_FOOTER = CONTENT_FOOTER.format(url=COMPANY_URL,
                                        author=BLOG_AUTHOR,
                                        date=time.gmtime().tm_year,
                                        license=LICENSE)

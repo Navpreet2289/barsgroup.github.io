@@ -11,68 +11,138 @@
 Основные модули
 ----------------
 
-- m3-core
-- m3-ext
-- m3-legacy
-- objectpack
+[m3-core](http://m3-core.readthedocs.org/) - базовый модуль m3:
+
+  - инструменты для работы с экшенами: *Action*
+  - инструменты для работы с паками: *Pack*
+  - мешханизм автоматической сборки урлов: *ActionController* и *ActionControllerCache*
+  - инструмент для декларации контекста для экшенов: *ACD*
+  - cтандартные классы для http-ответов: *ActionResult*, *PreJsonResult*, etc.
+
+[m3-ext](http://m3-ext.readthedocs.org/) - серверные и клиентские UI-компоненты:
+
+  - серверные обертки над ExtJS и своими компонентами для работы с ними в python
+  - свои js-компоненты: выбор из справочника, livegrid, плагин для заморозки строк в таблице и одновременной группировки
+  - базовая view для приложений: desktop_processor
+  - актуальную версию библиотекиы ExtJS
+
+
+[m3-legacy](http://m3-legacy.readthedocs.org/) - устаревший (deprecated) функционал
+[objectpack](http://objectpack.readthedocs.org/) - Расширяет возможности *m3-core* и *m3-ext* и
+позволяет экстремально быстро разрабатывать справочники для различных учётных систем.
 
 Работа с пользователями
 -----------------------
 
-- m3-users
+[m3-users](http://m3-users.readthedocs.org/) - инструменты для работы с пользователями, ролями и правами пользователей
 
 Работа с КЛАДР
 -----------------
 
-- kladr
+[kladr](http://m3-kladr.readthedocs.org/) - содержит набор инструментов для интеграции программных продуктов на базе m3
+с Классификатором адресов Российской Федерации ([КЛАДР](http://ru.wikipedia.org/wiki/%D0%9A%D0%9B%D0%90%D0%94%D0%A0))
 
 
 Работа с веб-сокетами
 ---------------------
 
-- pushme
+[pushme](https://bitbucket.org/barsgroup/pushme) - комплекс отправки сообщений с сервера в браузер:
+
+- Socket клиент-сервер SockJS-Tornado
+- Очередь передачи сообщений из Web-сервера в Socket-сервер. Очередью может выступать:
+    - SnakeMQ - pure-python реализация очереди. Хорошо подходит для разработки.
+- API для добавления сообщений в очередь. Может использоваться в:
+    - actions/views Web-сервера
+    - задачах Celery
+    - различных скриптах
 
 Работа с отчетами
 -----------------
 
-- simple-report
-- report-generator
-- excel-reporting
+[simple-report](http://simple-report.readthedocs.org/) -
+Позволяет разработчику составлять отчеты таких форматов docx, doc, rtf; xlsx, xls.
+
+[report-generator](http://report-generator.readthedocs.org/) - Конструктор отчетов предназначен для создания простых отчетов,
+которые могут отображать произвольный набор данных.
+На выходе отдает заполненный данными отчет в виде электронного документа различных форматов.
+
+[excel-reporting](https://bitbucket.org/barsgroup/excel-reporting) - устаревший deprecated механизм работы с отчетами.
+Следует использовать simple-report.
 
 Тестирование
 ------------
 
-- wellbehaved
-- django-wellbehaved
-- wellsmoked
+[wellbehaved](http://wellbehaved.readthedocs.org/) - Обертка вокруг средства BDD-тестирования behave, добавляющая шаблонизацию тестов и возможность подключения плагинов.
+
+[django-wellbehaved](https://bitbucket.org/barsgroup/django-wellbehaved) -
+Обертка вокруг питоновского проекта behave (который, в свою очередь, является портом Cucumber из Ruby),
+позволяющая автоматически прогонять feature-файлы в качестве Django-тестов.
+
+[wellsmoked](https://bitbucket.org/barsgroup/wellsmoked) - Приложение для запуска smoke-тестов, записанных с помощью [debuggie](https://bitbucket.org/barsgroup/debuggie).
 
 Работа со СМЭВ
 -----------------
 
-- smev
-- libsmev
+[smev](https://bitbucket.org/barsgroup/smev)
+
+[libsmev](https://bitbucket.org/barsgroup/libsmev) - библиотека вспомогательных функций для работы со СМЭВ.
+
 
 Работа с SSO
 ------------
 
-- ssosp
+[ssosp](http://ssosp.readthedocs.org/) - Single Sign-On Service Provider.
+Модуль SSOSP предназначен для более простой интеграции SSO в веб-приложения на Django по спецификации SAML.
+Реализуется функционал поставщика услуг (SP) по взаимодействию с поставщиком идентификации (IdP) для
+обеспечения технологии единого входа и выхода (SSO). Поддерживается SAML с цифровой подписью сообщений.
+В качестве протокола взаимодействия используется спецификация SAML версии 2.0.
 
 
  Аудит и логирование
 --------------------
 
-- m3-audit
-- m3-logview
-- data-logging
-- debuggie
+[m3-audit](http://m3-audit.readthedocs.org/ru/latest/) - реализует журналирование действий
+
+[m3-logview](http://m3-logview.readthedocs.org/ru/latest/) - приложение предназначено для запроса у веб-сервера всех лог файлов,
+лежащих в директории, прописанной в settings.LOG_PATH, и просмотра сожержимого этих файлов
+
+[data-logging](http://data-logging.readthedocs.org/ru/latest/) - логгер действий пользователя в системе.
+Отслеживаются такие события, как вход, выход пользователя, открытие окон, удаление, редактирование, создание записей в БД.
+
+[debuggie](https://bitbucket.org/barsgroup/debuggie) -
+набор инструментов для сбора и анализа отладочной информации об функционировании удалённой системы.
+
+- Middleware, собирающую отладочную информацию
+- Viewie - CLI-утилиту, предназначенную для просмотра дампов отладочной информации
+- API для отладочного вывода информации из кода отлаживаемых приложений
 
 
 Дополнительно
 --------------
 
-- m3-legacy
-- registry
-- m3-mutex
-- m3-autologin
-- m3-consolequery
-- m3-designer
+[registry](https://bitbucket.org/barsgroup/registry) - реализует базовый функционал для ведения
+накопительных регистров с периодичностью от секунды до года.
+
+[m3-mutex](http://m3-mutex.readthedocs.org/) - предназначен для работы с семафорами и глобальными блокировками операций.
+
+[m3-autologin](https://bitbucket.org/barsgroup/m3-autologin) - предназначено для организации автоматического
+входа в рабочий стол пользователя без ввода аутентификационных данных на странице логина прикладного приложения.
+
+[m3-consolequery](https://bitbucket.org/barsgroup/m3-consolequery) - предназначен для написания sql-запросов администратором
+системы
+
+[m3-designer](http://m3-designer.readthedocs.org/) - Дизайнер UI-интерфейсов в браузере с генерации python-кода в виде
+m3-ext компонент
+
+
+Тестовое приложение
+-------------------
+
+[m3-blank](https://bitbucket.org/barsgroup/m3-blank) -
+"Болванка" для проектов на m3. Если нужно опробовать какую-либо из "батареек" платформы, алгоритм действий будет следующим:
+
+- батарейка ставится обычным способом: *pip install m3-battery*
+- в settings.py в конец списка INSTALLED_APPS добавляется
+    - 'm3-battery'
+    - 'm3-battery.demo'
+- PROFIT

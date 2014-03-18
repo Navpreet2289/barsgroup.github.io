@@ -539,7 +539,7 @@
 
 
 
-## <a name="common-code-rules">Правила написания кода</a>
+## <a name="common-code-rules">Общие правила написания кода</a>
 
 ### <a name="imports">Импорты</a>
 

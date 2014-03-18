@@ -17,6 +17,7 @@
 --------------------
 
 - [Версионирование и наборы изменений](/stories/versioning.html)
+- [Style Guide for Python Code](/stories/style-guide-python.html)
 
 Полезное
 --------

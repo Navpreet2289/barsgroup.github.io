@@ -37,4 +37,4 @@ IDE
 - [Ext JS 3.4 Docs](http://docs.sencha.com/extjs/3.4.0/)
 - [Ext JS 3.4 Examples](http://dev.sencha.com/deploy/ext-3.4.0/examples/)
 - [Блог по ExtJS на хабре](http://habrahabr.ru/hub/extjs/)
-- [Еще наглядные примеры](http://examples.extjs.eu/)
+- [Еще наглядные примеры по Ext JS](http://examples.extjs.eu/)

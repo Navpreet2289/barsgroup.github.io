@@ -19,6 +19,8 @@
 - [Версионирование и наборы изменений](/stories/versioning.html)
 - [Style Guide for Python Code](/stories/style-guide-python.html)
 - [Рекомендации к переходу на Python 3](/stories/move-to-python3.html)
+- [Правила по документированию Python и JS кода](/stories/rules-documentation.html)
+- [Лицензионная политика](/stories/license.html)
 
 
 Полезное

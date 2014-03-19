@@ -1,0 +1,445 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta charset="utf-8">
+    <meta name="author" content="БАРС Груп">
+    <title>Правила по документированию Python и JS кода | M3</title>
+    
+            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/rst.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/theme.css" rel="stylesheet" type="text/css">
+      <link rel="canonical" href="http://barsgroup.github.io/stories/rules-documentation.html">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+            <link rel="icon" href="../favicon.png" sizes="16x16">
+
+    
+
+
+
+    
+
+</head>
+<body>
+<!-- Menubar -->
+<div class="navbar navbar-fixed-top" id="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+            <a class="brand" href="http://barsgroup.github.io/">
+            M3
+            </a>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                <li><a href="../index.html">Обзор</a>
+                </li><li><a href="../modules.html">Модули</a>
+                </li><li><a href="../where-usages.html">Где используется</a>
+                </li><li><a href="../blog">Блог</a>
+                </li><li><a href="../stories"> Вики</a>
+
+                </li></ul>
+                <ul class="nav pull-right">
+                
+                
+                    <li>
+			<a href="../stories/rules-documentation.md" id="sourcelink">Источник</a>
+		</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Menubar -->
+<div class="container-fluid" id="container-fluid">
+    <!--Body content-->
+    <div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+    
+    <h1>Правила по документированию Python и JS кода</h1>
+    <div><h3>Содержание</h3>
+<ol>
+<li><a href="../stories/rules-documentation.html#terms">Термины и определения</a></li>
+<li><a href="../stories/rules-documentation.html#common-issues">Общие положения</a></li>
+<li><a href="../stories/rules-documentation.html#write-docs">Ручное документирование</a><ul>
+<li><a href="../stories/rules-documentation.html#common-writes-docs">Общее описание</a></li>
+<li><a href="../stories/rules-documentation.html#install">Установка</a></li>
+<li><a href="../stories/rules-documentation.html#getting-started">Приступая к работе</a></li>
+<li><a href="../stories/rules-documentation.html#advanced-usage">Расширенное использование</a></li>
+<li><a href="../stories/rules-documentation.html#api">Интерфейс взаимодействия</a></li>
+<li><a href="../stories/rules-documentation.html#faq">ЧаВО</a></li>
+<li><a href="../stories/rules-documentation.html#other-data">Дополнительные сведения</a></li>
+</ul>
+</li>
+<li><a href="../stories/rules-documentation.html#python">Документирование python-кода</a><ul>
+<li><a href="../stories/rules-documentation.html#python-class">Классы</a></li>
+<li><a href="../stories/rules-documentation.html#python-method-and-func">Методы и функции</a></li>
+</ul>
+</li>
+<li><a href="../stories/rules-documentation.html#js">Документирование javascript-кода</a><ul>
+<li><a href="../stories/rules-documentation.html#js-structure">Структура блока документирования</a></li>
+<li><a href="../stories/rules-documentation.html#js-variable">Переменные</a></li>
+<li><a href="../stories/rules-documentation.html#js-func">Функции</a></li>
+<li><a href="../stories/rules-documentation.html#js-class">Классы</a></li>
+</ul>
+</li>
+</ol>
+<h3><a name="terms">Термины и определения</a></h3>
+<p><em><a href="http://ru.wikipedia.org/wiki/ReStructuredText">reStructuredText</a></em> (<em>ReST</em>) – язык разметки,
+предназначенный для документирования программ непосредственно в исходном коде.</p>
+<p><em><a href="http://sphinx-doc.org/">Sphinx</a></em> – генератор документации, преобразующий файлы в формате ReST в другие форматы (HTML, PDF, EPub и др.)</p>
+<p><em>Модуль</em> - набор алгоритмов, классов и других структур, имеющий имя, поставляемых как единое целое,
+объединенных общей целью и вариантом использования.
+</p>
+<h3><a name="common-issues">Общие положения</a></h3>
+<p>Следует разделять документацию модуля и документацию кода.
+Цель документирования модуля - описание структуры модуля,
+его вариантов использования, интерфейса взаимодействия с модулем.
+Цель документирования кода - описание внутренних структур модуля и алгоритмов.</p>
+<p>Документирование модуля предназначено для ознакомления с предназначением модуля и его частей,
+особенностями его установки и использования.
+Именно на основании документации к модулю разработчик принимает решение о способе и варианте использования модуля.</p>
+<p>Документирование кода является неотъемлемой частью разработки программных продуктов.
+Оно направлено на описание дополнительных аспектов того, что именно делает код.</p>
+<p>Общие правила:</p>
+<ul>
+<li>Документация пишется на русском языке с соблюдением грамматики и пунктуации;</li>
+<li>Предложения разделяются пробелами;</li>
+<li>Комментарии пишутся на русском языке;</li>
+<li>Используются строки шириной не более 79 символов. Ширина в 79 знаков заполняется максимально полно;</li>
+<li>В строках документации и комментариях не допускается использование шуток,
+сленга, ненормативной лексики, «языка паддонкаф» и пр.</li>
+</ul>
+<p>Документирование кода ведется с использованием генератора документации <em>Sphinx</em> и языка разметки <em>reStructuredText</em>.</p>
+<p>Различаются два типа документирования:</p>
+<ul>
+<li>
+<p>Ручное документирование – в этом случае создается отдельный файл документации,
+в котором формируется текст в соответствии с языком разметки <em>reStructuredText</em>.</p>
+</li>
+<li>
+<p>Документирование кода – в этом случае разработчик делает соответствующую разметку непосредственно в коде,
+после чего с помощью генератора собирается документация</p>
+</li>
+</ul>
+<h3><a name="write-docs">Ручное документирование</a></h3>
+<p>Обычно, документация к модулю состоит из следующих разделов:</p>
+<ul>
+<li>Общее описание (About, Introduction, Overview)</li>
+<li>Установка (Installation, Setup, Requirements, Dependencies)</li>
+<li>Приступая к работе (Tutorial, Basic usage, First steps, Quickstart, Getting started)</li>
+</ul>
+<p>Дополнительными разделами могут быть:</p>
+<ul>
+<li>Расширенное использование (Advanced usage, Tips&amp;Tricks)</li>
+<li>Интерфейс взаимодействия (API, Command reference, Integration)</li>
+<li>ЧаВО (FAQ, Common issues)</li>
+<li>Дополнительные сведения (Resources, Community, Links)</li>
+</ul>
+<h4><a name="common-writes-docs">Общее описание</a></h4>
+<ul>
+<li>Назначение модуля и основной функционал</li>
+<li>Состав и структура</li>
+<li>История, предпосылки</li>
+<li>Лицензия</li>
+</ul>
+<p>Из общего описания должно быть понятно предназначение модуля, его основные функции и состав.
+Можно описать варианты использования со ссылками на примеры из остальных пунктов.</p>
+<h4><a name="install">Установка</a></h4>
+<ul>
+<li>Необходимые библиотеки и другие модули</li>
+<li>Процесс установки</li>
+<li>Описание настроек</li>
+<li>Установка должна описывать зависимости и особенности выполнения установки модуля.
+Возможные варианты установки. Также должно содержаться описание всех настроек,
+которые необходимо выполнить при и после установки.</li>
+</ul>
+<h4><a name="getting-started">Приступая к работе</a></h4>
+<ul>
+<li>Описание необходимых условий</li>
+<li>Простые примеры использования модуля</li>
+<li>В этом разделе должны описываться самые простые варианты использования модуля с указанием выполняемых действий и кода.
+Должны содержаться результаты выполнения примеров. Примеров должно быть максимально много, чтобы разобрать все простые варианты использования модуля.</li>
+<li>Примеры должны показать основные функции модуля в их простом применении.
+Примеры, которые требуют большей подоготовки и сложного поведения следует вынести в следующий раздел.</li>
+</ul>
+<h4><a name="advanced-usage">Расширенное использование</a></h4>
+<ul>
+<li>Специальные и критические варианты использования</li>
+<li>Использование различных настроек</li>
+</ul>
+<p>В этом разделе могут быть описаны примеры использования при более тонкой настройке модуля,
+требующие более глубокого погружения в особенности работы модуля.
+Также могут быть примеры использования модуля в различных комбинациях настроек.</p>
+<h4><a name="api">Интерфейс взаимодействия</a></h4>
+<ul>
+<li>Описание классов и методов, api-функций, REST-интерфейса</li>
+<li>Описание команд</li>
+<li>Описание точек расширения функционала</li>
+<li>Примеры интеграции и расширений</li>
+</ul>
+<p>В этом разделе могут описываться все объекты и функции для обеспечения взаимодействия с модулем.
+Даются ссылки на автодокументацию по коду.
+Приводятся примеры и способы расширения и/или изменения функционала модуля.</p>
+<h4><a name="faq">ЧаВО</a></h4>
+<ul>
+<li>Частозадаваемые вопросы и ответы</li>
+<li>Решеные и нерешенные проблемы</li>
+<li>Особенности и трюки</li>
+<li>Обработка ошибок</li>
+</ul>
+<p>В этом разделе описываются ответы на типичные вопросы, возникающие при использовании модуля.
+Также, рассматриваются возможные проблемы и способы их ршения (если это возможно).
+Рассматриваются возможные ошибки и их обработка.</p>
+<h4><a name="other-data">Дополнительные сведения</a></h4>
+<ul>
+<li>Ссылки на дополнительные ресурсы, форумы, документы</li>
+<li>Авторы</li>
+<li>История версий (changelog)</li>
+</ul>
+<p>В этом разделе могут содержаться любые иные сведения не описывающие использование модуля, но дополняющие его описание.</p>
+<h3><a name="python">Документирование Python кода</a></h3>
+<p>Каждый новый создаваемый модуль должен предваряться директивой:</p>
+<div class="code"><pre><span class="c">#coding: utf-8</span>
+</pre></div>
+
+
+<p>или</p>
+<div class="code"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+</pre></div>
+
+
+<p>После которой в тройных кавычках идет аннотация к модулю.
+Аннотация может содержать в себе дату его создания, автора модуля, краткое резюме о предназначении модуля. Например:</p>
+<div class="code"><pre><span class="sd">u"""</span>
+<span class="sd">Created on 12.05.13</span>
+
+<span class="sd">@author: ivanov</span>
+<span class="sd">Описание моделей</span>
+<span class="sd">"""</span>
+</pre></div>
+
+
+<h4><a name="python-class">Классы</a></h4>
+<p>После строки определения класса должен следовать комментарий в тройных кавычках, о назначении этого класса.</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="n">BaseEnterpriseDictionaryModel</span><span class="p">):</span>
+    <span class="sd">u"""Модель плана счетов.</span>
+<span class="sd">    """</span>
+</pre></div>
+
+
+<h4><a name="python-method-and-func">Методы и функции</a></h4>
+<p>После строки объявления функции (метода) должен следовать комментарий в тройных кавычках о назначении этой функции.
+Затем указывается перечень аргументов функции, их типов, возвращаемый результат,
+а также типы возможных исключений в функции. Описание функции и перечень аргументов необходимо разделять пустой строкой.
+Также пустой строкой отделяется перечень аргументов с их типами и
+перечень возвращаемых значений с типами возможных исключений.</p>
+<p>Если описание элемента превышает в строке 79 символов, его необходимо перенести на новую строку с обязательным отступом.</p>
+<p>Элементы синтаксиса документирования аргументов функций:</p>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Элемент</th>
+        <th>Назначение</th>
+    </tr>
+    <tr>
+        <td>:param [тип] имя:</td>
+        <td>Описание параметра функции</td>
+    </tr>
+     <tr>
+        <td>:type имя параметра: тип</td>
+        <td>Тип параметра</td>
+    </tr>
+     <tr>
+        <td>:return:</td>
+        <td>Описание возвращаемого результата</td>
+    </tr>
+    <tr>
+        <td>:rtype:</td>
+        <td>Тип возвращаемого результата</td>
+    </tr>
+    <tr>
+        <td>:raise:</td>
+        <td>Тип(ы) возможных исключений</td>
+    </tr>
+</table>
+
+<p>Если тип передаваемого параметра является встроенным типом языка Python,
+то он указывается с ключевым словом <em>param</em>. В противном случае, он указывается с ключевым словом <em>type</em>.
+Для возможности перехода к описанию типов программного продукта рекомендуется в параметре type указывать полный путь до типа,
+например:</p>
+<div class="code"><pre><span class="n">web_bb</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">acc_chart</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Account</span> <span class="c">#  для классов из ядра системы,</span>
+<span class="n">web_bb</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">ack</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Budget</span> <span class="c">#  для классов из плагинов.</span>
+</pre></div>
+
+
+<p>Пример описания метода:</p>
+<div class="code"><pre><span class="k">def</span> <span class="nf">create_doc</span><span class="p">(</span><span class="n">doc_model</span><span class="p">,</span> <span class="n">operation</span><span class="p">,</span> <span class="n">doc_params</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">""" Создание документа на основе полученных данных</span>
+
+<span class="sd">    :param doc_model: класс модели документа</span>
+<span class="sd">    :param operation: шаблон операции</span>
+<span class="sd">    :type operation: web_bb.core.repos.models.DocumentOperations</span>
+<span class="sd">    :param dict doc_params: словарь параметров, которые будут присвоены</span>
+<span class="sd">        экземпляру документа</span>
+
+<span class="sd">    :return: экземпляр на основе переданной модели документа</span>
+<span class="sd">    :raise: KeyError</span>
+
+<span class="sd">    """</span>
+</pre></div>
+
+
+<p>Для переопределяемых методов в наследующих классах допустимо опускать описание только в случае,
+если описание присутствует в классе-родителе, и в методе потомка используется вызов такого же метода родителя.</p>
+<p><strong>Пример 1</strong></p>
+<p>Описание метода присутствует в классе-родителе, также используется вызов метода родителя с помощью ключевого слова super.
+Описание метода можно опустить</p>
+<div class="code"><pre><span class="k">def</span> <span class="nf">get_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">query_object</span><span class="p">):</span>
+        <span class="n">query_object</span><span class="o">.</span><span class="n">with_parents</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># "Соответствие капитальных вложений и счетов НМА" (НМАКапВл)</span>
+        <span class="c"># Заложено в фикстурах модуля acc_chart</span>
+        <span class="n">acc_group</span> <span class="o">=</span> <span class="mi">12</span>
+        <span class="n">acc_list</span> <span class="o">=</span> <span class="n">get_equivalent_accounts_from_group</span><span class="p">(</span><span class="n">acc_group</span><span class="p">)</span>
+        <span class="n">query_object</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">BE</span><span class="p">(</span>
+            <span class="s">'id'</span><span class="p">,</span> <span class="n">BE</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">acc_list</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">query_object</span><span class="o">.</span><span class="n">filter</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">NMACapInvestAccChartPack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_rows</span><span class="p">(</span>
+            <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">query_object</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Пример 2</strong></p>
+<p>Полностью переопределяется метод родительского класса. Описание обязательно.</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">MergeRecordsPack</span><span class="p">(</span><span class="n">RecordsPack</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">validate_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">is_new</span><span class="p">):</span>
+        <span class="sd">u"""Выключаем проверку базового класса</span>
+<span class="sd">        """</span>
+        <span class="k">pass</span>
+</pre></div>
+
+
+<h3><a name="js">Документирование JavaScript кода</a></h3>
+<p>Документирование JavaScript-кода производится с использованием синтаксиса языка <a href="http://ru.wikipedia.org/wiki/JSDoc">JSDoc</a>.
+Строки документирования заключаются в секции /*<em>…</em>/.
+Все строки документирования помещаются перед определением параметров, функций, классов.</p>
+<h4><a name="js-structure">Структура блока документирования</a></h4>
+<div class="code"><pre><span class="cm">/**</span>
+<span class="cm">* Описание параметра, функции, класса и т.д.</span>
+<span class="cm">*</span>
+<span class="cm">* параметры, типы, возвращаемые результаты</span>
+<span class="cm">*/</span>
+</pre></div>
+
+
+<h4><a name="js-variable">Переменные</a></h4>
+<div class="code"><pre><span class="cm">/**</span>
+<span class="cm"> * Счетчик</span>
+<span class="cm"> * @type {number}</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">::</span><span class="nx">javascript</span>
+<span class="cm">/**</span>
+<span class="cm"> * Массив</span>
+<span class="cm"> * @type {Array}</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[];</span>
+</pre></div>
+
+
+<p>С помощью ключевого слова <em>type</em> в фигурных скобках отражаем тип переменной.</p>
+<h4><a name="js-func">Функции</a></h4>
+<div class="code"><pre><span class="cm">/**</span>
+<span class="cm"> * Проверяет какое-то условие</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param а какой-то параметр</span>
+<span class="cm"> * @returns {boolean}</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">myFunction</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>С помощью ключевого слова <em>param</em> описываем аргументы функции.
+С помощью ключевого слова <em>returns</em> описываем возвращаемое значение.
+В фигурных скобках можно указать типы описываемых элементов.</p>
+<h4><a name="js-class">Классы</a></h4>
+<div class="code"><pre><span class="cm">/**</span>
+<span class="cm"> * Создает экземпляр класса MyClass</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param {number} x параметр x</span>
+<span class="cm"> * @param {number} y параметр y</span>
+<span class="cm"> * @this {MyClass}</span>
+<span class="cm"> * @constructor</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">MyClass</span><span class="p">(</span><span class="nx">x</span> <span class="p">,</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>С помощью ключевого слова <em>constructor</em> указываем,
+что данная функция является конструктором класса.
+С помощью ключевого слова <em>this</em> указываем, какого типа будет созданный объект.</p></div>
+
+    </div>
+    </div>
+    <!--End of body content-->
+</div>
+<div class="footerbox">
+    Contents © 2014         <a href="http://bars-open.ru/">БАРС Груп</a> - Powered by         <a href="http://getnikola.com" rel="nofollow">Nikola</a>         
+</div>
+
+            <script src="../assets/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+            <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script>
+
+
+    
+
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});
+    $(window).on('hashchange', function(){
+        if (location.hash && $(location.hash)[0]) {
+            $('body').animate({scrollTop: $(location.hash).offset().top - $('#navbar').outerHeight(true)*1.2 }, 1);
+        }
+    });
+    $(document).ready(function(){$(window).trigger('hashchange')});
+    </script>
+    
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49005120-1', 'barsgroup.github.io');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

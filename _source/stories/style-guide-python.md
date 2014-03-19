@@ -450,7 +450,7 @@
 
 Таблица именования атрибутов в зависимости от контекста использования:
 
-<table>
+<table border="1" cellpadding=5>
     <tr>
         <th>Type</th>
         <th>Public</th>
@@ -459,10 +459,12 @@
     <tr>
         <td>Packages</td>
         <td>lowercase</td>
+        <td></td>
     </tr>
      <tr>
         <td>Modules</td>
         <td>lowercase</td>
+        <td></td>
     </tr>
      <tr>
         <td>Classes</td>
@@ -497,11 +499,12 @@
     <tr>
         <td>Function/Method Parameters</td>
         <td>lower_with_under</td>
+        <td></td>
     </tr>
     <tr>
         <td>Local Variables</td>
         <td>lower_with_under()</td>
-
+        <td></td>
     </tr>
 </table>
 

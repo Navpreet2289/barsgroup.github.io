@@ -15,7 +15,7 @@
 
   - инструменты для работы с экшенами: *Action*
   - инструменты для работы с паками: *Pack*
-  - мешханизм автоматической сборки урлов: *ActionController* и *ActionControllerCache*
+  - механизм автоматической сборки урлов: *ActionController* и *ActionControllerCache*
   - инструмент для декларации контекста для экшенов: *ACD*
   - cтандартные классы для http-ответов: *ActionResult*, *PreJsonResult*, etc.
 
@@ -61,7 +61,7 @@
 -----------------
 
 [simple-report](http://simple-report.readthedocs.org/) -
-позволяет разработчику составлять отчеты таких форматов docx, doc, rtf; xlsx, xls.
+позволяет разработчику составлять отчеты таких форматов как docx, doc, rtf; xlsx, xls.
 
 [report-generator](http://report-generator.readthedocs.org/) - конструктор отчетов предназначен для создания простых отчетов,
 которые могут отображать произвольный набор данных.

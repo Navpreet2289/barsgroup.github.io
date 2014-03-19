@@ -84,15 +84,15 @@
 
 Установите [ngrep](http://ngrep.sourceforge.net/):
 
-    ::text
+    ::bash
     $ sudo apt-get install ngrep
 
 Проверить, что метрики уходят на сервер _statsd_:
 
-    ::text
+    ::bash
     $ sudo ngrep -qd any . udp dst port 8125
 
 Проверить, что при старте приложения контексты уходят на сервер:
 
-    ::text
+    ::bash
     $ sudo ngrep -qd any . tcp dst port 1942

@@ -150,17 +150,17 @@ METRICS_PORT = 8125
 </ol>
 <h3>Проверка подключения</h3>
 <p>Установите <a href="http://ngrep.sourceforge.net/">ngrep</a>:</p>
-<div class="code"><pre>$ sudo apt-get install ngrep
+<div class="code"><pre><span class="nv">$ </span>sudo apt-get install ngrep
 </pre></div>
 
 
 <p>Проверить, что метрики уходят на сервер <em>statsd</em>:</p>
-<div class="code"><pre>$ sudo ngrep -qd any . udp dst port 8125
+<div class="code"><pre><span class="nv">$ </span>sudo ngrep -qd any . udp dst port 8125
 </pre></div>
 
 
 <p>Проверить, что при старте приложения контексты уходят на сервер:</p>
-<div class="code"><pre>$ sudo ngrep -qd any . tcp dst port 1942
+<div class="code"><pre><span class="nv">$ </span>sudo ngrep -qd any . tcp dst port 1942
 </pre></div></div>
 
     </div>

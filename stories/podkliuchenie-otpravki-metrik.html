@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta charset="utf-8">
+    <meta name="author" content="БАРС Груп">
+    <title>Подключение отправки метрик | M3</title>
+    
+            <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/rst.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/theme.css" rel="stylesheet" type="text/css">
+      <link rel="canonical" href="http://barsgroup.github.io/stories/podkliuchenie-otpravki-metrik.html">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+            <link rel="icon" href="../favicon.png" sizes="16x16">
+
+    
+
+
+
+    
+
+</head>
+<body>
+<!-- Menubar -->
+<div class="navbar navbar-fixed-top" id="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+            <a class="brand" href="http://barsgroup.github.io/">
+            M3
+            </a>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                <li><a href="../index.html">Обзор</a>
+                </li><li><a href="../modules.html">Модули</a>
+                </li><li><a href="../where-usages.html">Где используется</a>
+                </li><li><a href="../blog">Блог</a>
+                </li><li><a href="../stories"> Вики</a>
+
+                </li></ul>
+                <ul class="nav pull-right">
+                
+                
+                    <li>
+			<a href="../stories/podkliuchenie-otpravki-metrik.md" id="sourcelink">Источник</a>
+		</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Menubar -->
+<div class="container-fluid" id="container-fluid">
+    <!--Body content-->
+    <div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+    
+    <h1>Подключение отправки метрик</h1>
+    <div><p>Итак, вы хотите поучаствовать в программе сбора метрик? Хорошо, мы постараемся вам в этом помочь.</p>
+<ol>
+<li>Для начала, вам нужно добавить в <em>settings.py</em> несколько настроек:</li>
+<li><strong>METRICS_HOST</strong> - IP-адрес или доменное имя сервера, на котором запущен демон statsd,</li>
+<li><strong>METRICS_PORT</strong> - порт сервера statsd (по умолчанию: <em>8125</em>),</li>
+<li><strong>METRICS_PREFIX</strong> - префикс, который будет добавлен к каждой отправляемой метрике.</li>
+<li><strong>METRICS_CONTEXTS_URL</strong> - URL сервера хранения контекстов (по умолчанию: <em>http://localhost:1942/register</em>).</li>
+<li><strong>ENABLE_METRICS_COLLECTION</strong> - флаг включения автоматической отправки метрик по времени выполнения запроса.</li>
+</ol>
+<p>Значения для некоторых настроек на 13.12.2013:
+   </p><pre>
+   METRICS_HOST = '91.203.194.148'
+   METRICS_CONTEXTS_URL = 'http://91.203.194.148:1942/register'
+   METRICS_PORT = 8125
+   </pre>
+<p>Значение <strong>METRICS_PREFIX</strong> нужно получить в отделе М3, и оно должно выглядеть следующим образом:</p>
+<blockquote>
+<p>v1.tatar.bars.test.instance_test.</p>
+</blockquote>
+<ol>
+<li>
+<p>Попросите администратора вашего сервера открыть доступ по портам 1942 (tcp) и 8125 (udp) на указанные вам хосты.</p>
+</li>
+<li>
+<p>Далее, обновитесь на версию m3 не ниже <em>2.0.9.5</em>...</p>
+<blockquote>
+<p>pip install m3-core&gt;=2.0.9.1 -i http://pypi.bars-open.ru/simple</p>
+</blockquote>
+</li>
+</ol>
+<p>...и установите пакет pystatsd:</p>
+<blockquote>
+<p>pip install pystatsd</p>
+</blockquote>
+<p>Если у вас в <em>settings.py</em> настройка <strong>ENABLE_METRICS_COLLECTION</strong> стоит в <strong>True</strong>, то с этого момента на каждый пришедший к контроллеру M3 запрос будет отправляться UDP-пакет к statsd, содержащий в себе время выполнения запроса.</p>
+<ol>
+<li>Для отправки контекстных данных по метрикам (список URL контроллеров), необходимо один раз при старте программы вызвать
+   функцию <strong>send_controllers_context()</strong>:</li>
+</ol>
+<p></p><pre>
+   from m3.metrics import send_controllers_contexts
+<p>...</p>
+<p>send_controllers_contexts()
+   </p></pre>
+<p>Хорошим местом для помещения вызова этой функции будет являться <em>urls.py</em>, прямо после сбора паттернов контроллеров. При вызове этой функции будет произведен блокирующий (!) HTTP-запрос на сервер контекстов, содержащий в себе карту URL контроллеров и их хэшей.</p>
+<ol>
+<li>Если вы хотите собирать статистику по количеству пользователей Django и их входам\выходам из системы, то по такому же принципу надо добавить вызов функции <strong>capture_users_metrics()</strong> с параметром None:</li>
+</ol>
+<p></p><pre>
+   from m3.metrics import capture_users_metrics
+<p>...</p>
+<p>capture_users_metrics(None)
+   </p></pre>
+<p>Перед этим очень рекомендуется сделать команду очистки сессий:</p>
+<blockquote>
+<p>python ./manage.py cleanup</p>
+</blockquote>
+<p>Причина этого состоит в том, что Django по умолчанию не удаляет сессии с истекшим сроком жизни, а первоначальное
+   значение счетчика активных пользователей равно количеству хранимых сессий. Рекомендуется периодически запускать эту команду в cron'е.</p>
+<ol>
+<li>...<strong>"That's all, folks!"</strong></li>
+</ol>
+<h3>Проверка подключения</h3>
+<p>Установите <a href="http://ngrep.sourceforge.net/">ngrep</a>:</p>
+<blockquote>
+<p>$ sudo apt-get install ngrep</p>
+</blockquote>
+<p>Проверить, что метрики уходят на сервер <em>statsd</em>:</p>
+<blockquote>
+<p>$ sudo ngrep -qd any . udp dst port 8125</p>
+</blockquote>
+<p>Проверить, что при старте приложения контексты уходят на сервер:</p>
+<blockquote>
+<p>$ sudo ngrep -qd any . tcp dst port 1942</p>
+</blockquote></div>
+
+    </div>
+    </div>
+    <!--End of body content-->
+</div>
+<div class="footerbox">
+    Contents © 2014         <a href="http://bars-open.ru/">БАРС Груп</a> - Powered by         <a href="http://getnikola.com" rel="nofollow">Nikola</a>         
+</div>
+
+            <script src="../assets/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+            <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script>
+
+
+    
+
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});
+    $(window).on('hashchange', function(){
+        if (location.hash && $(location.hash)[0]) {
+            $('body').animate({scrollTop: $(location.hash).offset().top - $('#navbar').outerHeight(true)*1.2 }, 1);
+        }
+    });
+    $(document).ready(function(){$(window).trigger('hashchange')});
+    </script>
+    
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49005120-1', 'barsgroup.github.io');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

@@ -20,7 +20,7 @@
 
     Значения для некоторых настроек:
 
-        ::text
+        ::python
         METRICS_HOST = '91.203.194.148'
         METRICS_CONTEXTS_URL = 'http://91.203.194.148:1942/register'
         METRICS_PORT = 8125

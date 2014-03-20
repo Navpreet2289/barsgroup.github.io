@@ -19,7 +19,7 @@
   - инструмент для декларации контекста для экшенов: *ACD*
   - cтандартные классы для http-ответов: *ActionResult*, *PreJsonResult*, etc.
 
-[m3-ext](http://m3-ext.readthedocs.org/) - серверные и клиентские UI-компоненты:
+[m3-ext](https://bitbucket.org/barsgroup/m3-ext) - серверные и клиентские UI-компоненты:
 
   - серверные обертки над ExtJS и своими компонентами для работы с ними в python
   - свои js-компоненты: выбор из справочника, livegrid, плагин для заморозки строк в таблице и одновременной группировки
@@ -27,7 +27,7 @@
   - актуальную версию библиотекиы ExtJS
 
 
-[m3-legacy](http://m3-legacy.readthedocs.org/) - устаревший (deprecated) функционал
+[m3-legacy](https://bitbucket.org/barsgroup/m3-legacy) - устаревший (deprecated) функционал
 
 [objectpack](http://objectpack.readthedocs.org/) - расширяет возможности *m3-core* и *m3-ext* и
 позволяет экстремально быстро разрабатывать справочники для различных учётных систем.
@@ -121,7 +121,7 @@
 Дополнительно
 --------------
 
-[registry](https://bitbucket.org/barsgroup/registry) - реализует базовый функционал для ведения
+[registry](http://m3-registry.readthedocs.org/) - реализует базовый функционал для ведения
 накопительных регистров с периодичностью от секунды до года.
 
 [m3-mutex](http://m3-mutex.readthedocs.org/) - предназначен для работы с семафорами и глобальными блокировками операций.

@@ -67,7 +67,7 @@
 которые могут отображать произвольный набор данных.
 На выходе отдает заполненный данными отчет в виде электронного документа различных форматов.
 
-[excel-reporting](https://bitbucket.org/barsgroup/excel-reporting) - устаревший deprecated механизм работы с отчетами.
+[excel-reporting](http://excel-reporting.readthedocs.org/) - устаревший (deprecated) механизм работы с отчетами.
 Следует использовать simple-report.
 
 Тестирование
@@ -126,7 +126,7 @@
 
 [m3-mutex](http://m3-mutex.readthedocs.org/) - предназначен для работы с семафорами и глобальными блокировками операций.
 
-[m3-autologin](https://bitbucket.org/barsgroup/m3-autologin) - предназначено для организации автоматического
+[m3-autologin](http://m3-autologin.readthedocs.org/) - предназначен для организации автоматического
 входа в рабочий стол пользователя без ввода аутентификационных данных на странице логина прикладного приложения.
 
 [m3-consolequery](https://bitbucket.org/barsgroup/m3-consolequery) - предназначен для написания sql-запросов администратором

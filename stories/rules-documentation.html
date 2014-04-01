@@ -227,10 +227,10 @@
 
 <p>После которой в тройных кавычках идет аннотация к модулю.
 Аннотация может содержать в себе дату его создания, автора модуля, краткое резюме о предназначении модуля. Например:</p>
-<div class="code"><pre><span class="sd">u"""</span>
+<div class="code"><pre><span class="sd">"""</span>
 <span class="sd">Created on 12.05.13</span>
 
-<span class="sd">@author: ivanov</span>
+<span class="sd">:author: ivanov</span>
 <span class="sd">Описание моделей</span>
 <span class="sd">"""</span>
 </pre></div>
@@ -239,7 +239,8 @@
 <h4><a name="python-class">Классы</a></h4>
 <p>После строки определения класса должен следовать комментарий в тройных кавычках, о назначении этого класса.</p>
 <div class="code"><pre><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="n">BaseEnterpriseDictionaryModel</span><span class="p">):</span>
-    <span class="sd">u"""Модель плана счетов.</span>
+    <span class="sd">"""</span>
+<span class="sd">    Модель плана счетов.</span>
 <span class="sd">    """</span>
 </pre></div>
 
@@ -299,6 +300,7 @@
 <span class="sd">        экземпляру документа</span>
 
 <span class="sd">    :return: экземпляр на основе переданной модели документа</span>
+
 <span class="sd">    :raise: KeyError</span>
 
 <span class="sd">    """</span>
@@ -330,7 +332,7 @@
 <div class="code"><pre><span class="k">class</span> <span class="nc">MergeRecordsPack</span><span class="p">(</span><span class="n">RecordsPack</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">validate_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">is_new</span><span class="p">):</span>
-        <span class="sd">u"""Выключаем проверку базового класса</span>
+        <span class="sd">"""Выключаем проверку базового класса</span>
 <span class="sd">        """</span>
         <span class="k">pass</span>
 </pre></div>
@@ -370,6 +372,7 @@
 <span class="cm"> * Проверяет какое-то условие</span>
 <span class="cm"> *</span>
 <span class="cm"> * @param а какой-то параметр</span>
+<span class="cm"> *</span>
 <span class="cm"> * @returns {boolean}</span>
 <span class="cm"> */</span>
 <span class="kd">function</span> <span class="nx">myFunction</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>

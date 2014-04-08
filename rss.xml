@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Wed, 19 Mar 2014 15:21:26 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Changelog 10-02</title><link>http://barsgroup.github.io/posts/changelog-10-02-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;m3-core 2.0.10&lt;/strong&gt;&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Tue, 08 Apr 2014 11:17:04 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Changelog 08-04-2014</title><link>http://barsgroup.github.io/posts/changelog-08-04-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt; m3-core==2.0.11 &lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;BREAKING CHANGE:&lt;/strong&gt; Теперь нельзя регистрировать классы/строки в контроллеры - только экземпляры!
+Уже починенные контрибы:
+&lt;code&gt;m3-users&amp;gt;=2.0.1&lt;/code&gt;, &lt;code&gt;m3_kladr&amp;gt;=2.0.2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Метод проверки прав &lt;em&gt;has_sub_permission&lt;/em&gt; заменен на &lt;em&gt;has_perm&lt;/em&gt; в диктово-древесных паках&lt;/li&gt;
+&lt;li&gt;Выпилен &lt;em&gt;list_view&lt;/em&gt; у диктового/древесного пака&lt;/li&gt;
+&lt;li&gt;Теперь доступен &lt;em&gt;override&lt;/em&gt; для одних паков другими&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;ActionController.append_pack&lt;/em&gt; теперь возвращает фактически добавленный пак&lt;/li&gt;
+&lt;li&gt;Поправлен поиск экшнов/паков по правам&lt;/li&gt;
+&lt;li&gt;В Django 1.6 удалили логгер по-умолчанию.
+Оставляется обратная совместимость и поддержка джанги 1.6&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;m3-ext==2.0.6&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;BREAKING CHANGE:&lt;/strong&gt; Поиск паков/экшнов теперь должен осуществляться через &lt;em&gt;ControllerCache&lt;/em&gt;!&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;DesktopModel&lt;/em&gt; изменена в пользу &lt;em&gt;view&lt;/em&gt; предоставяемой платформой.
+Требуется адаптация проектных &lt;em&gt;view&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Фильтрация элементов &lt;em&gt;desktop&lt;/em&gt; исходя из прав пользователя.&lt;/li&gt;
+&lt;li&gt;Поправлены ошибки в &lt;em&gt;make_read_only&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Поправлен &lt;em&gt;ExtObjectGrid.js&lt;/em&gt; касательно кроссбраузерной совместимости&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Поправлена ошибка в &lt;em&gt;object grid editor&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;Использование &lt;em&gt;absolute_url&lt;/em&gt; заменено на &lt;em&gt;get_absolute_url&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;ExtGridLockingHeaderGroupPlugin&lt;/em&gt; теперь может конфигурировать грид&lt;/li&gt;
+&lt;li&gt;Реализован компонент &lt;em&gt;ObjectSelectionPanel&lt;/em&gt; с возможностью запоминания выбора значений в дополнительном гриде&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;objectpack==2.0.21&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;В &lt;em&gt;TreeObjectPack&lt;/em&gt; поправлено сохранение корневых элементов&lt;/li&gt;
+&lt;li&gt;Поправлено добавление на &lt;em&gt;desktop&lt;/em&gt; нескольких &lt;em&gt;submenu&lt;/em&gt; за один раз (кортежем)&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;observer&lt;/em&gt; теперь обрабатывает &lt;em&gt;overrided&lt;/em&gt; паки (m3-core&amp;gt;=2.0.11)&lt;/li&gt;
+&lt;li&gt;Добавлены точки расширений для &lt;em&gt;ObjectEditWindowAction&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://barsgroup.github.io/posts/changelog-08-04-2014.html</guid><pubDate>Tue, 08 Apr 2014 07:03:52 GMT</pubDate></item><item><title>Changelog 10-02</title><link>http://barsgroup.github.io/posts/changelog-10-02-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;m3-core 2.0.10&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Оптимизирован m3.actions.utils.create_search_filter&lt;/li&gt;
 &lt;li&gt;Изменения касательно мониторинга:&lt;/li&gt;

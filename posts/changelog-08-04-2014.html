@@ -3,9 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <meta charset="utf-8">
-    <meta name="description" content="Default Description">
     <meta name="author" content="БАРС Груп">
-    <title>Записи за 2014 год | M3</title>
+    <title>Changelog 08-04-2014 | M3</title>
     
             <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
             <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
@@ -13,7 +12,7 @@
         <link href="../assets/css/code.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/theme.css" rel="stylesheet" type="text/css">
-      <link rel="canonical" href="http://barsgroup.github.io/2014/index.html">
+      <link rel="canonical" href="http://barsgroup.github.io/posts/changelog-08-04-2014.html">
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]-->
@@ -21,7 +20,11 @@
             <link rel="icon" href="../favicon.png" sizes="16x16">
 
     
-    
+
+
+
+
+
     
 
 </head>
@@ -56,6 +59,8 @@
                 
                 
                     <li>
+			<a href="../posts/changelog-08-04-2014.md" id="sourcelink">Источник</a>
+		</li>
                 </ul>
             </div>
         </div>
@@ -68,15 +73,74 @@
     <div class="span2"></div>
     <div class="span8">
     
-        <!--Body content-->
-        <div class="postbox">
-        <h1>Записи за 2014 год</h1>
-        <ul class="unstyled">
-            <li><a href="../posts/changelog-08-04-2014.html">[11:03 08-04-2014] Changelog 08-04-2014</a>
-            </li><li><a href="../posts/changelog-10-02-2014.html">[17:08 10-02-2014] Changelog 10-02</a>
-        </li></ul>
-        </div>
-        <!--End of body content-->
+    <article class="postbox post-text">
+    <div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
+    
+    <h1 class="p-name" itemprop="headline name">Changelog 08-04-2014</h1>
+
+    <hr>
+    <small>
+        Опубликовано: <time class="published dt-published" datetime="2014-04-08T11:03:52+04:00" itemprop="datePublished">11:03 08-04-2014</time>
+        
+
+		
+
+          |  
+		
+    </small>
+    <hr>
+    <div class="e-content" itemprop="articleBody text">
+    <div><p><strong> m3-core==2.0.11 </strong></p>
+<ul>
+<li><strong>BREAKING CHANGE:</strong> Теперь нельзя регистрировать классы/строки в контроллеры - только экземпляры!
+Уже починенные контрибы:
+<code>m3-users&gt;=2.0.1</code>, <code>m3_kladr&gt;=2.0.2</code></li>
+<li>Метод проверки прав <em>has_sub_permission</em> заменен на <em>has_perm</em> в диктово-древесных паках</li>
+<li>Выпилен <em>list_view</em> у диктового/древесного пака</li>
+<li>Теперь доступен <em>override</em> для одних паков другими</li>
+<li><em>ActionController.append_pack</em> теперь возвращает фактически добавленный пак</li>
+<li>Поправлен поиск экшнов/паков по правам</li>
+<li>В Django 1.6 удалили логгер по-умолчанию.
+Оставляется обратная совместимость и поддержка джанги 1.6</li>
+</ul>
+<p><strong>m3-ext==2.0.6</strong></p>
+<ul>
+<li><strong>BREAKING CHANGE:</strong> Поиск паков/экшнов теперь должен осуществляться через <em>ControllerCache</em>!</li>
+<li><em>DesktopModel</em> изменена в пользу <em>view</em> предоставяемой платформой.
+Требуется адаптация проектных <em>view</em></li>
+<li>Фильтрация элементов <em>desktop</em> исходя из прав пользователя.</li>
+<li>Поправлены ошибки в <em>make_read_only</em></li>
+<li>
+<p>Поправлен <em>ExtObjectGrid.js</em> касательно кроссбраузерной совместимости</p>
+</li>
+<li>
+<p>Поправлена ошибка в <em>object grid editor</em></p>
+</li>
+<li>Использование <em>absolute_url</em> заменено на <em>get_absolute_url</em></li>
+<li><em>ExtGridLockingHeaderGroupPlugin</em> теперь может конфигурировать грид</li>
+<li>Реализован компонент <em>ObjectSelectionPanel</em> с возможностью запоминания выбора значений в дополнительном гриде</li>
+</ul>
+<p><strong>objectpack==2.0.21</strong></p>
+<ul>
+<li>В <em>TreeObjectPack</em> поправлено сохранение корневых элементов</li>
+<li>Поправлено добавление на <em>desktop</em> нескольких <em>submenu</em> за один раз (кортежем)</li>
+<li><em>observer</em> теперь обрабатывает <em>overrided</em> паки (m3-core&gt;=2.0.11)</li>
+<li>Добавлены точки расширений для <em>ObjectEditWindowAction</em></li>
+</ul></div>
+    </div>
+    </div>
+    
+        <ul class="pager">
+            <li class="previous">
+                <a href="../posts/changelog-10-02-2014.html" rel="prev">← Предыдущая запись</a>
+            </li>
+        </ul>
+
+        
+
+    
+
+    </article>
 
     </div>
     </div>

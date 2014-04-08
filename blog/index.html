@@ -69,6 +69,54 @@
     <div class="span8">
     
         <article class="postbox h-entry post-text">
+        <h1 class="p-name"><a href="../posts/changelog-08-04-2014.html" class="u-url">Changelog 08-04-2014</a>
+        <small>  
+             Опубликовано: <time class="published dt-published" datetime="2014-04-08T11:03:52+04:00">11:03 08-04-2014</time>
+        </small></h1>
+        <hr>
+        <div class="e-content">
+        <div><p><strong> m3-core==2.0.11 </strong></p>
+<ul>
+<li><strong>BREAKING CHANGE:</strong> Теперь нельзя регистрировать классы/строки в контроллеры - только экземпляры!
+Уже починенные контрибы:
+<code>m3-users&gt;=2.0.1</code>, <code>m3_kladr&gt;=2.0.2</code></li>
+<li>Метод проверки прав <em>has_sub_permission</em> заменен на <em>has_perm</em> в диктово-древесных паках</li>
+<li>Выпилен <em>list_view</em> у диктового/древесного пака</li>
+<li>Теперь доступен <em>override</em> для одних паков другими</li>
+<li><em>ActionController.append_pack</em> теперь возвращает фактически добавленный пак</li>
+<li>Поправлен поиск экшнов/паков по правам</li>
+<li>В Django 1.6 удалили логгер по-умолчанию.
+Оставляется обратная совместимость и поддержка джанги 1.6</li>
+</ul>
+<p><strong>m3-ext==2.0.6</strong></p>
+<ul>
+<li><strong>BREAKING CHANGE:</strong> Поиск паков/экшнов теперь должен осуществляться через <em>ControllerCache</em>!</li>
+<li><em>DesktopModel</em> изменена в пользу <em>view</em> предоставяемой платформой.
+Требуется адаптация проектных <em>view</em></li>
+<li>Фильтрация элементов <em>desktop</em> исходя из прав пользователя.</li>
+<li>Поправлены ошибки в <em>make_read_only</em></li>
+<li>
+<p>Поправлен <em>ExtObjectGrid.js</em> касательно кроссбраузерной совместимости</p>
+</li>
+<li>
+<p>Поправлена ошибка в <em>object grid editor</em></p>
+</li>
+<li>Использование <em>absolute_url</em> заменено на <em>get_absolute_url</em></li>
+<li><em>ExtGridLockingHeaderGroupPlugin</em> теперь может конфигурировать грид</li>
+<li>Реализован компонент <em>ObjectSelectionPanel</em> с возможностью запоминания выбора значений в дополнительном гриде</li>
+</ul>
+<p><strong>objectpack==2.0.21</strong></p>
+<ul>
+<li>В <em>TreeObjectPack</em> поправлено сохранение корневых элементов</li>
+<li>Поправлено добавление на <em>desktop</em> нескольких <em>submenu</em> за один раз (кортежем)</li>
+<li><em>observer</em> теперь обрабатывает <em>overrided</em> паки (m3-core&gt;=2.0.11)</li>
+<li>Добавлены точки расширений для <em>ObjectEditWindowAction</em></li>
+</ul></div>
+        </div>
+            
+
+        </article>
+        <article class="postbox h-entry post-text">
         <h1 class="p-name"><a href="../posts/changelog-10-02-2014.html" class="u-url">Changelog 10-02</a>
         <small>  
              Опубликовано: <time class="published dt-published" datetime="2014-02-10T17:08:18+04:00">17:08 10-02-2014</time>

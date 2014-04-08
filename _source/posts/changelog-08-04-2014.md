@@ -1,5 +1,5 @@
 <!-- 
-.. title: Changelog 08-04-2014
+.. title: Changelog 08.04.2014
 .. slug: changelog-08-04-2014
 .. date: 2014/04/08 11:03:52
 .. tags: 

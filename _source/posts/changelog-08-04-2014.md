@@ -19,14 +19,15 @@ _m3.actions.dict.BaseTreeDictionaryModelActions_
 _m3.actions.dict.BaseTreeDictionaryModelActions_
 - Теперь доступен _override_ для одних паков другими. [Подробности здесь](/stories/comment-changelog-08-04-2014.html#overrides).
 - _ActionController.append_pack_ теперь возвращает фактически добавленный пак
-- Поправлен поиск экшнов/паков по правам. [Подробности здесь](/stories/comment-changelog-08-04-2014.html#find-packs-and-actions).
+- Поправлен поиск экшнов/паков по правам. .
 - В Django 1.6 удалили логгер по-умолчанию.
 Оставляется обратная совместимость и поддержка джанги 1.6
 
 **m3-ext==2.0.6**
 
 - **BREAKING CHANGE:** Поиск паков/экшнов теперь должен осуществляться через _ControllerCache_!
-- _DesktopModel_ изменена в пользу _view_ предоставяемой платформой.
+[Подробности здесь](/stories/comment-changelog-08-04-2014.html#find-packs-and-actions).
+- **BREAKING CHANGE:** _DesktopModel_ изменена в пользу _view_ предоставяемой платформой.
 Требуется адаптация проектных _view_. [Подробности здесь](/stories/comment-changelog-08-04-2014.html#desktop-view).
 - Фильтрация элементов _desktop_ исходя из прав пользователя.
 - Поправлены ошибки в _make\_read\_only_

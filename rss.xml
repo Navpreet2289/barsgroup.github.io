@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Thu, 10 Apr 2014 14:48:31 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Changelog 08.04.2014</title><link>http://barsgroup.github.io/posts/changelog-08-04-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt; m3-core==2.0.11 &lt;/strong&gt;&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Thu, 10 Apr 2014 14:58:45 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Changelog 08.04.2014</title><link>http://barsgroup.github.io/posts/changelog-08-04-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt; m3-core==2.0.11 &lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;BREAKING CHANGE:&lt;/strong&gt; Теперь нельзя регистрировать классы/строки в контроллеры - только экземпляры!
 Уже починенные контрибы:
@@ -10,14 +10,15 @@
 &lt;em&gt;m3.actions.dict.BaseTreeDictionaryModelActions&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;Теперь доступен &lt;em&gt;override&lt;/em&gt; для одних паков другими. &lt;a href="http://barsgroup.github.io/stories/comment-changelog-08-04-2014.html#overrides"&gt;Подробности здесь&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;ActionController.append_pack&lt;/em&gt; теперь возвращает фактически добавленный пак&lt;/li&gt;
-&lt;li&gt;Поправлен поиск экшнов/паков по правам. &lt;a href="http://barsgroup.github.io/stories/comment-changelog-08-04-2014.html#find-packs-and-actions"&gt;Подробности здесь&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Поправлен поиск экшнов/паков по правам. .&lt;/li&gt;
 &lt;li&gt;В Django 1.6 удалили логгер по-умолчанию.
 Оставляется обратная совместимость и поддержка джанги 1.6&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;m3-ext==2.0.6&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;BREAKING CHANGE:&lt;/strong&gt; Поиск паков/экшнов теперь должен осуществляться через &lt;em&gt;ControllerCache&lt;/em&gt;!&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;DesktopModel&lt;/em&gt; изменена в пользу &lt;em&gt;view&lt;/em&gt; предоставяемой платформой.
+&lt;li&gt;&lt;strong&gt;BREAKING CHANGE:&lt;/strong&gt; Поиск паков/экшнов теперь должен осуществляться через &lt;em&gt;ControllerCache&lt;/em&gt;!
+&lt;a href="http://barsgroup.github.io/stories/comment-changelog-08-04-2014.html#find-packs-and-actions"&gt;Подробности здесь&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;BREAKING CHANGE:&lt;/strong&gt; &lt;em&gt;DesktopModel&lt;/em&gt; изменена в пользу &lt;em&gt;view&lt;/em&gt; предоставяемой платформой.
 Требуется адаптация проектных &lt;em&gt;view&lt;/em&gt;. &lt;a href="http://barsgroup.github.io/stories/comment-changelog-08-04-2014.html#desktop-view"&gt;Подробности здесь&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;Фильтрация элементов &lt;em&gt;desktop&lt;/em&gt; исходя из прав пользователя.&lt;/li&gt;
 &lt;li&gt;Поправлены ошибки в &lt;em&gt;make_read_only&lt;/em&gt;&lt;/li&gt;

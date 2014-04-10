@@ -4,7 +4,7 @@
     
     <meta charset="utf-8">
     <meta name="author" content="БАРС Груп">
-    <title>Changelog 08-04-2014 | M3</title>
+    <title>Changelog 08.04.2014 | M3</title>
     
             <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
             <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
@@ -76,7 +76,7 @@
     <article class="postbox post-text">
     <div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
     
-    <h1 class="p-name" itemprop="headline name">Changelog 08-04-2014</h1>
+    <h1 class="p-name" itemprop="headline name">Changelog 08.04.2014</h1>
 
     <hr>
     <small>
@@ -94,12 +94,14 @@
 <ul>
 <li><strong>BREAKING CHANGE:</strong> Теперь нельзя регистрировать классы/строки в контроллеры - только экземпляры!
 Уже починенные контрибы:
-<code>m3-users&gt;=2.0.1</code>, <code>m3_kladr&gt;=2.0.2</code></li>
-<li>Метод проверки прав <em>has_sub_permission</em> заменен на <em>has_perm</em> в диктово-древесных паках</li>
-<li>Выпилен <em>list_view</em> у диктового/древесного пака</li>
-<li>Теперь доступен <em>override</em> для одних паков другими</li>
+<code>m3-users&gt;=2.0.1</code>, <code>m3_kladr&gt;=2.0.2</code>. <a href="../stories/comment-changelog-08-04-2014.html#find-packs-and-actions">Подробности здесь</a>.</li>
+<li>Метод проверки прав <em>has_sub_permission</em> заменен на <em>has_perm</em> <em>m3.actions.dicts.BaseTreeDictionaryActions</em> и
+<em>m3.actions.dict.BaseTreeDictionaryModelActions</em></li>
+<li>Выпилен <em>list_view</em> в <em>m3.actions.dicts.BaseTreeDictionaryActions</em> и
+<em>m3.actions.dict.BaseTreeDictionaryModelActions</em></li>
+<li>Теперь доступен <em>override</em> для одних паков другими. <a href="../stories/comment-changelog-08-04-2014.html#overrides">Подробности здесь</a>.</li>
 <li><em>ActionController.append_pack</em> теперь возвращает фактически добавленный пак</li>
-<li>Поправлен поиск экшнов/паков по правам</li>
+<li>Поправлен поиск экшнов/паков по правам. <a href="../stories/comment-changelog-08-04-2014.html#find-packs-and-actions">Подробности здесь</a>.</li>
 <li>В Django 1.6 удалили логгер по-умолчанию.
 Оставляется обратная совместимость и поддержка джанги 1.6</li>
 </ul>
@@ -107,15 +109,11 @@
 <ul>
 <li><strong>BREAKING CHANGE:</strong> Поиск паков/экшнов теперь должен осуществляться через <em>ControllerCache</em>!</li>
 <li><em>DesktopModel</em> изменена в пользу <em>view</em> предоставяемой платформой.
-Требуется адаптация проектных <em>view</em></li>
+Требуется адаптация проектных <em>view</em>. <a href="../stories/comment-changelog-08-04-2014.html#desktop-view">Подробности здесь</a>.</li>
 <li>Фильтрация элементов <em>desktop</em> исходя из прав пользователя.</li>
 <li>Поправлены ошибки в <em>make_read_only</em></li>
-<li>
-<p>Поправлен <em>ExtObjectGrid.js</em> касательно кроссбраузерной совместимости</p>
-</li>
-<li>
-<p>Поправлена ошибка в <em>object grid editor</em></p>
-</li>
+<li>Поправлен <em>ExtObjectGrid.js</em> касательно кроссбраузерной совместимости</li>
+<li>Поправлена ошибка в <em>object grid editor</em></li>
 <li>Использование <em>absolute_url</em> заменено на <em>get_absolute_url</em></li>
 <li><em>ExtGridLockingHeaderGroupPlugin</em> теперь может конфигурировать грид</li>
 <li>Реализован компонент <em>ObjectSelectionPanel</em> с возможностью запоминания выбора значений в дополнительном гриде</li>

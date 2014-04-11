@@ -79,20 +79,20 @@
 
     # Отступ в 4 пробела; ничего на первой строчке
     foo = long_function_name(
-            var_one, var_two, var_three,
-            var_four)
+        var_one, var_two, var_three,
+        var_four)
 
 <font color='red'>Не правильно:</font>
 
     ::python
     # Есть аргументы на первой линии
     foo = long_function_name(var_one, var_two,
-         var_three, var_four)
+        var_three, var_four)
 
     # Отступы в 2 пробела запрещены
     foo = long_function_name(
-       var_one, var_two, var_three,
-       var_four)
+      var_one, var_two, var_three,
+      var_four)
 
 <font color='green'>Еще пример как правильно:</font>
 

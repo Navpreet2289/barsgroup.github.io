@@ -272,18 +272,23 @@
 <div class="code"><pre><span class="c"># Правильно:</span>
 <span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span>
     <span class="n">do_blah_thing</span><span class="p">()</span>
+
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
     <span class="n">total</span> <span class="o">+=</span> <span class="n">x</span>
+
 <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">delay</span><span class="p">()</span>
 
  <span class="c"># Неправильно:</span>
 <span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span> <span class="n">do_blah_thing</span><span class="p">()</span>
 <span class="k">else</span><span class="p">:</span> <span class="n">do_non_blah_thing</span><span class="p">()</span>
+
 <span class="k">try</span><span class="p">:</span> <span class="n">something</span><span class="p">()</span>
 <span class="k">finally</span><span class="p">:</span> <span class="n">cleanup</span><span class="p">()</span>
+
 <span class="n">do_one</span><span class="p">();</span> <span class="n">do_two</span><span class="p">();</span> <span class="n">do_three</span><span class="p">(</span><span class="nb">long</span><span class="p">,</span> <span class="n">argument</span><span class="p">,</span>
                              <span class="n">simple_list</span><span class="p">,</span> <span class="n">like</span><span class="p">,</span> <span class="n">this</span><span class="p">)</span>
+
 <span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span> <span class="n">one</span><span class="p">();</span> <span class="n">two</span><span class="p">();</span> <span class="n">three</span><span class="p">()</span>
 </pre></div>
 

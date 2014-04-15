@@ -206,18 +206,23 @@
         # Правильно:
         if foo == 'blah':
             do_blah_thing()
+
         for x in lst:
             total += x
+
         while t < 10:
             t = delay()
 
          # Неправильно:
         if foo == 'blah': do_blah_thing()
         else: do_non_blah_thing()
+
         try: something()
         finally: cleanup()
+
         do_one(); do_two(); do_three(long, argument,
                                      simple_list, like, this)
+                                     
         if foo == 'blah': one(); two(); three()
 
 - В шаблонах django разделяйте одним (и только одним) пробелом фигурные скобки и содержимое тега:

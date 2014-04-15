@@ -203,17 +203,13 @@
 - Не используйте составные инструкции (несколько команд в одной строке):
 
         ::python
-        if foo == 'blah': do_blah_thing() #  Неправильно
-        do_one(); do_two(); do_three() #  Неправильно
-
-- Иногда можно писать тело циклов while, for или ветку if в той же строке, если команда короткая,
-но если команд несколько, никогда так не пишите:
-
-        ::python
         # Правильно:
-        if foo == 'blah': do_blah_thing()
-        for x in lst: total += x
-        while t < 10: t = delay()
+        if foo == 'blah':
+            do_blah_thing()
+        for x in lst:
+            total += x
+        while t < 10:
+            t = delay()
 
          # Неправильно:
         if foo == 'blah': do_blah_thing()

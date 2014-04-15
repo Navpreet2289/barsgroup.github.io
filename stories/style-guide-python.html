@@ -269,19 +269,13 @@
 </li>
 <li>
 <p>Не используйте составные инструкции (несколько команд в одной строке):</p>
-<div class="code"><pre><span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span> <span class="n">do_blah_thing</span><span class="p">()</span> <span class="c">#  Неправильно</span>
-<span class="n">do_one</span><span class="p">();</span> <span class="n">do_two</span><span class="p">();</span> <span class="n">do_three</span><span class="p">()</span> <span class="c">#  Неправильно</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Иногда можно писать тело циклов while, for или ветку if в той же строке, если команда короткая,
-но если команд несколько, никогда так не пишите:</p>
 <div class="code"><pre><span class="c"># Правильно:</span>
-<span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span> <span class="n">do_blah_thing</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span> <span class="n">total</span> <span class="o">+=</span> <span class="n">x</span>
-<span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span> <span class="n">t</span> <span class="o">=</span> <span class="n">delay</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span>
+    <span class="n">do_blah_thing</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">x</span>
+<span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">delay</span><span class="p">()</span>
 
  <span class="c"># Неправильно:</span>
 <span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="s">'blah'</span><span class="p">:</span> <span class="n">do_blah_thing</span><span class="p">()</span>

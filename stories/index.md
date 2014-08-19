@@ -11,7 +11,8 @@
 Основное
 -----
 
-- **[Переход на концепцию m3 2.0](/posts/move-to-m3-20.html)**
+- [Переход на концепцию m3 2.0](/posts/move-to-m3-20.html)
+- **[Переход на концепцию m3 3.0](/stories/migration-guide-to-m3-30.html)**
 - [Подключение отправки метрик](/stories/how-install-send-metrics.html)
 
 Регламенты и правила

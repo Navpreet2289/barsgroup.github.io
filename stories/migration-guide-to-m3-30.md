@@ -1,5 +1,5 @@
 <!-- 
-.. title: Инструкция по переходу на M3 3.0
+.. title: Инструкция по переходу на M3 3
 .. slug: migration-guide-to-m3-30
 .. date: 2014/08/18 15:56:36
 .. tags: 
@@ -27,14 +27,16 @@
         - [Promises](#promises)
         - [BREAKING CHANGES конструкций UI](#ui-breaking-changes)
     - [Пример перевода](#example)
+        - [Пример написания кода на версии m3 2 и ранее](#example-in-2)
+        - [Как решается эта же задача на версии m3 3](#example-in-3)
 
 
 ## <a name="key-difference">Ключевые отличия</a>
 
 - Браузер взаимодействует с сервером исключительно через json;
 - Отказ от django templates (template-globals) в пользу static js-файлов;
-- Если в m3 2.0 для получения формы с данными используется один ajax-запрос на сервер.
-То в версии 3.0 будет последовательно генерироваться три запроса:
+- Если в m3 2 для получения формы с данными используется один ajax-запрос на сервер.
+То в версии 3 будет последовательно генерироваться три запроса:
 
     - Запрос за данными;
     - Запрос за ui (json-конфигурация);
@@ -107,7 +109,7 @@
             "data":   :: dict - данные для конкретного окна
         }
 
-В версии m3 3.0 отправляются три запроса при открытии нового окна (в порядке отправки):
+В версии m3 3 отправляются три запроса при открытии нового окна (в порядке отправки):
 
 - Получение данных в формате json;
 - Получение ui в формате json;
@@ -134,7 +136,7 @@ UIAction. Экшены, не отдающие ui менять не нужно.
 Под биндингом данных понимается автоматическое преобразование django-модели в extjs-форму и обратно. При условии, если
 названия атрибутов модели и формы совподают.
 
-Как было в версии m3 2.0 и раньше:
+Как было в версии m3 2 и раньше:
 
 - django model -> extjs form (при загрузки имеющихся данных, например, при редактировании)
 
@@ -151,7 +153,7 @@ UIAction. Экшены, не отдающие ui менять не нужно.
     В методе формы (ExtForm) был метод to_object, принимающий в качестве параметра объект модели,
     который необходимо заполнить данными из окна. Затем модель валидировалась и сохронялась.
 
-Как стало в версии m3 3.0:
+Как стало в версии m3 3:
 
 - django model -> extjs form
 
@@ -245,7 +247,7 @@ UIAction. Экшены, не отдающие ui менять не нужно.
 context_declaration, но он декларирует параметры исключительно для метода get_result. Так как метод get_ui ничего не
 должен знать о контексте, поэтому туда контекст и не приходит.
 
-В версии 3.0 контекст может описываться с помощью словаря, пример:
+В версии 3 контекст может описываться с помощью словаря, пример:
 
     ::python
 
@@ -277,12 +279,12 @@ context_declaration, но он декларирует параметры иск�
 
 ### <a name="migration-to-objectpack)">Перевод справочников на objectpack</a>
 
-С версии M3 3.0 поддерживается исключительно механизм работы через [objectpack](http://objectpack.docs.bars-open.ru/)
+С версии M3 3 поддерживается исключительно механизм работы через [objectpack](http://objectpack.docs.bars-open.ru/)
 со справочниками или с сущностями, которые
 поддерживают операции создания/редактирования/удаления. То есть считаются устаревшими механизмы работы через классы
 *BaseDictionaryActions*, *BaseDictionaryModelActions*, *BaseTreeDictionaryActions*, *BaseTreeDictionaryModelActions*.
 
-Поэтому перед переводом на версию M3 3.0 необходимо в качестве первой итерации перевести все подобные механизмы на
+Поэтому перед переводом на версию M3 3 необходимо в качестве первой итерации перевести все подобные механизмы на
 objectpack.
 
 
@@ -303,7 +305,7 @@ Comming soon...
 - отказ на клиенте от eval в пользу Ext.create
 
 Ключевое отличие - это отказ от django-шаблонизатора
-в пользу сериализация в json-представление. Фактически с версии m3 3.0 ui-представление должно возвращаться с сервера в виде
+в пользу сериализация в json-представление. Фактически с версии m3 3 ui-представление должно возвращаться с сервера в виде
 json, которое в последствии на клиенте сериализуется и передается как параметр в функции *Ext.create*.
 Таким образом не используется *eval*, что существенно облегчает отладку.
 UI можно описывать как декларативно - через python-словарь, так и в старом стиле через описание классов.
@@ -350,7 +352,7 @@ UI можно описывать как декларативно - через py
 Достаточно поставить проект [m3-blank](https://bitbucket.org/barsgroup/m3-blank) и подключить в качестве приложения
 *m3_ext.demo*
 
-До версии m3 3.0 функцию генерации UI выполнял django-шаблонизатор, который на каждый запрос отдавал js-представление.
+До версии m3 3 функцию генерации UI выполнял django-шаблонизатор, который на каждый запрос отдавал js-представление.
 Оно впоследствии eval-лилось на клиенте с помощью функции *smart_eval*.
 
 Это выглядело примерно так:
@@ -580,7 +582,7 @@ json
 
 ### <a name="promises">Promises</a>
 
-С версии m3 3.0 в javascript появилась возможность использовать механизм обещаний из библиотеки [q.js](https://github.com/kriskowal/q).
+С версии m3 3 в javascript появилась возможность использовать механизм обещаний из библиотеки [q.js](https://github.com/kriskowal/q).
 Примеры работы и документацию можно найти на [офф. сайте](http://documentup.com/kriskowal/q/#tutorial).
 
 #### <a name="">API на основе promise-ов</a>
@@ -899,4 +901,622 @@ json
 
 ## <a name="example">Пример перевода</a>
 
-Comming soon...
+Возьмем для примера задачу, которая отрисовывает окно. Причем окно наследуется от продуктового базового класса, которое
+имеет определенную логику на javascript.
+
+### <a name="example-in-2">Пример написания кода на версии m3 2 и ранее</a>
+
+Реализация экшена:
+
+    ::python
+
+    class CompensationInfoReportWindowAction(Action):
+        """
+        Вызов диалога "Информация о компенсации"
+        """
+        shortname = "compensation-info-report-window"
+        url = '/%s' % shortname
+        verbose_name = u'Окно настроек печати'
+
+        def run(self, request, context):
+            win = ui.CompensationInfoReportWindow(self)
+            return ExtUIScriptResult(win)
+
+Реализация UI:
+
+    ::python
+
+    class CompensationInfoReportWindow(BaseReportWindow):
+        """
+        Окно настроек печати оборотки по районам
+        """
+        def __init__(self, parent=None):
+            super(CompensationInfoReportWindow, self).__init__()
+            self.form.url = urls.get_url("compensation-info-report")
+            self.title = parent.verbose_name if parent else u''
+
+            # скорректируем высоту
+            self.height = 370
+            self.sp_grid.height = 290
+
+            # соберем нужные блоки
+            self.form.items.extend([
+                self.sp_cont
+            ])
+
+Класс-наследник для UI *BaseReportWindow*:
+
+    ::python
+
+    class BaseReportWindow(ExtWindow):
+        """
+        Базовое окно настроек ПФ с некоторыми частоиспользуемыми контролами
+        При наследовании от него нужно будет только переопределять
+        функции сборки отдельных блоков.
+        """
+
+        def __init__(self, *args, **kwargs):
+            super(BaseReportWindow, self).__init__(*args, **kwargs)
+            self.title = u""
+            self.template_globals = "BaseReportWindow.js"
+            self.height = 480
+            self.width = 380
+            self.minimizable = False
+            self.maximizable = False
+            self.modal = True
+            # Компонент формы
+            self.form = ExtContainer()
+            self.form.url = ''
+            # Период
+            self.p_cont = ExtContainer(layout='hbox', height=30,
+                                       style={'padding': '2px'})
+            self.ds_cont = ExtContainer(layout='form', flex=1, label_width=59,
+                                        style={"padding-right": "5px"})
+            self.period_since = ExtDictSelectField(
+                anchor='100%',
+                name='period_since',
+                display_field='locale_period',
+                value_field="id",
+                label=u'Период с',
+                trigger_action_all=True,
+                ask_before_deleting=False,
+                hide_trigger=False,
+                hide_edit_trigger=True,
+                hide_clear_trigger=True,
+                hide_dict_select_trigger=True)
+            self.period_since.pack = urls.get_pack("global-periods")
+            self.ds_cont.items.append(self.period_since)
+
+            self.du_cont = ExtContainer(layout='form', flex=1, label_width=59)
+            self.period_until = ExtDictSelectField(
+                anchor='100%',
+                name='period_until',
+                display_field='locale_period',
+                value_field="id",
+                label=u'по',
+                trigger_action_all=True,
+                ask_before_deleting=False,
+                hide_trigger=False,
+                hide_edit_trigger=True,
+                hide_clear_trigger=True,
+                hide_dict_select_trigger=True)
+            self.period_until.pack = urls.get_pack("global-periods")
+            self.du_cont.items.append(self.period_until)
+            self.p_cont.items.extend([
+                self.ds_cont,
+                self.du_cont])
+
+            # Поля
+            self.print_all_sps = ExtCheckBox()
+            self.print_all_sps.name = "print_all_sps"
+            self.print_all_sps.label = u"Печатать по всему учреждению"
+
+            self.print_ent_detail = ExtCheckBox()
+            self.print_ent_detail.name = "print_ent_detail"
+            self.print_ent_detail.label = u"Детализация по учреждениям"
+
+            self.print_serv_detail = ExtCheckBox()
+            self.print_serv_detail.name = "print_serv_detail"
+            self.print_serv_detail.label = u"Детализация по услугам"
+
+            self.print_state_serv = ExtCheckBox()
+            self.print_state_serv.name = "print_state_serv"
+            self.print_state_serv.label = u"По государственным услугам"
+
+            self.print_paid_serv = ExtCheckBox()
+            self.print_paid_serv.name = "print_paid_serv"
+            self.print_paid_serv.label = u"По платным услугам"
+
+            # Контейнер для них
+            self.field_cont = ExtContainer(
+                label_width=335,
+                layout='form',
+                style={'padding': '2px'}
+            )
+
+            # Грид с группами
+            self.sp_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+            self.sp_grid.paging_bar = False
+            self.sp_grid.add_column(header=u"Группа", data_index="name")
+            self.sp_grid.action_data = urls.get_url("report-group-rows")
+            self.sp_grid.name = 'servicepoint_id'
+            self.sp_grid.height = 150
+            # Контейнер для него
+            self.sp_cont = ExtContainer(style={'padding': '2px'})
+            self.sp_cont.items.extend([self.sp_grid])
+
+            # Грид с детьми
+            self.knd_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+            self.knd_grid.paging_bar = False
+            self.knd_grid.add_column(header=u"Ребенок", data_index="name")
+            self.knd_grid.action_data = urls.get_url("report-kinder-rows")
+            self.knd_grid.name = 'kinder_id'
+            self.knd_grid.height = 150
+            # Контейнер для него
+            self.knd_cont = ExtContainer(style={'padding': '2px'})
+            self.knd_cont.items.extend([self.knd_grid])
+
+            # Грид с районами
+            self.rayon_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+            self.rayon_grid.paging_bar = False
+            self.rayon_grid.add_column(header=u"Районы", data_index="name")
+            self.rayon_grid.action_data = urls.get_url("report-rayon-rows")
+            self.rayon_grid.name = 'rayon_id'
+            self.rayon_grid.height = 150
+            # Контейнер для него
+            self.rayon_cont = ExtContainer(style={'padding': '2px'})
+            self.rayon_cont.items.extend([self.rayon_grid])
+
+            self.items.append(self.form)
+
+            # Описание кнопок
+            self.print_btn = ExtButton()
+            self.print_btn.name = 'print_btn'
+            self.print_btn.text = u"Печатать"
+            self.print_btn.handler = 'okHandler'
+            self.cancel_btn = ExtButton()
+            self.cancel_btn.name = 'cancel_btn'
+            self.cancel_btn.text = u"Закрыть"
+            self.cancel_btn.handler = 'closeHandler'
+            # Добавление кнопок в окно
+            self.buttons.extend([self.print_btn, self.cancel_btn])
+
+
+Файл логики на javascript - *~/templates/ui-js/BaseReportWindow.js*:
+
+    ::javascript
+
+
+    var win = Ext.getCmp("{{component.client_id}}");
+    var form = Ext.getCmp("{{component.form.client_id}}");
+    var sp_grid = Ext.getCmp("{{component.sp_grid.client_id}}");
+    var knd_grid = Ext.getCmp("{{component.knd_grid.client_id}}");
+    var rayon_grid = Ext.getCmp("{{component.rayon_grid.client_id}}");
+    var period_since = Ext.getCmp("{{component.period_since.client_id}}");
+    var period_until = Ext.getCmp("{{component.period_until.client_id}}");
+    var print_all_sps = Ext.getCmp("{{component.print_all_sps.client_id}}");
+    var print_state_serv = Ext.getCmp("{{component.print_state_serv.client_id}}");
+    var print_paid_serv = Ext.getCmp("{{component.print_paid_serv.client_id}}");
+    var print_serv_detail = Ext.getCmp("{{component.print_serv_detail.client_id}}");
+    var print_ent_detail = Ext.getCmp("{{component.print_ent_detail.client_id}}");
+    var service = Ext.getCmp("{{component.service_field.client_id}}");
+
+
+    function collectGridIds(grid){
+        var selIds = [];
+        var selRecords = grid.getSelectionModel().getSelections();
+        for (var j=0;j<selRecords.length;j++){
+            selIds.push(selRecords[j].id);
+        }
+        return Ext.util.JSON.encode(selIds);
+    }
+
+    if (print_all_sps){
+        print_all_sps.on("check", function(){
+            if (print_all_sps.getValue()){
+                if (sp_grid) sp_grid.getSelectionModel().selectAll();
+            } else {
+                if (sp_grid) sp_grid.getSelectionModel().clearSelections();
+            }
+        });
+    }
+
+    if (sp_grid){
+        sp_grid.getSelectionModel().on('selectionchange',function(){
+            if (knd_grid) knd_grid.getStore().load();
+        });
+    }
+
+    if (knd_grid){
+        knd_grid.getStore().on('beforeload', function(request){
+            request.baseParams["sps"] = collectGridIds(sp_grid);
+        });
+    }
+
+    //метод получения всех значений формы
+    function getSubmitValues(form){
+        if (!form) return {};
+        if (knd_grid && !knd_grid.getSelectionModel().hasSelection()) {
+            Ext.Msg.show({
+                 title: 'Внимание!',
+                 msg: 'Не выбрано ни одного ребенка для печати!',
+                 icon: Ext.MessageBox.WARNING,
+                 buttons: Ext.MessageBox.OK
+             });
+            return false;
+        }
+        if (rayon_grid && !rayon_grid.getSelectionModel().hasSelection()) {
+            Ext.Msg.show({
+                 title: 'Внимание!',
+                 msg: 'Не выбрано ни одного района для печати!',
+                 icon: Ext.MessageBox.WARNING,
+                 buttons: Ext.MessageBox.OK
+             });
+            return false;
+        }
+        var params = {};
+        if (period_since) params['period_since'] = period_since.getValue();
+        if (period_until) params['period_until'] = period_until.getValue();
+        if (print_serv_detail) params['print_serv_detail'] = print_serv_detail.getValue();
+        if (print_ent_detail) params['print_ent_detail'] = print_ent_detail.getValue();
+        if (print_paid_serv) params['print_paid_serv'] = print_paid_serv.getValue();
+        if (print_state_serv) params['print_state_serv'] = print_state_serv.getValue();
+        if (print_all_sps) params['print_all_sps'] = print_all_sps.getValue();
+        if (sp_grid) params["sps"] = collectGridIds(sp_grid);
+        if (knd_grid) params["knds"] = collectGridIds(knd_grid);
+        if (rayon_grid) params["rayons"] = collectGridIds(rayon_grid);
+        if (service) params["service"] = service.getValue();
+        return params;
+    }
+
+    function okHandler(btn, arguments){
+        var formParams = getSubmitValues(form);
+        if (!formParams) return;
+        var mask = new Ext.LoadMask(win.body, {msg:'Подготовка формы...'});
+        var params = Ext.apply(win.actionContextJson, formParams || {});
+        mask.show();
+        btn.disable();
+        Ext.Ajax.request({
+             url:"{{component.form.url}}",
+             params: params,
+             success: function(response, opts){
+                 mask.hide();
+                 smart_eval(response.responseText);
+                 win.close();
+             },
+             failure: function(response, opts){
+                 uiAjaxFailMessage.apply(win, arguments);
+             },
+             timeout: 600000 //10минут
+         });
+    }
+
+    function closeHandler(btn, arguments){
+        win.close();
+    }
+
+
+
+### <a name="example-in-3">Как решается эта же задача на версии m3 3</a>
+
+Реализация экшена:
+
+    ::python
+
+    class CompensationInfoReportWindowAction(UIAction):
+        """
+        Вызов диалога "Информация о компенсации"
+        """
+        shortname = "compensation-info-report-window"
+        url = '/%s' % shortname
+        verbose_name = u'Окно настроек печати'
+
+        get_ui = lambda self, request, context: ui.CompensationInfoReportWindow(self)
+
+Реализация UI:
+
+    ::python
+
+    class CompensationInfoReportWindow(BaseReportWindow):
+        """
+        Окно настроек печати оборотки по районам
+        """
+        def __init__(self, parent=None):
+            super(CompensationInfoReportWindow, self).__init__()
+            self.submit_url = urls.get_url("compensation-info-report")
+            self.title = parent.verbose_name if parent else u''
+
+            # скорректируем высоту
+            self.height = 370
+            self.sp_grid.height = 290
+
+            # соберем нужные блоки
+            self.form.items.extend([
+                self.sp_cont
+            ])
+
+Класс-наследник для UI *BaseReportWindow*:
+
+    ::python
+
+    class BaseReportWindow(ExtWindow):
+        """
+        Базовое окно настроек ПФ с некоторыми частоиспользуемыми контролами
+        При наследовании от него нужно будет только переопределять
+        функции сборки отдельных блоков.
+        """
+        _xtype = 'base-report-window'
+
+        def __init__(self, *args, **kwargs):
+            super(BaseReportWindow, self).__init__(*args, **kwargs)
+            self.title = u""
+            self.height = 480
+            self.width = 380
+            self.minimizable = False
+            self.maximizable = False
+            # self.modal = True
+            # Компонент формы
+            self.form = ExtContainer()
+            self.form.url = ''
+            # Период
+            self.p_cont = ExtContainer(layout='hbox', height=30,
+                                       style={'padding': '5px'}
+            )
+            self.ds_cont = ExtContainer(layout='form', flex=1, label_width=59,
+                                        style={"padding-right": "5px"}
+            )
+            self.period_since = ExtDictSelectField(
+                anchor='100%',
+                name='period_since',
+                display_field='locale_period',
+                value_field="id",
+                label=u'Период с',
+                trigger_action=ExtDictSelectField.ALL,
+                ask_before_deleting=False,
+                hide_trigger=False,
+                hide_edit_trigger=True,
+                hide_clear_trigger=True,
+                hide_dict_select_trigger=True)
+            self.period_since.pack = urls.get_pack("global-periods")
+            self.ds_cont.items.append(self.period_since)
+
+            self.du_cont = ExtContainer(layout='form', flex=1, label_width=59)
+            self.period_until = ExtDictSelectField(
+                anchor='100%',
+                name='period_until',
+                display_field='locale_period',
+                value_field="id",
+                label=u'по',
+                trigger_action_all=True,
+                ask_before_deleting=False,
+                hide_trigger=False,
+                hide_edit_trigger=True,
+                hide_clear_trigger=True,
+                hide_dict_select_trigger=True)
+            self.period_until.pack = urls.get_pack("global-periods")
+            self.du_cont.items.append(self.period_until)
+            self.p_cont.items.extend([
+                self.ds_cont,
+                self.du_cont])
+
+            # Поля
+            self.print_all_sps = ExtCheckBox()
+            self.print_all_sps.name = "print_all_sps"
+            self.print_all_sps.label = u"Печатать по всему учреждению"
+
+            self.print_ent_detail = ExtCheckBox()
+            self.print_ent_detail.name = "print_ent_detail"
+            self.print_ent_detail.label = u"Детализация по учреждениям"
+
+            self.print_serv_detail = ExtCheckBox()
+            self.print_serv_detail.name = "print_serv_detail"
+            self.print_serv_detail.label = u"Детализация по услугам"
+
+            self.print_state_serv = ExtCheckBox()
+            self.print_state_serv.name = "print_state_serv"
+            self.print_state_serv.label = u"По государственным услугам"
+
+            self.print_paid_serv = ExtCheckBox()
+            self.print_paid_serv.name = "print_paid_serv"
+            self.print_paid_serv.label = u"По платным услугам"
+
+            # Контейнер для них
+            self.field_cont = ExtContainer(
+                label_width=335,
+                layout='form',
+                style={'padding': '5px'}
+            )
+
+            # Грид с группами
+            self.sp_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+            self.sp_grid.allow_paging = False
+            self.sp_grid.add_column(header=u"Группа", data_index="name")
+            self.sp_grid.action_data = urls.get_url("report-group-rows")
+            self.sp_grid.name = 'servicepoint_id'
+            self.sp_grid.height = 150
+            # Контейнер для него
+            self.sp_cont = ExtContainer()
+            self.sp_cont.items.extend([self.sp_grid])
+
+            # Грид с детьми
+            self.knd_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+            self.knd_grid.allow_paging = False
+            self.knd_grid.add_column(header=u"Ребенок", data_index="name")
+            self.knd_grid.action_data = urls.get_url("report-kinder-rows")
+            self.knd_grid.name = 'kinder_id'
+            self.knd_grid.height = 150
+            # Контейнер для него
+            self.knd_cont = ExtContainer()
+            self.knd_cont.items.extend([self.knd_grid])
+
+            # Грид с районами
+            self.rayon_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+            self.rayon_grid.allow_paging = False
+            self.rayon_grid.add_column(header=u"Районы", data_index="name")
+            self.rayon_grid.action_data = urls.get_url("report-rayon-rows")
+            self.rayon_grid.name = 'rayon_id'
+            self.rayon_grid.height = 150
+            # Контейнер для него
+            self.rayon_cont = ExtContainer()
+            self.rayon_cont.items.extend([self.rayon_grid])
+
+            self.items.append(self.form)
+
+            # Описание кнопок
+            self.print_btn = ExtButton()
+            self.print_btn.name = 'print_btn'
+            self.print_btn.text = u"Печатать"
+            self.print_btn.handler = 'okHandler'
+            self.cancel_btn = ExtButton()
+            self.cancel_btn.name = 'cancel_btn'
+            self.cancel_btn.text = u"Закрыть"
+            self.cancel_btn.handler = 'close'
+            # Добавление кнопок в окно
+            self.buttons.extend([self.print_btn, self.cancel_btn])
+
+Файл логики на javascript - *~/static/js/base-report-window.js*
+
+
+    ::javascript
+
+    Ext.define('Ext.paidserv.BaseReportWindow', {
+        extend: 'Ext.m3.Window',
+        xtype: 'base-report-window',
+        initComponent: function () {
+            this.callParent();
+
+            this.form = this.findByItemId('form');
+            this.sp_grid = this.findByItemId('sp_grid');
+            this.knd_grid = this.findByItemId('knd_grid');
+            this.rayon_grid = this.findByItemId('rayon_grid');
+            this.period_since = this.findByItemId('period_since');
+            this.period_until = this.findByItemId('period_until');
+            this.print_all_sps = this.findByItemId('print_all_sps');
+            this.print_state_serv = this.findByItemId('print_state_serv');
+            this.print_paid_serv = this.findByItemId('print_paid_serv');
+            this.print_serv_detail = this.findByItemId('print_serv_detail');
+            this.print_ent_detail = this.findByItemId('print_ent_detail');
+            this.service = this.findByItemId('service');
+
+
+            if (this.print_all_sps) {
+                this.print_all_sps.on("check", function () {
+                    if (this.print_all_sps.getValue()) {
+                        if (this.sp_grid) {
+                            this.sp_grid.getSelectionModel().selectAll();
+                        }
+                    } else {
+                        if (this.sp_grid) {
+                            this.sp_grid.getSelectionModel().clearSelections();
+                        }
+                    }
+                }.bind(this));
+            }
+
+            if (this.sp_grid) {
+                this.sp_grid.getSelectionModel().on('selectionchange', function () {
+                    if (this.knd_grid) {
+                        this.knd_grid.getStore().load();
+                    }
+                }, this);
+            }
+
+            if (this.knd_grid) {
+                this.knd_grid.getStore().on('beforeload', function (request) {
+                    request.baseParams["sps"] = this.collectGridIds(this.sp_grid);
+                }, this);
+            }
+
+        },
+
+        collectGridIds: function (grid) {
+            var selIds = [],
+                selRecords = grid.getSelectionModel().getSelections();
+            for (var j = 0; j < selRecords.length; j++) {
+                selIds.push(selRecords[j].id);
+            }
+            return Ext.encode(selIds);
+        },
+
+        //метод получения всех значений формы
+        getSubmitValues: function (form) {
+            if (!form) return {};
+            if (this.knd_grid && !this.knd_grid.getSelectionModel().hasSelection()) {
+                Ext.Msg.show({
+                    title: 'Внимание!',
+                    msg: 'Не выбрано ни одного ребенка для печати!',
+                    icon: Ext.MessageBox.WARNING,
+                    buttons: Ext.MessageBox.OK
+                });
+                return false;
+            }
+            if (this.rayon_grid && !this.rayon_grid.getSelectionModel().hasSelection()) {
+                Ext.Msg.show({
+                    title: 'Внимание!',
+                    msg: 'Не выбрано ни одного района для печати!',
+                    icon: Ext.MessageBox.WARNING,
+                    buttons: Ext.MessageBox.OK
+                });
+                return false;
+            }
+            var params = {};
+            if (this.period_since) {
+                params['period_since'] = this.period_since.getValue();
+            }
+            if (this.period_until) {
+                params['period_until'] = this.period_until.getValue();
+            }
+            if (this.print_serv_detail) {
+                params['print_serv_detail'] = this.print_serv_detail.getValue();
+            }
+            if (this.print_ent_detail) {
+                params['print_ent_detail'] = this.print_ent_detail.getValue();
+            }
+            if (this.print_paid_serv) {
+                params['print_paid_serv'] = this.print_paid_serv.getValue();
+            }
+            if (this.print_state_serv) {
+                params['print_state_serv'] = this.print_state_serv.getValue();
+            }
+            if (this.print_all_sps) {
+                params['print_all_sps'] = this.print_all_sps.getValue();
+            }
+            if (this.sp_grid) {
+                params["sps"] = this.collectGridIds(this.sp_grid);
+            }
+            if (this.knd_grid) {
+                params["knds"] = this.collectGridIds(this.knd_grid);
+            }
+            if (this.rayon_grid) {
+                params["rayons"] = this.collectGridIds(this.rayon_grid);
+            }
+            if (this.service) {
+                params["service"] = this.service.getValue();
+            }
+            return params;
+        },
+
+        okHandler: function (btn, arguments) {
+            var formParams = this.getSubmitValues(this.form);
+            if (!formParams) {
+                return;
+            }
+
+            UI.callAction.call(this, {
+                method: 'POST',
+                url: this.submitUrl,
+                params: Ext.apply(formParams || {}, this.getContext()),
+                success: this.close.createDelegate(this),
+                failure: uiAjaxFailMessage,
+                timeout: 600000 // 10 минут
+            });
+
+        },
+
+        bind: function (data) {
+            this.submitUrl = data['submit_url'];
+        }
+    });
+
+
+Как видим отличия как правило заключаются в качественно другом представлении javascript-кода.

@@ -73,27 +73,32 @@
     
     <h1>Инструкция по переходу на M3 3.0</h1>
     <div><h3>Содержание</h3>
-<ol>
-<li>Ключевые отличия</li>
-<li>Перевод проекта<ul>
-<li>Что нужно сделать вначале?</li>
-<li>Перевод экшенов<ul>
-<li>Стандартные экшены и паки</li>
-<li>Обновленный Context Declaration</li>
-<li>Перевод справочников на objectpack</li>
-<li>Зависимые Master/Detail компоненты</li>
+<ul>
+<li><a href="../stories/migration-guide-to-m3-30.html#key-difference">Ключевые отличия от версии M3 2</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#product-refactoring">Перевод продукта</a><ul>
+<li><a href="../stories/migration-guide-to-m3-30.html#starting-guide">Что нужно сделать вначале?</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#actions-refactoring">Перевод экшенов</a><ul>
+<li><a href="../stories/migration-guide-to-m3-30.html#standart-actions-packs">Стандартные экшены и паки</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#binding">Что стало с биндингом данных?</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#serialization">Сериализация объекта модели</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#context-declaration">Изменения в описании Context Declaration</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#migration-to-objectpack">Перевод справочников на objectpack</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#master-detail">Компоненты master-detail</a></li>
 </ul>
 </li>
-<li>UI<ul>
-<li>Плагины</li>
+<li><a href="../stories/migration-guide-to-m3-30.html#ui">UI</a><ul>
+<li><a href="../stories/migration-guide-to-m3-30.html#server-ui">UI на сервере</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#client-ui">UI на клиенте</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#ui-key-difference">Концептуальные отличия</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#promises">Promises</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#ui-breaking-changes">BREAKING CHANGES конструкций UI</a></li>
 </ul>
 </li>
-<li>Templates (template-globals)</li>
-<li>Работа со статикой</li>
+<li><a href="../stories/migration-guide-to-m3-30.html#example">Пример перевода</a></li>
 </ul>
 </li>
-</ol>
-<h3>Ключевые отличия</h3>
+</ul>
+<h3><a name="key-difference">Ключевые отличия</a></h3>
 <ul>
 <li>Браузер взаимодействует с сервером исключительно через json;</li>
 <li>Отказ от django templates (template-globals) в пользу static js-файлов;</li>
@@ -113,17 +118,17 @@
 <li>
 <p>"Справочниковые" экшены поддерживаются только
 <a href="http://objectpack.docs.bars-open.ru/">ObjectPack-ом</a>.
-Поэтому классы наследоваемые от паков или экшенов
-необходимо перевести на objectpack:</p>
+Поэтому классы наследоваемые от паков или экшенов</p>
 <ul>
 <li>m3.actions.dics.*</li>
 <li>m3.actions.packs.*</li>
 </ul>
 </li>
 </ul>
-<h3>Перевод проекта</h3>
-<h4>Что нужно сделать вначале?</h4>
-<p>Подготовка к запуску проекта на новой версии:</p>
+<p>необходимо перевести на objectpack.</p>
+<h3><a name="product-refactoring">Перевод продукта</a></h3>
+<h4><a name="starting-guide">Что нужно сделать вначале?</a></h4>
+<p>Подготовка к запуску продукта на новой версии:</p>
 <ul>
 <li>Необходимо сделать минимальное рабочее приложение на текущей ветке (dev), которое бы
 запускалось и могло бы отображать рабочий стол;</li>
@@ -131,8 +136,8 @@
 (будет являться примером), второе (<em>новое</em>) для версии, где будут происходить исправления;</li>
 <li>В рабочей версии нужно временно закоментировать максимальное количество приложений (модулей), без которых
 система сможет запускаться, то же самое проделать на версии с обновленной платформой;</li>
-<li>В корне проекта нужно создать файл TRASH.py, где будут находиться заглушки удаленных компонентов.
-Пример файла для проекта Род. плата можно посмотреть
+<li>В корне продукта нужно создать файл TRASH.py, где будут находиться заглушки удаленных компонентов.
+Пример файла для продукта Род. плата можно посмотреть
 <a href="https://gist.github.com/prefer/de542c929413195f466c">здесь</a>;</li>
 <li>Необходимо произвести переименование устаревших импортов на импорты из модуля TRASH.py</li>
 <li>Любые изменения, комментирования исходников сопровождаются тегом #NR,
@@ -141,19 +146,810 @@
 <p>Затем в несколько этапов нужно включать приложения в INSTALLED_APPS
 добавляя в TRASH.py новые классы-заглушки:</p>
 <ul>
-<li>Сначала зависимые модули;</li>
-<li>Затем оставшиеся приложения;</li>
-<li>И наконец плагины и сопутствующий функционал.</li>
+<li>cначала зависимые модули;</li>
+<li>затем оставшиеся приложения;</li>
+<li>и, наконец, плагины и сопутствующий функционал.</li>
 </ul>
 </li>
 <li>
 <p>По мере включения что-то может ломаться, в таком случае необходимо дополнять файл TRASH.py
 новыми классами-заглушками и делать импорты на этот файл;</p>
 </li>
-<li>В итоге получили рабочий стол с настроенным меню “Пуск” и верхним topbar-ом.
-Все окна остаются не рабочими.</li>
+<li>В итоге должны получить рабочий стол с настроенным меню “Пуск” и верхним topbar-ом.
+Все окна остаются нерабочими.</li>
 </ul>
-<h4>Стандартные экшены и паки</h4></div>
+<h3><a name="actions-refactoring">Перевод экшенов и паков</a></h3>
+<h4><a name="standart-actions-packs">Стандартные экшены и паки</a></h4>
+<p>Главным отличием является то, что новой версией поддерживаются
+исключительно стандартные классы:
+<a href="http://m3-core.docs.bars-open.ru/ru/latest/contents.html?highlight=action#m3.actions.__init__.Action">Action</a> и
+<a href="http://m3-core.docs.bars-open.ru/ru/latest/contents.html?highlight=action#m3.actions.__init__.ActionPack">ActionPack</a>.
+Для справочников и master-detail контейнеров необходимо использовать
+<a href="http://objectpack.docs.bars-open.ru/">objectpack</a>.</p>
+<p>Для отдачи UI появился новый базовый класс
+<a href="https://bitbucket.org/barsgroup/m3-ext/src/b4d06a2cdce7a250c79100daab036606452f20de/src/m3_ext/__init__.py?at=client-rendering#cl-14">UIAction</a>
+Который включает в себя два метода:</p>
+<ul>
+<li><em>get_ui</em> - возвращает экземпляр ExtUIComponent, либо словарь вида {
+            "config" :: dict - базовый конфиг окна
+            "data"   :: dict - базовые данные для инициализации окна
+        }</li>
+<li><em>get_result</em> - возвращает словарь вида {
+            "ui":     :: str  - url для получения базового конфига окна
+            "model"   :: dict - объект данных
+            "data":   :: dict - данные для конкретного окна
+        }</li>
+</ul>
+<p>В версии m3 3.0 отправляются три запроса при открытии нового окна (в порядке отправки):</p>
+<ul>
+<li>Получение данных в формате json;</li>
+<li>Получение ui в формате json;</li>
+<li>Получение js-представления в формате javascript-файла;</li>
+</ul>
+<p>Последовательность запросов при получении ui:</p>
+<ul>
+<li>Отправка запроса на <em>url</em>-экшена;</li>
+<li>Запрос приходит на сервер в метод <em>get_result</em> вместе с контекстом, возвращаются данные для формы;</li>
+<li>Клиент получив ответ с данными инициизирует запрос за ui по <em>url</em>-экшена с параметров <em>mode=ui</em>;</li>
+<li>Запрос приходит на сервер в метод <em>get_ui</em>, который возвращает экземпляр окна (или <em>ExtUIComponent</em>);</li>
+<li>Внутри m3-ext с помощью;
+ <a href="https://bitbucket.org/barsgroup/m3-ext/src/b4d06a2cdce7a250c79100daab036606452f20de/src/m3_ext/ui/results.py?at=client-rendering#cl-29">UIJsonEncoder</a>
+ окно серриализуется в json-представление;</li>
+<li>Клиент, получив ответ от сервера, в виде <em>json</em>-представления может сгенерировать запрос на <em>js</em>-представление по <em>xtype</em>
+ компоненту, если такой <em>xtype</em> еще не зарегестрирован;</li>
+<li><em>js</em>-представление, находящиеся в статике, отдается веб-сервером.</li>
+</ul>
+<p>Таким образом необходимо во всех экшенах, которые отдают ui, изменить класс-наследник от
+UIAction. Экшены, не отдающие ui менять не нужно.</p>
+<h4><a name="binding">Что стало с биндингом данных?</a></h4>
+<p>Под биндингом данных понимается автоматическое преобразование django-модели в extjs-форму и обратно. При условии, если
+названия атрибутов модели и формы совподают.</p>
+<p>Как было в версии m3 2.0 и раньше:</p>
+<ul>
+<li>
+<p>django model -&gt; extjs form (при загрузки имеющихся данных, например, при редактировании)</p>
+<p>В методе формы (ExtForm) был метод from_object, принимающий в качестве параметров объект модели,
+ и производящий сопоставллениеполя формы с полями модели. Затем заполненное данными окно рендерилось через
+ вызов метода render у окна. Таким образом получался js-код в совокупности с данными, который eval-лился на клиенте
+ в браузере.</p>
+</li>
+<li>
+<p>extjs form -&gt; django model (при сабмите данных, например, при сохранении элемента справочника)</p>
+<p>В методе формы (ExtForm) был метод bind_to_request, принимающий параметр - request. Данный метод производил
+заполнение формы.</p>
+<p>В методе формы (ExtForm) был метод to_object, принимающий в качестве параметра объект модели,
+который необходимо заполнить данными из окна. Затем модель валидировалась и сохронялась.</p>
+</li>
+</ul>
+<p>Как стало в версии m3 3.0:</p>
+<ul>
+<li>
+<p>django model -&gt; extjs form</p>
+<p>При использовании ExtEditWindow достаточно соблюсти правило биндинга - название атрибутов модели и
+UI-окна должны совпадать. Если по неким причинам название не совподают, то можно в js-представлении переопределить
+метод bind и внутри метода установить необходимый параметр или зависимость параметров.</p>
+</li>
+<li>
+<p>extjs form -&gt; django model</p>
+<p>Не изменился.</p>
+</li>
+</ul>
+<h4><a name="serialization">Сериализация объекта модели</a></h4>
+<p>При использовании objectpack появилась возможность указывать правила сериализации из объекта в словарь. Для этого
+необходимо добавить метод serialize(include=None, exclude=None) внутри которого объект модели доступен через self,
+необходимо вернуть словарь. Внутри можно использовать функцию <a href="https://bitbucket.org/barsgroup/m3-core/src/8ba2e89984028d2584d94acc5b2f17660199ab3f/src/m3/db/tools.py?at=client-render#cl-51">model_to_dict</a>
+для сериализации модели.</p>
+<p>Так же крайне желательно проводить сериализацию внутри модели и тогда, когда objectpack не используется. В этом случае
+внутри метода get_result экшена необходимо у полученного объекта вызвать метод serialize. Например:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">RemaindersDocDetail</span><span class="p">(</span><span class="n">BasePaidServObjectModel</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Табличная часть документа остатков</span>
+<span class="sd">    """</span>
+    <span class="n">remaindersdoc</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">RemaindersDoc</span><span class="p">)</span>
+    <span class="n">consumer</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">"domain.Consumer"</span><span class="p">)</span>
+    <span class="n">servicepoint</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">"domain.ServicePoint"</span><span class="p">)</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">"domain.Service"</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s">u'Услуга'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">bank_props</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">'domain.BankProps'</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s">u'Платежные реквизиты'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SmallIntegerField</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="n">RemaindersTypeEnum</span><span class="o">.</span><span class="n">get_choices</span><span class="p">(),</span>
+                                    <span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">RemaindersTypeEnum</span><span class="o">.</span><span class="n">DEBT</span><span class="p">)</span>
+    <span class="n">summa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">max_digits</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s">u'Признак выбывшего'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s">'finances_remainders_details'</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">u"Табличная часть остатков"</span>
+
+    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">model_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">RemaindersEditWindowAction</span><span class="p">(</span><span class="n">UIAction</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Окно редактирования остатков</span>
+<span class="sd">    """</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">'/edit-window'</span>
+
+    <span class="k">def</span> <span class="nf">context_declaration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"remainders_detail_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"consumer_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'sp_id'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'period'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+                <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"global_provider_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">get_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">RemaindersEditWindowAction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_result</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">remainders_detail_id</span><span class="p">:</span>
+            <span class="n">detail</span> <span class="o">=</span> <span class="n">RemaindersDocDetail</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">remainders_detail_id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">detail</span> <span class="o">=</span> <span class="n">RemaindersDocDetail</span><span class="p">()</span>
+
+        <span class="n">read_only</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">remainders_detail_id</span> <span class="ow">and</span> <span class="n">detail</span><span class="o">.</span><span class="n">remaindersdoc</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">RemaindersDocStateEnum</span><span class="o">.</span><span class="n">REGISTERED</span><span class="p">:</span>
+            <span class="n">read_only</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_pack_instance</span><span class="p">(</span><span class="s">'service-facts'</span><span class="p">)</span><span class="o">.</span><span class="n">has_sub_permission</span><span class="p">(</span>
+                <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+                <span class="n">urls</span><span class="o">.</span><span class="n">get_pack_instance</span><span class="p">(</span><span class="s">'service-facts'</span><span class="p">)</span><span class="o">.</span><span class="n">REMAINDERS_PERMISSION</span><span class="p">,</span>
+                <span class="n">request</span>
+        <span class="p">):</span>
+            <span class="n">read_only</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="n">result</span><span class="p">[</span><span class="s">'model'</span><span class="p">]</span> <span class="o">=</span> <span class="n">detail</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>
+        <span class="n">result</span><span class="p">[</span><span class="s">'data'</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s">'read_only'</span><span class="p">:</span> <span class="n">read_only</span><span class="p">,</span>
+            <span class="s">'submit_url'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">save_action</span><span class="o">.</span><span class="n">absolute_url</span><span class="p">()</span>
+        <span class="p">})</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">get_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">RemainderDetailEditWindow</span><span class="p">()</span>
+</pre></div>
+
+
+<h4><a name="context-declaration">Изменения в описании Context Declaration</a></h4>
+<p>Важное замечание: в ui-экшенах декларация контекста производится так же как и раньше - через определение метода
+context_declaration, но он декларирует параметры исключительно для метода get_result. Так как метод get_ui ничего не
+должен знать о контексте, поэтому туда контекст и не приходит.</p>
+<p>В версии 3.0 контекст может описываться с помощью словаря, пример:</p>
+<div class="code"><pre><span class="k">def</span> <span class="nf">context_declaration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s">'servicepoint_id'</span><span class="p">:</span> <span class="p">{</span><span class="s">'type'</span><span class="p">:</span> <span class="s">'int'</span><span class="p">},</span>
+        <span class="s">'assigned_service_id'</span><span class="p">:</span> <span class="p">{</span><span class="s">'type'</span><span class="p">:</span> <span class="s">'int_or_none'</span><span class="p">,</span>
+                                <span class="s">'verbose_name'</span><span class="p">:</span> <span class="s">u"Идентификатор типовой услуги"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>Это более предпочтительный пример, чем:</p>
+<div class="code"><pre><span class="k">def</span> <span class="nf">context_declaration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'start'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'limit'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">25</span><span class="p">),</span>
+        <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'date_since'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">date</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+        <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'date_until'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">date</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+        <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'filter'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+        <span class="n">ACD</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'servicepoint_id'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">]</span>
+</pre></div>
+
+
+<p>Так как не нужно импортировать и использовать дополнительные классы, такие как <a href="http://m3-core.docs.bars-open.ru/ru/latest/simple_usage.html?highlight=acd#m3.actions.context.ActionContextDeclaration">ACD</a>.
+К тому же удален параметр <em>required</em>,
+поэтому если указан параметр <em>default</em> - то параметр будет считаться не обязательным. <em>ACD</em> объявлен как <strong>deprecated</strong>.</p>
+<h4><a name="migration-to-objectpack)">Перевод справочников на objectpack</a></h4>
+<p>С версии M3 3.0 поддерживается исключительно механизм работы через <a href="http://objectpack.docs.bars-open.ru/">objectpack</a>
+со справочниками или с сущностями, которые
+поддерживают операции создания/редактирования/удаления. То есть считаются устаревшими механизмы работы через классы
+<em>BaseDictionaryActions</em>, <em>BaseDictionaryModelActions</em>, <em>BaseTreeDictionaryActions</em>, <em>BaseTreeDictionaryModelActions</em>.</p>
+<p>Поэтому перед переводом на версию M3 3.0 необходимо в качестве первой итерации перевести все подобные механизмы на
+objectpack.</p>
+<h4><a name="master-detail">Компоненты master-detail</a></h4>
+<p>Comming soon...</p>
+<h3><a name="ui">UI</a></h3>
+<h4><a name="server-ui">UI на сервере</a></h4>
+<p>В основном изменения затронули механизм рендеринга UI.</p>
+<p>Основные отличия:</p>
+<ul>
+<li>отказ от django-шаблонов в пользу сериализации в json-представлени;</li>
+<li>хранение внутри _<em>slots_</em>;</li>
+<li>отказ на клиенте от eval в пользу Ext.create</li>
+</ul>
+<p>Ключевое отличие - это отказ от django-шаблонизатора
+в пользу сериализация в json-представление. Фактически с версии m3 3.0 ui-представление должно возвращаться с сервера в виде
+json, которое в последствии на клиенте сериализуется и передается как параметр в функции <em>Ext.create</em>.
+Таким образом не используется <em>eval</em>, что существенно облегчает отладку.
+UI можно описывать как декларативно - через python-словарь, так и в старом стиле через описание классов.</p>
+<p>Пример использования декларативного стиля:</p>
+<div class="code"><pre><span class="n">win</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'xtype'</span><span class="p">:</span> <span class="s">'m3-window'</span><span class="p">,</span>
+    <span class="s">'height'</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="s">'width'</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+    <span class="s">'items'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s">'xtype'</span><span class="p">:</span> <span class="s">'form'</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Аналогично:</p>
+<div class="code"><pre><span class="n">win</span> <span class="o">=</span> <span class="n">ExtWindow</span><span class="p">(</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+    <span class="n">items</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">ExtForm</span><span class="p">()</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Или:</p>
+<div class="code"><pre><span class="n">win</span> <span class="o">=</span> <span class="n">ExtWindow</span><span class="p">()</span>
+<span class="n">win</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">win</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">win</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ExtForm</span><span class="p">())</span>
+</pre></div>
+
+
+<h4><a name="client-ui">UI на клиенте</a></h4>
+<p>Более подробную информацию по каждому компоненту и его работе можете найти в
+<a href="https://bitbucket.org/barsgroup/m3-ext/src/1cac8604bcc3c4e2979d014a062b60fa5c91e960/src/m3_ext/demo/?at=client-rendering">примерах использования</a>.
+Достаточно поставить проект <a href="https://bitbucket.org/barsgroup/m3-blank">m3-blank</a> и подключить в качестве приложения
+<em>m3_ext.demo</em></p>
+<p>До версии m3 3.0 функцию генерации UI выполнял django-шаблонизатор, который на каждый запрос отдавал js-представление.
+Оно впоследствии eval-лилось на клиенте с помощью функции <em>smart_eval</em>.</p>
+<p>Это выглядело примерно так:</p>
+<div class="code"><pre><span class="kd">var</span> <span class="nx">form</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.form.client_id}}"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tab_panel</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.tab_panel.client_id}}"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">other_props</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.other_props.client_id}}"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">inn2</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.inn2.client_id}}"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">kpp2</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.kpp2.client_id}}"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">name_other_org</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.name_other_org.client_id}}"</span><span class="p">);</span>
+
+<span class="nx">win</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'beforesubmit'</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">tab_panel</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nx">tab_panel</span><span class="p">.</span><span class="nx">activate</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">fill_bankprop_fields</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+    <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.bank1.client_id}}"</span><span class="p">).</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">namep</span><span class="p">);</span>
+    <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.bik.client_id}}"</span><span class="p">).</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">newnum</span><span class="p">);</span>
+    <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.bank_filial.client_id}}"</span><span class="p">).</span><span class="nx">setValue</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+    <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.correspondent_account.client_id}}"</span><span class="p">).</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">ksnp</span><span class="p">);</span>
+    <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.short_address.client_id}}"</span><span class="p">).</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">nnp</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">selectBankTemplate</span><span class="p">(){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">baseParams</span> <span class="o">=</span> <span class="p">{};</span>
+        <span class="nx">Ext</span><span class="p">.</span><span class="nx">Ajax</span><span class="p">.</span><span class="nx">request</span><span class="p">({</span>
+            <span class="nx">url</span><span class="o">:</span> <span class="s1">'{{ component.select_bank_url }}'</span><span class="p">,</span>
+            <span class="nx">params</span><span class="o">:</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">applyIf</span><span class="p">(</span><span class="nx">baseParams</span> <span class="o">||</span> <span class="p">{},</span> <span class="nx">win</span><span class="p">.</span><span class="nx">actionContextJson</span> <span class="o">||</span> <span class="p">{}),</span>
+            <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">,</span> <span class="nx">opts</span><span class="p">){</span>
+                <span class="nx">smart_eval</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+            <span class="p">},</span>
+            <span class="nx">failure</span><span class="o">:</span> <span class="nx">uiAjaxFailMessage</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">other_props</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"check"</span> <span class="p">,</span><span class="nx">setReadOnlyFunc</span><span class="p">);</span>
+<span class="nx">setReadOnlyFunc</span><span class="p">(</span><span class="nx">other_props</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">setReadOnlyFunc</span><span class="p">(</span><span class="nx">opt</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">opt</span><span class="p">.</span><span class="nx">getValue</span><span class="p">()){</span>
+        <span class="nx">inn2</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+        <span class="nx">kpp2</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+        <span class="nx">name_other_org</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nx">inn2</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="nx">kpp2</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="nx">name_other_org</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">win</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"fill_fields"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+    <span class="c1">//проверяем перед заменой, заполнены ли поля</span>
+    <span class="kd">var</span> <span class="nx">not_empty_str</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.bank1.client_id}}"</span><span class="p">).</span><span class="nx">value</span> <span class="o">+</span>
+                        <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.bik.client_id}}"</span><span class="p">).</span><span class="nx">value</span> <span class="o">+</span>
+                        <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.bank_filial.client_id}}"</span><span class="p">).</span><span class="nx">value</span> <span class="o">+</span>
+                        <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.correspondent_account.client_id}}"</span><span class="p">).</span><span class="nx">value</span> <span class="o">+</span>
+                        <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.short_address.client_id}}"</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">not_empty_str</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">Ext</span><span class="p">.</span><span class="nx">Msg</span><span class="p">.</span><span class="nx">show</span><span class="p">({</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">'Перезапись данных'</span><span class="p">,</span>
+            <span class="nx">msg</span><span class="o">:</span> <span class="s1">'Некоторые поля банковских реквизитов уже заполнены.&lt;br /&gt;Произвести перезапись?'</span><span class="p">,</span>
+            <span class="nx">buttons</span><span class="o">:</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">Msg</span><span class="p">.</span><span class="nx">YESNO</span><span class="p">,</span>
+            <span class="nx">fn</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">btn</span><span class="p">,</span> <span class="nx">text</span><span class="p">){</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">btn</span> <span class="o">==</span> <span class="s1">'yes'</span><span class="p">){</span>
+                    <span class="nx">fill_bankprop_fields</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nx">icon</span><span class="o">:</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">Msg</span><span class="p">.</span><span class="nx">WARNING</span>
+        <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">fill_bankprop_fields</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<ul>
+<li><em>component.form.client_id</em> - Возвращается идентификатор, по которому в дальнейшем производится поиск компонента
+в отрендеренном пространстве браузера;</li>
+<li><em>component.select_bank_url</em> - так передается url для последующего Ajax-запроса.</li>
+</ul>
+<p>Как стало сейчас:</p>
+<div class="code"><pre><span class="nx">Ext</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">'Ext.paidserv.BankPropsDictAddWindow'</span><span class="p">,</span> <span class="p">{</span>
+
+    <span class="nx">extend</span><span class="o">:</span> <span class="s1">'Ext.m3.EditWindow'</span><span class="p">,</span>
+    <span class="nx">xtype</span><span class="o">:</span> <span class="s1">'bank-props-dict-add-window'</span><span class="p">,</span>
+
+    <span class="nx">initComponent</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">callParent</span><span class="p">();</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">tab_panel</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'tab_panel'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">other_props</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'other_props'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">inn2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'inn2'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">kpp2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'kpp2'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">name_other_org</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'name_other_org'</span><span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">bank1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'bank1'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">bik</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'bik'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">bank_filial</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'bank_filial'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">correspondent_account</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'correspondent_account'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">short_address</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'short_address'</span><span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'beforesubmit'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">tab_panel</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">tab_panel</span><span class="p">.</span><span class="nx">activate</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">other_props</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"check"</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">setReadOnlyFunc</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'afterrender'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">setReadOnlyFunc</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">bank1</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'beforerequest'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cmp</span><span class="p">,</span> <span class="nx">req</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">req</span><span class="p">.</span><span class="nx">success</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">win</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">win</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'select'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onSelectBank</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="nx">win</span><span class="p">;</span>
+                <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">bank1</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'change'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onChangeBank</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onSelectBank</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cmp</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">displayText</span><span class="p">){</span>
+        <span class="c1">// достанем запись о банке</span>
+        <span class="kd">var</span> <span class="nx">bank_rec</span> <span class="o">=</span> <span class="nx">cmp</span><span class="p">.</span><span class="nx">grid</span><span class="p">.</span><span class="nx">getSelectionModel</span><span class="p">().</span><span class="nx">getSelected</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">bank1</span><span class="p">.</span><span class="nx">setRecord</span><span class="p">(</span><span class="nx">bank_rec</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">onChangeBank</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="nx">bank_rec</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bank1</span><span class="p">.</span><span class="nx">getRecord</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">bank_rec</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">bik</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">bank_rec</span><span class="p">.</span><span class="nx">json</span><span class="p">[</span><span class="s1">'newnum'</span><span class="p">]);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">bank_filial</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">correspondent_account</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">bank_rec</span><span class="p">.</span><span class="nx">json</span><span class="p">[</span><span class="s1">'ksnp'</span><span class="p">]);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">short_address</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">bank_rec</span><span class="p">.</span><span class="nx">json</span><span class="p">[</span><span class="s1">'nnp'</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">setReadOnlyFunc</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">other_props</span><span class="p">.</span><span class="nx">getValue</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">inn2</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">kpp2</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">name_other_org</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">inn2</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">kpp2</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">name_other_org</span><span class="p">.</span><span class="nx">setReadOnly</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">bind</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">callParent</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">});</span>
+</pre></div>
+
+
+<h4><a name="ui-key-difference">Концептуальные отличия</a></h4>
+<ul>
+<li>Каждый ui компонент на сервере должен иметь определенный <strong>xtype</strong>, каждый extjs-компонент должен зарегистрировать xtype</li>
+<li>
+<p>По аналогии с <em>xtype</em>, каждый плагин должен зарегестрировать <strong>ptype</strong>. Пример использования <em>ptype</em> в python-коде:</p>
+<div class="code"><pre><span class="c"># Было</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">charge_grid</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">'new Ext.ux.grid.GridSummary()'</span><span class="p">)</span>
+
+<span class="c"># Стало</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">charge_grid</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">'ptype'</span><span class="p">:</span> <span class="s">'gridsummary'</span><span class="p">})</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>js-представление, должно находиться в <strong>static</strong>-файлах так же должно иметь <em>xtype</em>. Для этого в <em>settings.py</em> в кортеж
+<strong>STATICFILES_FINDERS</strong> должен быть добавлен следующий элемент - <em>'m3.finders.RecursiveAppDirectoriesFinder'</em> -
+это позволит иметь папку <em>static</em> в любой вложенности приложения</p>
+</li>
+<li>Фактически на каждый старый <em>template-globals</em> необходимо создать новый класс в стиле ExtJs</li>
+<li>
+<p>Получение ссылки на вложенный компонент производится через вызов метода окна - <strong>findByItemId</strong>, поиск ведется по
+атрибуту <em>itemId</em>. Этот параметр можно задавать из python-кода, по-умолчанию подставляется название атрибута, например:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">MyWindow</span><span class="p">(</span><span class="n">ExtWindow</span><span class="p">):</span>
+
+    <span class="n">_xtype</span> <span class="o">=</span> <span class="s">'my-window'</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">form</span> <span class="o">=</span> <span class="n">ExtForm</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Такая конструкция равносильна python-коду</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">MyWindow</span><span class="p">(</span><span class="n">ExtWindow</span><span class="p">):</span>
+
+    <span class="n">_xtype</span> <span class="o">=</span> <span class="s">'my-window'</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ExtForm</span><span class="p">(</span><span class="n">item_id</span><span class="o">=</span><span class="s">'form'</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Это эквивалентно json-представлению вида:</p>
+<div class="code"><pre><span class="p">{</span>
+    <span class="s2">"xtype"</span><span class="o">:</span> <span class="s2">"my-window"</span><span class="p">,</span>
+    <span class="s2">"items"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">"xtype"</span><span class="o">:</span> <span class="s2">"form"</span><span class="p">,</span>
+        <span class="s2">"itemId"</span><span class="o">:</span> <span class="s2">"form"</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Все функции превратились в <strong>методы</strong> класса <em>Ext.paidserv.BankPropsDictAddWindow</em></p>
+</li>
+<li>Инициализация ссылок на компоненты производится в методе <strong>initComponent</strong></li>
+<li>В методе <strong>bind</strong> в качестве параметра <em>data</em> могут прийти различные urls, данные для формы и прочие данные, которые
+необходимо обработать, если они не обрабатываются в классах-наследниках.</li>
+<li>Скорость поиска компонент заметно улучшилась, так как глобальная функция <em>Ext.getCmp</em> работает объективно медленне
+поиска внутри компонента по <em>itemId</em></li>
+<li>Нет надобности использовать уникальные идентификаторы <em>client_id</em> для компонентов</li>
+<li>Удалена функция <em>smart_eval</em>, так как нет необходимости eval-ить полученый javascript-код, так как вместо него возвращается
+json</li>
+</ul>
+<h4><a name="promises">Promises</a></h4>
+<p>С версии m3 3.0 в javascript появилась возможность использовать механизм обещаний из библиотеки <a href="https://github.com/kriskowal/q">q.js</a>.
+Примеры работы и документацию можно найти на <a href="http://documentup.com/kriskowal/q/#tutorial">офф. сайте</a>.</p>
+<h5><a name="">API на основе promise-ов</a></h5>
+<ul>
+<li><strong>UI.evalResult</strong> - Сериализует в json и обрабатывает полученное значение, создавая экземпляр компонента</li>
+<li>
+<p><strong>UI.ajax</strong> - Загружает JSON AJAX-запросом и кладёт в promise, пример использования:</p>
+<div class="code"><pre><span class="c1">// Пример отправки запроса на сервер и отображение окна, если в качестве результата возвращается окно</span>
+<span class="nx">UI</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">context</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">UI</span><span class="p">.</span><span class="nx">evalResult</span><span class="p">)</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">uiAjaxFailMessage</span><span class="p">);</span>
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>UI.callAction</strong> - Производит вызов ajax-запроса, обработку его и возвращает promise. Внутри себя производит все
+необходимые действия по отображению окна, работе с масками, модальностью. Примеры:</p>
+<div class="code"><pre><span class="c1">// Пример отправки запроса на сервер с параметрами, получения json-результата и обработка результата</span>
+<span class="nx">UI</span><span class="p">.</span><span class="nx">callAction</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadSelectedQueryUrl</span><span class="p">,</span>
+    <span class="nx">method</span><span class="o">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">query_id</span><span class="o">:</span> <span class="nx">selected_query</span>
+    <span class="p">},</span>
+    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">query_str</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="s1">'query'</span><span class="p">]);</span>
+    <span class="p">}.</span><span class="nx">createDelegate</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
+    <span class="nx">failure</span><span class="o">:</span> <span class="nx">uiAjaxFailMessage</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>В случае успеха будет установлено значение в поле <em>this.query_str</em>.</p>
+<div class="code"><pre><span class="c1">// Пример отправки запроса на сервер, получение json-конфигурации окна и подписка на событие</span>
+<span class="nx">UI</span><span class="p">.</span><span class="nx">callAction</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grid_edit_url</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="nx">params</span><span class="p">,</span>
+    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">win</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">win</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'addRow'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">saveRec</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
+    <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>В случае успеха происходит подписание экземпляра окна на событие <em>addRow</em> совместно с реализацией обработчика.</p>
+</li>
+<li>
+<p><strong>UI.require</strong> - подгрузка модулей и их зависимостей. Пример использования:</p>
+<div class="code"><pre><span class="c1">// Пример отправки запроса на сервер, сириализация ответа и подтягивание зависимостей</span>
+<span class="c1">// перед созданием и отображением окна</span>
+<span class="nx">UI</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="nx">method</span><span class="o">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">rule_edit_url</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">baseParams</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">()</span> <span class="o">||</span> <span class="p">{})</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">UI</span><span class="p">.</span><span class="nx">evalResult</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Подтягиваем зависимости</span>
+        <span class="nx">UI</span><span class="p">.</span><span class="nx">require</span><span class="p">([</span><span class="nx">result</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="s1">'xtype'</span><span class="p">]])</span>
+        <span class="p">.</span><span class="nx">spread</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nx">result</span><span class="p">.</span><span class="nx">config</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">];</span>
+        <span class="p">}).</span><span class="nx">spread</span><span class="p">(</span><span class="nx">UI</span><span class="p">.</span><span class="nx">createWindow</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">uiAjaxFailMessage</span><span class="p">);</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h4><a name="ui-breaking-changes">BREAKING CHANGES конструкций UI</a></h4>
+<ul>
+<li>В классе <em>ExtGridColumn</em> атрибут <strong>column_render</strong> переименовался в атрибут <strong>render</strong></li>
+<li>В классах <em>ExtGrid</em> и <em>BaseExtTriggerField</em> (соотвественно, <em>ExtComboBox</em> и <em>ExtDictSelectField</em>) перестали существовать
+методы <strong>set_store</strong> и <strong>get_store</strong>. Так сейчас имеет место быть декларатиное описание компонентов, устанавливать <em>store</em>
+необходимо через прямое присваивание.</li>
+<li>Класс <strong>ExtTreeNode</strong> перестал существовать, вместо него необходимо использовать стандарный <strong>dict</strong></li>
+<li>
+<p>Атрибут класса <em>ExtGridColumn</em> <strong>summaryType</strong> раньше хранил значения вида, пример:</p>
+<div class="code"><pre> <span class="p">{</span>
+    <span class="s">'header'</span><span class="p">:</span> <span class="s">u'Сумма'</span><span class="p">,</span>
+    <span class="s">'data_index'</span><span class="p">:</span> <span class="s">'summa'</span><span class="p">,</span>
+    <span class="s">'sortable'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s">'align'</span><span class="p">:</span> <span class="s">'right'</span><span class="p">,</span>
+    <span class="s">'renderer'</span><span class="p">:</span> <span class="s">'FloatRenderer'</span><span class="p">,</span>
+    <span class="s">'width'</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s">'extra'</span><span class="p">:</span> <span class="p">{</span><span class="s">'summaryType'</span><span class="p">:</span> <span class="s">'"sum"'</span><span class="p">},</span>
+<span class="p">},</span>
+</pre></div>
+
+
+<p><strong>sum</strong>, сейчас необходимость использовать "строку в строке" пропала, нужно использовать <strong>sum</strong> как значение,
+например:</p>
+<div class="code"><pre> <span class="p">{</span>
+    <span class="s">'header'</span><span class="p">:</span> <span class="s">u'Сумма'</span><span class="p">,</span>
+    <span class="s">'data_index'</span><span class="p">:</span> <span class="s">'summa'</span><span class="p">,</span>
+    <span class="s">'sortable'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s">'align'</span><span class="p">:</span> <span class="s">'right'</span><span class="p">,</span>
+    <span class="s">'renderer'</span><span class="p">:</span> <span class="s">'FloatRenderer'</span><span class="p">,</span>
+    <span class="s">'width'</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s">'extra'</span><span class="p">:</span> <span class="p">{</span><span class="s">'summaryType'</span><span class="p">:</span> <span class="s">'sum'</span><span class="p">},</span>
+<span class="p">},</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Все функции-хенлдеры или рендереры будут искаться в skope окна как обработчики, то есть при написании конструкции</p>
+<div class="code"><pre><span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">ExtObjectGrid</span><span class="p">(</span>
+    <span class="n">region</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span>
+    <span class="n">sm</span><span class="o">=</span><span class="n">ExtGridCheckBoxSelModel</span><span class="p">())</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'№'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">renderer</span><span class="o">=</span><span class="s">"AutoRenderer"</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'Состояние'</span><span class="p">,</span>
+    <span class="n">data_index</span><span class="o">=</span><span class="s">'state_verbose'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'Дата документа'</span><span class="p">,</span>
+    <span class="n">data_index</span><span class="o">=</span><span class="s">'docdate'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'Дата операции'</span><span class="p">,</span>
+    <span class="n">data_index</span><span class="o">=</span><span class="s">'operdate'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'Номер'</span><span class="p">,</span>
+    <span class="n">data_index</span><span class="o">=</span><span class="s">'docnum'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+    <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'Позиции'</span><span class="p">,</span>
+    <span class="n">data_index</span><span class="o">=</span><span class="s">'count'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+    <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'Сумма'</span><span class="p">,</span>
+    <span class="n">data_index</span><span class="o">=</span><span class="s">'summa'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">align</span><span class="o">=</span><span class="s">"right"</span><span class="p">,</span>
+    <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">renderer</span><span class="o">=</span><span class="s">"FloatRenderer"</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'Тип'</span><span class="p">,</span>
+    <span class="n">data_index</span><span class="o">=</span><span class="s">'type_verbose'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+    <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+    <span class="n">header</span><span class="o">=</span><span class="s">u'Комментарий'</span><span class="p">,</span>
+    <span class="n">data_index</span><span class="o">=</span><span class="s">'comment'</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span>
+    <span class="n">sortable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c"># кнопки в верхней панели грида</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">top_bar</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ExtButton</span><span class="p">(</span>
+    <span class="n">text</span><span class="o">=</span><span class="s">u'Зарегистрировать'</span><span class="p">,</span>
+    <span class="n">icon_cls</span><span class="o">=</span><span class="s">'x-form-file-icon'</span><span class="p">,</span>
+    <span class="n">handler</span><span class="o">=</span><span class="s">'enableRegistration'</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Необходимо, чтобы функция <em>AutoRenderer</em>, <em>FloatRenderer</em> и <em>enableRegistration</em> были в ExtJs-классе окна, например:</p>
+<div class="code"><pre><span class="nx">Ext</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">'Ext.paidserv.CorrDocsArchiveWindow'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">extend</span><span class="o">:</span> <span class="s1">'Ext.m3.Window'</span><span class="p">,</span>
+    <span class="nx">xtype</span><span class="o">:</span> <span class="s1">'corrdocs-archive-window'</span><span class="p">,</span>
+
+    <span class="nx">AutoRenderer</span><span class="o">:</span> <span class="nx">AutoRenderer</span><span class="p">,</span> <span class="c1">// ссылка на глобальную функцию</span>
+    <span class="nx">FloatRenderer</span><span class="o">:</span> <span class="nx">FloatRenderer</span><span class="p">,</span>
+    <span class="nx">StateRenderer</span><span class="o">:</span> <span class="nx">StateRenderer</span><span class="p">,</span>
+
+    <span class="nx">bind</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">callParent</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">readOnly</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setBlocked</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">readOnly</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">readOnlyExclude</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">grid</span><span class="p">.</span><span class="nx">getTopToolbar</span><span class="p">().</span><span class="nx">getComponent</span><span class="p">(</span><span class="s1">'button_edit'</span><span class="p">).</span><span class="nx">setText</span><span class="p">(</span><span class="s1">'Просмотр'</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setTitle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">date_since</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dateSince</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">date_until</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dateUntil</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">register_submit_url</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">register_submit_url</span><span class="p">;</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">debtWindowUrl</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="s1">'debtWindowUrl'</span><span class="p">];</span>
+    <span class="p">},</span>
+
+    <span class="p">...</span>
+
+    <span class="nx">enableRegistration</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">actionType</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">registerAction</span><span class="p">(</span><span class="nx">actionType</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">registerAction</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">actionType</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//получаем выделенные строки</span>
+        <span class="kd">var</span> <span class="nx">selRecords</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">grid</span><span class="p">.</span><span class="nx">getSelectionModel</span><span class="p">().</span><span class="nx">getSelections</span><span class="p">(),</span>
+            <span class="nx">selectedId</span> <span class="o">=</span> <span class="p">[],</span>
+            <span class="nx">i</span><span class="p">,</span>
+            <span class="nx">maskText</span> <span class="o">=</span> <span class="nx">actionType</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">?</span> <span class="s1">'Регистрация документа'</span> <span class="o">:</span> <span class="s1">'Снятие регистрации документа'</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">selRecords</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">selectedId</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">selRecords</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">UI</span><span class="p">.</span><span class="nx">callAction</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">loadMaskText</span><span class="o">:</span> <span class="nx">maskText</span><span class="p">,</span>
+            <span class="nx">url</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">register_submit_url</span><span class="p">,</span>
+            <span class="nx">params</span><span class="o">:</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">applyIf</span><span class="p">({</span><span class="s1">'ids'</span><span class="o">:</span> <span class="nx">selectedId</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">','</span><span class="p">),</span>
+                <span class="s2">"action_type"</span><span class="o">:</span> <span class="nx">actionType</span><span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">getContext</span><span class="p">()),</span>
+            <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">,</span> <span class="nx">opts</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">grid</span><span class="p">.</span><span class="nx">getSelectionModel</span><span class="p">().</span><span class="nx">clearSelections</span><span class="p">();</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">grid</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">load</span><span class="p">();</span>
+            <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
+            <span class="nx">failure</span><span class="o">:</span> <span class="nx">uiAjaxFailMessage</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Однако функция <strong>summaryRenderer</strong> не может быть задана в качестве строкового представления в python-коде, такую функцию
+необходимо устанавливать в extjs-представлении, например:</p>
+<div class="code"><pre>    <span class="nx">setSummaryRenderer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">grid</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">func</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">cm</span><span class="p">,</span> <span class="nx">col</span><span class="p">;</span>
+        <span class="nx">cm</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getColumnModel</span><span class="p">();</span>
+        <span class="nx">col</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">findColumnIndex</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+        <span class="nx">cm</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">col</span><span class="p">].</span><span class="nx">summaryRenderer</span> <span class="o">=</span> <span class="nx">func</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">setSummaryRenderer</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">grid</span><span class="p">,</span> <span class="s1">'state_verbose'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'Итого по документам:'</span>
+    <span class="p">});</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Все вызовы <em>Ext.Ajax.request</em>, которые внутри себя вызывали <strong>smart_eval</strong> должны быть переписаны в концепции с
+функции <em>UI.callAction</em></p>
+</li>
+<li>
+<p>Удалены классы <strong>ExtJsonReader</strong> и <strong>ExtDataReader</strong>, вместо использования этих классов необходимо все параметры
+передавать в <strong>ExtStore</strong>, например:</p>
+<div class="code"><pre><span class="c"># Было</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">reader</span> <span class="o">=</span> <span class="n">ExtJsonReader</span><span class="p">(</span><span class="n">total_property</span><span class="o">=</span><span class="s">'total'</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s">'rows'</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">set_fields</span><span class="p">(</span>
+    <span class="s">'id'</span><span class="p">,</span>
+    <span class="s">'identical'</span><span class="p">,</span>
+    <span class="s">'tab_num'</span><span class="p">,</span>
+    <span class="s">'fio'</span><span class="p">,</span> <span class="s">'consumer_id'</span><span class="p">,</span>
+    <span class="s">'service_ref_name'</span><span class="p">,</span> <span class="s">'service_id'</span><span class="p">,</span>
+    <span class="s">'bank_props_name'</span><span class="p">,</span> <span class="s">'bank_props_id'</span><span class="p">,</span>
+    <span class="s">'servicepoint_ref_name'</span><span class="p">,</span> <span class="s">'servicepoint_id'</span><span class="p">,</span>
+    <span class="s">'summa'</span><span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">ExtGroupingStore</span><span class="p">(</span><span class="n">auto_load</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s">'rows'</span><span class="p">,</span> <span class="n">id_property</span><span class="o">=</span><span class="s">'id'</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">reader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reader</span>
+
+<span class="c"># Стало</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">ExtGroupingStore</span><span class="p">(</span>
+    <span class="n">auto_load</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">root</span><span class="o">=</span><span class="s">'rows'</span><span class="p">,</span>
+    <span class="n">id_property</span><span class="o">=</span><span class="s">'id'</span><span class="p">,</span>
+    <span class="n">total_property</span><span class="o">=</span><span class="s">'total'</span><span class="p">,</span>
+    <span class="n">root</span><span class="o">=</span><span class="s">'rows'</span><span class="p">,</span>
+    <span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+        <span class="s">'id'</span><span class="p">,</span>
+        <span class="s">'identical'</span><span class="p">,</span>
+        <span class="s">'tab_num'</span><span class="p">,</span>
+        <span class="s">'fio'</span><span class="p">,</span> <span class="s">'consumer_id'</span><span class="p">,</span>
+        <span class="s">'service_ref_name'</span><span class="p">,</span> <span class="s">'service_id'</span><span class="p">,</span>
+        <span class="s">'bank_props_name'</span><span class="p">,</span> <span class="s">'bank_props_id'</span><span class="p">,</span>
+        <span class="s">'servicepoint_ref_name'</span><span class="p">,</span> <span class="s">'servicepoint_id'</span><span class="p">,</span>
+        <span class="s">'summa'</span><span class="p">]</span>
+    <span class="p">)</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Атрибут <strong>triiger_action_all</strong> в класс <em>ExtDictSelectField</em> был переименован в <strong>trigger_action</strong>, пример использования:</p>
+<div class="code"><pre><span class="c"># Было</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">servicepoint_field</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ExtDictSelectField</span><span class="p">(</span>
+    <span class="n">anchor</span><span class="o">=</span><span class="s">'90%'</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">'servicepoint'</span><span class="p">,</span>
+    <span class="n">display_field</span><span class="o">=</span><span class="s">'name'</span><span class="p">,</span>
+    <span class="n">value_field</span><span class="o">=</span><span class="s">"id"</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s">u'Группа'</span><span class="p">,</span>
+    <span class="n">trigger_action_all</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="c"># False = query, True = all</span>
+    <span class="n">ask_before_deleting</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">hide_trigger</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">hide_edit_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">190</span><span class="p">)</span>
+
+<span class="c"># Стало</span>
+ <span class="bp">self</span><span class="o">.</span><span class="n">servicepoint_field</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ExtDictSelectField</span><span class="p">(</span>
+    <span class="n">anchor</span><span class="o">=</span><span class="s">'90%'</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">'servicepoint'</span><span class="p">,</span>
+    <span class="n">display_field</span><span class="o">=</span><span class="s">'name'</span><span class="p">,</span>
+    <span class="n">value_field</span><span class="o">=</span><span class="s">"id"</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s">u'Группа'</span><span class="p">,</span>
+    <span class="n">trigger_action</span><span class="o">=</span><span class="n">ExtDictSelectField</span><span class="o">.</span><span class="n">QUERY</span><span class="p">,</span>
+    <span class="n">ask_before_deleting</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">hide_trigger</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">hide_edit_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">190</span><span class="p">)</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Было переименовано событие <strong>closed_ok</strong> в <strong>select</strong>, когда происходит выбор элемента в окне справочника.</p>
+</li>
+</ul>
+<h3><a name="example">Пример перевода</a></h3>
+<p>Comming soon...</p></div>
 
     </div>
     </div>

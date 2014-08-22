@@ -732,6 +732,7 @@ json</li>
 методы <strong>set_store</strong> и <strong>get_store</strong>. Так сейчас имеет место быть декларатиное описание компонентов, устанавливать <em>store</em>
 необходимо через прямое присваивание.</li>
 <li>Класс <strong>ExtTreeNode</strong> перестал существовать, вместо него необходимо использовать стандарный <strong>dict</strong></li>
+<li>Переименован атрибут <em>paging_bar</em> в компоненте <em>ExtGrid</em> в <strong>allow_paging</strong></li>
 <li>
 <p>Атрибут класса <em>ExtGridColumn</em> <strong>summaryType</strong> раньше хранил значения вида, пример:</p>
 <div class="code"><pre> <span class="p">{</span>
@@ -1296,7 +1297,7 @@ json</li>
 
 <p>Класс-наследник для UI <em>BaseReportWindow</em>,</p>
 <ul>
-<li>практически не изменился за исключением появления <em>xtype</em>, удаления <em>template-globals</em></li>
+<li>практически <a href="https://www.diffchecker.com/st0qdykz">не изменился</a> за исключением появления <em>xtype</em>, удаления <em>template-globals</em></li>
 <li>modal=True - уже не нужен, так как этот механизм заложен на уровне платформы</li>
 <li>используется нативное событие <em>close</em>, для кнопки "Выход".<div class="code"><pre><span class="k">class</span> <span class="nc">BaseReportWindow</span><span class="p">(</span><span class="n">ExtWindow</span><span class="p">):</span>
     <span class="sd">"""</span>

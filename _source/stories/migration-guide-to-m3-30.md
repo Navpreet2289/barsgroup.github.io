@@ -1219,7 +1219,7 @@ json
 
 ### <a name="example-in-3">Как решается эта же задача на версии m3 3</a>
 
-Реализация экшена:
+Реализация экшена ([diff](https://www.diffchecker.com/67gc3cfg)):
 
     ::python
 
@@ -1233,7 +1233,7 @@ json
 
         get_ui = lambda self, request, context: ui.CompensationInfoReportWindow(self)
 
-Реализация UI:
+Реализация UI ([diff](https://www.diffchecker.com/77zencej)):
 
     ::python
 

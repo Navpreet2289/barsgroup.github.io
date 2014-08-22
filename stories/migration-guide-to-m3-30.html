@@ -194,15 +194,15 @@ json-конфигурацию, а не python-код</li>
 <a href="https://bitbucket.org/barsgroup/m3-ext/src/b4d06a2cdce7a250c79100daab036606452f20de/src/m3_ext/__init__.py?at=client-rendering#cl-14">UIAction</a>
 Который включает в себя два метода:</p>
 <ul>
-<li><em>get_ui</em> - возвращает экземпляр ExtUIComponent, либо словарь вида {
+<li><em>get_ui</em> - возвращает экземпляр ExtUIComponent, либо словарь вида <code>{
             "config" :: dict - базовый конфиг окна
             "data"   :: dict - базовые данные для инициализации окна
-        }</li>
-<li><em>get_result</em> - возвращает словарь вида {
+        }</code></li>
+<li><em>get_result</em> - возвращает словарь вида <code>{
             "ui":     :: str  - url для получения базового конфига окна
             "model"   :: dict - объект данных
             "data":   :: dict - данные для конкретного окна
-        }</li>
+        }</code></li>
 </ul>
 <p>В версии m3 3 отправляются три запроса при открытии нового окна (в порядке отправки):</p>
 <ul>

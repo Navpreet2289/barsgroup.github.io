@@ -1294,8 +1294,11 @@ json</li>
 </pre></div>
 
 
-<p>Класс-наследник для UI <em>BaseReportWindow</em>:</p>
-<div class="code"><pre><span class="k">class</span> <span class="nc">BaseReportWindow</span><span class="p">(</span><span class="n">ExtWindow</span><span class="p">):</span>
+<p>Класс-наследник для UI <em>BaseReportWindow</em>,</p>
+<ul>
+<li>практически не изменился за исключением появления <em>xtype</em>, удаления <em>template-globals</em></li>
+<li>modal=True - уже не нужен, так как этот механизм заложен на уровне платформы</li>
+<li>используется нативное событие <em>close</em>, для кнопки "Выход".<div class="code"><pre><span class="k">class</span> <span class="nc">BaseReportWindow</span><span class="p">(</span><span class="n">ExtWindow</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Базовое окно настроек ПФ с некоторыми частоиспользуемыми контролами</span>
 <span class="sd">    При наследовании от него нужно будет только переопределять</span>
@@ -1432,6 +1435,8 @@ json</li>
 </pre></div>
 
 
+</li>
+</ul>
 <p>Файл логики на javascript - <em>~/static/js/base-report-window.js</em></p>
 <div class="code"><pre><span class="nx">Ext</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">'Ext.paidserv.BaseReportWindow'</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">extend</span><span class="o">:</span> <span class="s1">'Ext.m3.Window'</span><span class="p">,</span>

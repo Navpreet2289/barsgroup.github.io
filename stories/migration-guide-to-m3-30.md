@@ -1254,144 +1254,148 @@ json
                 self.sp_cont
             ])
 
-Класс-наследник для UI *BaseReportWindow*:
+Класс-наследник для UI *BaseReportWindow*,
 
-    ::python
+- практически не изменился за исключением появления *xtype*, удаления *template-globals*
+- modal=True - уже не нужен, так как этот механизм заложен на уровне платформы
+- используется нативное событие *close*, для кнопки "Выход".
 
-    class BaseReportWindow(ExtWindow):
-        """
-        Базовое окно настроек ПФ с некоторыми частоиспользуемыми контролами
-        При наследовании от него нужно будет только переопределять
-        функции сборки отдельных блоков.
-        """
-        _xtype = 'base-report-window'
+        ::python
 
-        def __init__(self, *args, **kwargs):
-            super(BaseReportWindow, self).__init__(*args, **kwargs)
-            self.title = u""
-            self.height = 480
-            self.width = 380
-            self.minimizable = False
-            self.maximizable = False
-            # self.modal = True
-            # Компонент формы
-            self.form = ExtContainer()
-            self.form.url = ''
-            # Период
-            self.p_cont = ExtContainer(layout='hbox', height=30,
-                                       style={'padding': '5px'}
-            )
-            self.ds_cont = ExtContainer(layout='form', flex=1, label_width=59,
-                                        style={"padding-right": "5px"}
-            )
-            self.period_since = ExtDictSelectField(
-                anchor='100%',
-                name='period_since',
-                display_field='locale_period',
-                value_field="id",
-                label=u'Период с',
-                trigger_action=ExtDictSelectField.ALL,
-                ask_before_deleting=False,
-                hide_trigger=False,
-                hide_edit_trigger=True,
-                hide_clear_trigger=True,
-                hide_dict_select_trigger=True)
-            self.period_since.pack = urls.get_pack("global-periods")
-            self.ds_cont.items.append(self.period_since)
+        class BaseReportWindow(ExtWindow):
+            """
+            Базовое окно настроек ПФ с некоторыми частоиспользуемыми контролами
+            При наследовании от него нужно будет только переопределять
+            функции сборки отдельных блоков.
+            """
+            _xtype = 'base-report-window'
 
-            self.du_cont = ExtContainer(layout='form', flex=1, label_width=59)
-            self.period_until = ExtDictSelectField(
-                anchor='100%',
-                name='period_until',
-                display_field='locale_period',
-                value_field="id",
-                label=u'по',
-                trigger_action_all=True,
-                ask_before_deleting=False,
-                hide_trigger=False,
-                hide_edit_trigger=True,
-                hide_clear_trigger=True,
-                hide_dict_select_trigger=True)
-            self.period_until.pack = urls.get_pack("global-periods")
-            self.du_cont.items.append(self.period_until)
-            self.p_cont.items.extend([
-                self.ds_cont,
-                self.du_cont])
+            def __init__(self, *args, **kwargs):
+                super(BaseReportWindow, self).__init__(*args, **kwargs)
+                self.title = u""
+                self.height = 480
+                self.width = 380
+                self.minimizable = False
+                self.maximizable = False
+                # self.modal = True
+                # Компонент формы
+                self.form = ExtContainer()
+                self.form.url = ''
+                # Период
+                self.p_cont = ExtContainer(layout='hbox', height=30,
+                                           style={'padding': '5px'}
+                )
+                self.ds_cont = ExtContainer(layout='form', flex=1, label_width=59,
+                                            style={"padding-right": "5px"}
+                )
+                self.period_since = ExtDictSelectField(
+                    anchor='100%',
+                    name='period_since',
+                    display_field='locale_period',
+                    value_field="id",
+                    label=u'Период с',
+                    trigger_action=ExtDictSelectField.ALL,
+                    ask_before_deleting=False,
+                    hide_trigger=False,
+                    hide_edit_trigger=True,
+                    hide_clear_trigger=True,
+                    hide_dict_select_trigger=True)
+                self.period_since.pack = urls.get_pack("global-periods")
+                self.ds_cont.items.append(self.period_since)
 
-            # Поля
-            self.print_all_sps = ExtCheckBox()
-            self.print_all_sps.name = "print_all_sps"
-            self.print_all_sps.label = u"Печатать по всему учреждению"
+                self.du_cont = ExtContainer(layout='form', flex=1, label_width=59)
+                self.period_until = ExtDictSelectField(
+                    anchor='100%',
+                    name='period_until',
+                    display_field='locale_period',
+                    value_field="id",
+                    label=u'по',
+                    trigger_action_all=True,
+                    ask_before_deleting=False,
+                    hide_trigger=False,
+                    hide_edit_trigger=True,
+                    hide_clear_trigger=True,
+                    hide_dict_select_trigger=True)
+                self.period_until.pack = urls.get_pack("global-periods")
+                self.du_cont.items.append(self.period_until)
+                self.p_cont.items.extend([
+                    self.ds_cont,
+                    self.du_cont])
 
-            self.print_ent_detail = ExtCheckBox()
-            self.print_ent_detail.name = "print_ent_detail"
-            self.print_ent_detail.label = u"Детализация по учреждениям"
+                # Поля
+                self.print_all_sps = ExtCheckBox()
+                self.print_all_sps.name = "print_all_sps"
+                self.print_all_sps.label = u"Печатать по всему учреждению"
 
-            self.print_serv_detail = ExtCheckBox()
-            self.print_serv_detail.name = "print_serv_detail"
-            self.print_serv_detail.label = u"Детализация по услугам"
+                self.print_ent_detail = ExtCheckBox()
+                self.print_ent_detail.name = "print_ent_detail"
+                self.print_ent_detail.label = u"Детализация по учреждениям"
 
-            self.print_state_serv = ExtCheckBox()
-            self.print_state_serv.name = "print_state_serv"
-            self.print_state_serv.label = u"По государственным услугам"
+                self.print_serv_detail = ExtCheckBox()
+                self.print_serv_detail.name = "print_serv_detail"
+                self.print_serv_detail.label = u"Детализация по услугам"
 
-            self.print_paid_serv = ExtCheckBox()
-            self.print_paid_serv.name = "print_paid_serv"
-            self.print_paid_serv.label = u"По платным услугам"
+                self.print_state_serv = ExtCheckBox()
+                self.print_state_serv.name = "print_state_serv"
+                self.print_state_serv.label = u"По государственным услугам"
 
-            # Контейнер для них
-            self.field_cont = ExtContainer(
-                label_width=335,
-                layout='form',
-                style={'padding': '5px'}
-            )
+                self.print_paid_serv = ExtCheckBox()
+                self.print_paid_serv.name = "print_paid_serv"
+                self.print_paid_serv.label = u"По платным услугам"
 
-            # Грид с группами
-            self.sp_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
-            self.sp_grid.allow_paging = False
-            self.sp_grid.add_column(header=u"Группа", data_index="name")
-            self.sp_grid.action_data = urls.get_url("report-group-rows")
-            self.sp_grid.name = 'servicepoint_id'
-            self.sp_grid.height = 150
-            # Контейнер для него
-            self.sp_cont = ExtContainer()
-            self.sp_cont.items.extend([self.sp_grid])
+                # Контейнер для них
+                self.field_cont = ExtContainer(
+                    label_width=335,
+                    layout='form',
+                    style={'padding': '5px'}
+                )
 
-            # Грид с детьми
-            self.knd_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
-            self.knd_grid.allow_paging = False
-            self.knd_grid.add_column(header=u"Ребенок", data_index="name")
-            self.knd_grid.action_data = urls.get_url("report-kinder-rows")
-            self.knd_grid.name = 'kinder_id'
-            self.knd_grid.height = 150
-            # Контейнер для него
-            self.knd_cont = ExtContainer()
-            self.knd_cont.items.extend([self.knd_grid])
+                # Грид с группами
+                self.sp_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+                self.sp_grid.allow_paging = False
+                self.sp_grid.add_column(header=u"Группа", data_index="name")
+                self.sp_grid.action_data = urls.get_url("report-group-rows")
+                self.sp_grid.name = 'servicepoint_id'
+                self.sp_grid.height = 150
+                # Контейнер для него
+                self.sp_cont = ExtContainer()
+                self.sp_cont.items.extend([self.sp_grid])
 
-            # Грид с районами
-            self.rayon_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
-            self.rayon_grid.allow_paging = False
-            self.rayon_grid.add_column(header=u"Районы", data_index="name")
-            self.rayon_grid.action_data = urls.get_url("report-rayon-rows")
-            self.rayon_grid.name = 'rayon_id'
-            self.rayon_grid.height = 150
-            # Контейнер для него
-            self.rayon_cont = ExtContainer()
-            self.rayon_cont.items.extend([self.rayon_grid])
+                # Грид с детьми
+                self.knd_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+                self.knd_grid.allow_paging = False
+                self.knd_grid.add_column(header=u"Ребенок", data_index="name")
+                self.knd_grid.action_data = urls.get_url("report-kinder-rows")
+                self.knd_grid.name = 'kinder_id'
+                self.knd_grid.height = 150
+                # Контейнер для него
+                self.knd_cont = ExtContainer()
+                self.knd_cont.items.extend([self.knd_grid])
 
-            self.items.append(self.form)
+                # Грид с районами
+                self.rayon_grid = ExtObjectGrid(sm=ExtGridCheckBoxSelModel())
+                self.rayon_grid.allow_paging = False
+                self.rayon_grid.add_column(header=u"Районы", data_index="name")
+                self.rayon_grid.action_data = urls.get_url("report-rayon-rows")
+                self.rayon_grid.name = 'rayon_id'
+                self.rayon_grid.height = 150
+                # Контейнер для него
+                self.rayon_cont = ExtContainer()
+                self.rayon_cont.items.extend([self.rayon_grid])
 
-            # Описание кнопок
-            self.print_btn = ExtButton()
-            self.print_btn.name = 'print_btn'
-            self.print_btn.text = u"Печатать"
-            self.print_btn.handler = 'okHandler'
-            self.cancel_btn = ExtButton()
-            self.cancel_btn.name = 'cancel_btn'
-            self.cancel_btn.text = u"Закрыть"
-            self.cancel_btn.handler = 'close'
-            # Добавление кнопок в окно
-            self.buttons.extend([self.print_btn, self.cancel_btn])
+                self.items.append(self.form)
+
+                # Описание кнопок
+                self.print_btn = ExtButton()
+                self.print_btn.name = 'print_btn'
+                self.print_btn.text = u"Печатать"
+                self.print_btn.handler = 'okHandler'
+                self.cancel_btn = ExtButton()
+                self.cancel_btn.name = 'cancel_btn'
+                self.cancel_btn.text = u"Закрыть"
+                self.cancel_btn.handler = 'close'
+                # Добавление кнопок в окно
+                self.buttons.extend([self.print_btn, self.cancel_btn])
 
 Файл логики на javascript - *~/static/js/base-report-window.js*
 

@@ -122,7 +122,7 @@
 <a href="http://objectpack.docs.bars-open.ru/">ObjectPack-ом</a>.
 Поэтому классы наследоваемые от паков или экшенов</p>
 <ul>
-<li>m3.actions.dics.*</li>
+<li>m3.actions.dicts.*</li>
 <li>m3.actions.packs.*</li>
 </ul>
 </li>
@@ -239,7 +239,7 @@ UIAction. Экшены, не отдающие ui менять не нужно.</
 <p>В методе формы (ExtForm) был метод bind_to_request, принимающий параметр - request. Данный метод производил
 заполнение формы.</p>
 <p>В методе формы (ExtForm) был метод to_object, принимающий в качестве параметра объект модели,
-который необходимо заполнить данными из окна. Затем модель валидировалась и сохронялась.</p>
+который необходимо заполнить данными из окна. Затем модель валидировалась и сохранялась.</p>
 </li>
 </ul>
 <p>Как стало в версии m3 3:</p>
@@ -801,7 +801,7 @@ json</li>
 
 </li>
 <li>
-<p>Все функции-хенлдеры или рендереры будут искаться в skope окна как обработчики, то есть при написании конструкции</p>
+<p>Все функции-хенлдеры или рендереры будут искаться в sсope окна как обработчики:</p>
 <div class="code"><pre><span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">ExtObjectGrid</span><span class="p">(</span>
     <span class="n">region</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span>
     <span class="n">sm</span><span class="o">=</span><span class="n">ExtGridCheckBoxSelModel</span><span class="p">())</span>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Mon, 25 Aug 2014 11:26:51 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>M3 3.0</title><link>http://barsgroup.github.io/posts/m3-30.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;M3 3.0&lt;/strong&gt; - это новая версия m3, заточеная под клиентский рендеринг, разделение данных и графического интерфейса. Проведен
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Mon, 25 Aug 2014 13:32:22 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>M3 3.0</title><link>http://barsgroup.github.io/posts/m3-30.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;M3 3.0&lt;/strong&gt; - это новая версия m3, заточенная под клиентский рендеринг, разделение данных и графического интерфейса. Проведен
 значительный рефакторинг UI, удалены неиспользуемые компоненты, упрощена работа с существующими контролами.
 Значительно сократился объем данных, занимаемых в памяти, а так же время рендеринга компонентов.&lt;/p&gt;
 &lt;p&gt;Более того, переведен проект &lt;a href="http://bars-open.ru/solution/byudzhet-onlayn/platnye-uslugi/"&gt;БАРС Родительская Плата&lt;/a&gt;
@@ -10,7 +10,7 @@
 &lt;li&gt;Браузер взаимодействует с сервером исключительно через &lt;em&gt;json&lt;/em&gt;;&lt;/li&gt;
 &lt;li&gt;Отказ от &lt;em&gt;django templates&lt;/em&gt; (template-globals) в пользу static js-файлов;&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Если в m3 2 для получения формы с данными используется один ajax-запрос на сервер. То в версии
+&lt;p&gt;Если в m3 2 для получения формы с данными используется один ajax-запрос на сервер, то в версии
 3.0 будет последовательно генерироваться три запроса:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Запрос за данными;&lt;/li&gt;
@@ -24,7 +24,7 @@
 &lt;li&gt;Полная поддержка классов &lt;code&gt;Action&lt;/code&gt;, &lt;code&gt;ActionPack&lt;/code&gt;;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;"Справочниковые" экшены поддерживаются только
-&lt;a href="http://objectpack.docs.bars-open.ru/"&gt;ObjectPack&lt;/a&gt;-ом. Поэтому классы наследоваемые от паков или экшенов:&lt;/p&gt;
+&lt;a href="http://objectpack.docs.bars-open.ru/"&gt;ObjectPack&lt;/a&gt;-ом. Поэтому классы наследуемые от паков или экшенов:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;m3.actions.dics.*&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;m3.actions.packs.*&lt;/code&gt;&lt;/li&gt;

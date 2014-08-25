@@ -303,13 +303,54 @@ UIAction. Экшены, не отдающие ui менять не нужно.
 ```BaseDictionaryActions```, ```BaseDictionaryModelActions```, ```BaseTreeDictionaryActions```,
 ```BaseTreeDictionaryModelActions```.
 
-Поэтому перед переводом на версию M3 3 необходимо в качестве первой итерации перевести все подобные механизмы на
+Поэтому перед переводом на версию M3 3 необходимо в качестве первой итерации **перевести** все подобные механизмы на
 *objectpack*.
 
 
 ### <a name="master-detail">Компоненты master-detail</a>
 
-Comming soon...
+*MD*-представление теперь реализуется двумя паками - для master-грида(дерева) и для detail-грида соответственно.
+
+Master-pack имеет вид:
+
+    ::python
+    class ArticlePack(objectpack.ObjectPack):
+
+        model = Article
+
+        # list_window указывать не нужно, т.к. экшн этим занимается сам
+
+        def __init__(self):
+            super(ArticlePack, self).__init__()
+            self.replace_action(
+                'list_window_action', ArticleListWindowAction())
+
+
+Экшн, отвечающий за отображение MD-окна имеет вид:
+
+    ::python
+    class GarageMDWindowAction(objectpack.actions.MasterDetailWindowAction):
+
+        # Можно указать класс окна - потомка от MasterDetailWindow
+        #window_clz = ui.ArticleListWindow
+
+        @property
+        def detail_pack(self):
+            # возвращается экземпляр пака для detail-грида
+            return ControllerCache.find(CommentPack)
+
+        # здесь можно модифицировать окно перед его рендерингом,
+        # однако значительные изменения лучше производить в окне-наследнике
+        def create_window(self):
+            super(GarageMDWindowAction, self).create_window()
+            self.win.title = self.parent.title
+
+Типичная задача, решаемая наследованием типового окна - переопределение класса master grid. Например, в том случае, когда мастером должно быть дерево:
+
+    ::python
+    class ArticleListWindow(objectpack.ui.MasterDetailWindow):
+
+        master_grid_clz = ExtObjectTree
 
 ## <a name="ui">UI</a>
 
@@ -919,8 +960,16 @@ json
 
 ## <a name="example">Пример перевода</a>
 
+Возьмем для примера задачу, которая отрисовывает окно.
+Причем окно наследуется от продуктового базового класса, которое имеет определенную логику на javascript.
+Чтобы было более ясно, приложены diff-ки с отличиями. Слева пример версии m3 3, справа пример версии m3 2.
+
+
 - [Отличия](https://www.diffchecker.com/67gc3cfg) реализация экшена
 - [Отличия](https://www.diffchecker.com/77zencej) реализации UI
+
+    - ```submit_url``` - используется в методе ```bind```, файла *~/static/js/base-report-window.js* (далее)
+
 - [Отличия](https://www.diffchecker.com/st0qdykz) класса-наследника для UI *BaseReportWindow*
 
     - практически не изменился за исключением появления *xtype*, удаления *template-globals*
@@ -1048,8 +1097,10 @@ json
             ::javascript
 
             Ext.define('Ext.paidserv.BaseReportWindow', {
+
                 extend: 'Ext.m3.Window',
                 xtype: 'base-report-window',
+
                 initComponent: function () {
                     this.callParent();
 

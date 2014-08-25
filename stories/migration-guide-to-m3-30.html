@@ -364,10 +364,50 @@ UI-окна должны совпадать. Если по неким причи
 поддерживают операции создания/редактирования/удаления. То есть считаются устаревшими механизмы работы через классы
 <code>BaseDictionaryActions</code>, <code>BaseDictionaryModelActions</code>, <code>BaseTreeDictionaryActions</code>,
 <code>BaseTreeDictionaryModelActions</code>.</p>
-<p>Поэтому перед переводом на версию M3 3 необходимо в качестве первой итерации перевести все подобные механизмы на
+<p>Поэтому перед переводом на версию M3 3 необходимо в качестве первой итерации <strong>перевести</strong> все подобные механизмы на
 <em>objectpack</em>.</p>
 <h4><a name="master-detail">Компоненты master-detail</a></h4>
-<p>Comming soon...</p>
+<p><em>MD</em>-представление теперь реализуется двумя паками - для master-грида(дерева) и для detail-грида соответственно.</p>
+<p>Master-pack имеет вид:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">ArticlePack</span><span class="p">(</span><span class="n">objectpack</span><span class="o">.</span><span class="n">ObjectPack</span><span class="p">):</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Article</span>
+
+    <span class="c"># list_window указывать не нужно, т.к. экшн этим занимается сам</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ArticlePack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">replace_action</span><span class="p">(</span>
+            <span class="s">'list_window_action'</span><span class="p">,</span> <span class="n">ArticleListWindowAction</span><span class="p">())</span>
+</pre></div>
+
+
+<p>Экшн, отвечающий за отображение MD-окна имеет вид:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">GarageMDWindowAction</span><span class="p">(</span><span class="n">objectpack</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">MasterDetailWindowAction</span><span class="p">):</span>
+
+    <span class="c"># Можно указать класс окна - потомка от MasterDetailWindow</span>
+    <span class="c">#window_clz = ui.ArticleListWindow</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">detail_pack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># возвращается экземпляр пака для detail-грида</span>
+        <span class="k">return</span> <span class="n">ControllerCache</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">CommentPack</span><span class="p">)</span>
+
+    <span class="c"># здесь можно модифицировать окно перед его рендерингом,</span>
+    <span class="c"># однако значительные изменения лучше производить в окне-наследнике</span>
+    <span class="k">def</span> <span class="nf">create_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GarageMDWindowAction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">create_window</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">title</span>
+</pre></div>
+
+
+<p>Типичная задача, решаемая наследованием типового окна - переопределение класса master grid. Например, в том случае, когда мастером должно быть дерево:</p>
+<div class="code"><pre><span class="k">class</span> <span class="nc">ArticleListWindow</span><span class="p">(</span><span class="n">objectpack</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">MasterDetailWindow</span><span class="p">):</span>
+
+    <span class="n">master_grid_clz</span> <span class="o">=</span> <span class="n">ExtObjectTree</span>
+</pre></div>
+
+
 <h3><a name="ui">UI</a></h3>
 <h4><a name="server-ui">UI на сервере</a></h4>
 <p>В основном изменения затронули механизм рендеринга UI.</p>
@@ -970,9 +1010,17 @@ json</li>
 </li>
 </ul>
 <h3><a name="example">Пример перевода</a></h3>
+<p>Возьмем для примера задачу, которая отрисовывает окно.
+Причем окно наследуется от продуктового базового класса, которое имеет определенную логику на javascript.
+Чтобы было более ясно, приложены diff-ки с отличиями. Слева пример версии m3 3, справа пример версии m3 2.</p>
 <ul>
 <li><a href="https://www.diffchecker.com/67gc3cfg">Отличия</a> реализация экшена</li>
-<li><a href="https://www.diffchecker.com/77zencej">Отличия</a> реализации UI</li>
+<li>
+<p><a href="https://www.diffchecker.com/77zencej">Отличия</a> реализации UI</p>
+<ul>
+<li><code>submit_url</code> - используется в методе <code>bind</code>, файла <em>~/static/js/base-report-window.js</em> (далее)</li>
+</ul>
+</li>
 <li>
 <p><a href="https://www.diffchecker.com/st0qdykz">Отличия</a> класса-наследника для UI <em>BaseReportWindow</em></p>
 <ul>
@@ -1099,8 +1147,10 @@ json</li>
 <li>
 <p>Файл логики на javascript для версии m3 3 - <em>~/static/js/base-report-window.js</em></p>
 <div class="code"><pre><span class="nx">Ext</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">'Ext.paidserv.BaseReportWindow'</span><span class="p">,</span> <span class="p">{</span>
+
     <span class="nx">extend</span><span class="o">:</span> <span class="s1">'Ext.m3.Window'</span><span class="p">,</span>
     <span class="nx">xtype</span><span class="o">:</span> <span class="s1">'base-report-window'</span><span class="p">,</span>
+
     <span class="nx">initComponent</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">callParent</span><span class="p">();</span>
 

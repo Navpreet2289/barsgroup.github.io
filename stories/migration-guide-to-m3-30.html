@@ -95,18 +95,15 @@
 <li><a href="../stories/migration-guide-to-m3-30.html#ui-breaking-changes">BREAKING CHANGES конструкций UI</a></li>
 </ul>
 </li>
-<li><a href="../stories/migration-guide-to-m3-30.html#example">Пример перевода</a><ul>
-<li><a href="../stories/migration-guide-to-m3-30.html#example-in-2">Пример написания кода на версии m3 2 и ранее</a></li>
-<li><a href="../stories/migration-guide-to-m3-30.html#example-in-3">Как решается эта же задача на версии m3 3</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#example">Пример перевода</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li><a href="../stories/migration-guide-to-m3-30.html#links">Ссылки на примеры</a></li>
 </ul>
 <h3><a name="key-difference">Ключевые отличия</a></h3>
 <ul>
 <li>Браузер взаимодействует с сервером исключительно через json;</li>
-<li>Отказ от django templates (template-globals) в пользу static js-файлов;</li>
+<li>Отказ от django-templates (template-globals) в пользу static js-файлов;</li>
 <li>
 <p>Если в m3 2 для получения формы с данными используется один ajax-запрос на сервер.
 То в версии 3 будет последовательно генерироваться три запроса:</p>
@@ -136,15 +133,15 @@
 <li><strong>Отделение представления от данных</strong>. Существенно облегчит любой рефакторинг как уровня бизнес-логики, так и
 уровня UI</li>
 <li>Большой шаг в сторону <strong>перехода на <a href="http://docs-origin.sencha.com/extjs/5.0/">Ext JS 5.0</a></strong>, за счет того, что js-код
-стал 100% декларативен и описывается с помощью конструкций, совместимых с ExtJs 5.0 (таких как <em>Ext.define</em>,
+стал 100% декларативен и описывается с помощью конструкций, совместимых с ExtJS 5.0 (таких как <em>Ext.define</em>,
 <em>Ext.override</em>; атрибутов <em>extend</em>, <em>xtype</em>; использование при вызове род. метода - <em>callParent</em> )</li>
-<li><strong>Кеширование ui-конфигурации</strong>. Так как зависимость между данными и интерфейсом пропала, в версии 3.0 js-файлы
+<li><strong>Кеширование js-логики</strong>. Так как зависимость между данными и интерфейсом пропала, в версии 3.0 js-файлы
 нативно кешируются браузером и запрашиваются посредством <em>requirejs</em> однажды. В перспективе планируется сделать
 прозрачное кеширование json-ответов, или даже сборку всех окон в статический json-файл, который предлагается
 подключать на старте проекта. За счет чего нагрузка на сервер существенно снизится, так как сервер будет работать только
 с данными.</li>
 <li>Серьезный шаг в сторону <strong>RESTful-интерфейсов</strong>, который позволит еще сильнее декомпозировать серверные механизмы и сделать
-их менее монолитными и зависимыми от одного типа UI.</li>
+их менее монолитными и независимыми от одного типа UI.</li>
 <li>Перспективная возможность использования <strong>дизайнера для генерации UI-интерфейсов</strong>, так как в качестве результата можно использовать
 json-конфигурацию, а не python-код</li>
 <li>Увеличение скорости работы за счет <strong>отказа от механизм django-шаблонов</strong> в пользу static-файлов, которые отдает nginx</li>
@@ -227,7 +224,7 @@ json-конфигурацию, а не python-код</li>
 UIAction. Экшены, не отдающие ui менять не нужно.</p>
 <h4><a name="binding">Что стало с биндингом данных?</a></h4>
 <p>Под биндингом данных понимается автоматическое преобразование django-модели в extjs-форму и обратно. При условии, если
-названия атрибутов модели и формы совподают.</p>
+названия атрибутов модели и формы совпадают.</p>
 <p>Как было в версии m3 2 и раньше:</p>
 <ul>
 <li>
@@ -250,7 +247,7 @@ UIAction. Экшены, не отдающие ui менять не нужно.</
 <li>
 <p>django model -&gt; extjs form</p>
 <p>При использовании ExtEditWindow достаточно соблюсти правило биндинга - название атрибутов модели и
-UI-окна должны совпадать. Если по неким причинам название не совподают, то можно в js-представлении переопределить
+UI-окна должны совпадать. Если по неким причинам название не совпадают, то можно в js-представлении переопределить
 метод bind и внутри метода установить необходимый параметр или зависимость параметров.</p>
 </li>
 <li>
@@ -259,12 +256,12 @@ UI-окна должны совпадать. Если по неким причи
 </li>
 </ul>
 <h4><a name="serialization">Сериализация объекта модели</a></h4>
-<p>При использовании objectpack появилась возможность указывать правила сериализации из объекта в словарь. Для этого
-необходимо добавить метод serialize(include=None, exclude=None) внутри которого объект модели доступен через self,
+<p>При использовании <em>objectpack</em> появилась возможность указывать правила сериализации из объекта в словарь. Для этого
+необходимо добавить метод <code>serialize(include=None, exclude=None)</code> внутри которого объект модели доступен через <em>self</em>,
 необходимо вернуть словарь. Внутри можно использовать функцию <a href="https://bitbucket.org/barsgroup/m3-core/src/8ba2e89984028d2584d94acc5b2f17660199ab3f/src/m3/db/tools.py?at=client-render#cl-51">model_to_dict</a>
 для сериализации модели.</p>
 <p>Так же крайне желательно проводить сериализацию внутри модели и тогда, когда objectpack не используется. В этом случае
-внутри метода get_result экшена необходимо у полученного объекта вызвать метод serialize. Например:</p>
+внутри метода <em>get_result</em> экшена необходимо у полученного объекта вызвать метод <em>serialize</em>. Например:</p>
 <div class="code"><pre><span class="k">class</span> <span class="nc">RemaindersDocDetail</span><span class="p">(</span><span class="n">BasePaidServObjectModel</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Табличная часть документа остатков</span>
@@ -332,9 +329,9 @@ UI-окна должны совпадать. Если по неким причи
 
 <h4><a name="context-declaration">Изменения в описании Context Declaration</a></h4>
 <p>Важное замечание: в ui-экшенах декларация контекста производится так же как и раньше - через определение метода
-context_declaration, но он декларирует параметры исключительно для метода get_result. Так как метод get_ui ничего не
-должен знать о контексте, поэтому туда контекст и не приходит.</p>
-<p>В версии 3 контекст может описываться с помощью словаря, пример:</p>
+<code>context_declaration</code>, но он декларирует параметры исключительно для метода <code>get_result</code>.
+Так как метод <code>get_ui</code> ничего не должен знать о контексте.</p>
+<p>В версии m3 3 контекст может описываться с помощью словаря, пример:</p>
 <div class="code"><pre><span class="k">def</span> <span class="nf">context_declaration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="s">'servicepoint_id'</span><span class="p">:</span> <span class="p">{</span><span class="s">'type'</span><span class="p">:</span> <span class="s">'int'</span><span class="p">},</span>
@@ -365,9 +362,10 @@ context_declaration, но он декларирует параметры иск�
 <p>С версии M3 3 поддерживается исключительно механизм работы через <a href="http://objectpack.docs.bars-open.ru/">objectpack</a>
 со справочниками или с сущностями, которые
 поддерживают операции создания/редактирования/удаления. То есть считаются устаревшими механизмы работы через классы
-<em>BaseDictionaryActions</em>, <em>BaseDictionaryModelActions</em>, <em>BaseTreeDictionaryActions</em>, <em>BaseTreeDictionaryModelActions</em>.</p>
+<code>BaseDictionaryActions</code>, <code>BaseDictionaryModelActions</code>, <code>BaseTreeDictionaryActions</code>,
+<code>BaseTreeDictionaryModelActions</code>.</p>
 <p>Поэтому перед переводом на версию M3 3 необходимо в качестве первой итерации перевести все подобные механизмы на
-objectpack.</p>
+<em>objectpack</em>.</p>
 <h4><a name="master-detail">Компоненты master-detail</a></h4>
 <p>Comming soon...</p>
 <h3><a name="ui">UI</a></h3>
@@ -375,14 +373,14 @@ objectpack.</p>
 <p>В основном изменения затронули механизм рендеринга UI.</p>
 <p>Основные отличия:</p>
 <ul>
-<li>отказ от django-шаблонов в пользу сериализации в json-представлени;</li>
-<li>хранение внутри _<em>slots_</em>;</li>
-<li>отказ на клиенте от eval в пользу Ext.create</li>
+<li>отказ от <em>django</em>-шаблонов в пользу сериализации в <em>json</em>-представлени;</li>
+<li>хранение внутри <code>__slots__</code>;</li>
+<li>отказ на клиенте от <code>eval</code> в пользу <code>Ext.create</code></li>
 </ul>
-<p>Ключевое отличие - это отказ от django-шаблонизатора
-в пользу сериализация в json-представление. Фактически с версии m3 3 ui-представление должно возвращаться с сервера в виде
-json, которое в последствии на клиенте сериализуется и передается как параметр в функции <em>Ext.create</em>.
-Таким образом не используется <em>eval</em>, что существенно облегчает отладку.
+<p>Ключевое отличие - это отказ от <em>django</em>-шаблонизатора
+в пользу сериализация в <em>json</em>-представление. Фактически с версии m3 3 <em>ui</em>-представление должно возвращаться с сервера в виде
+<em>json</em>, которое в последствии на клиенте сериализуется и передается как параметр в функции <code>Ext.create</code>.
+Таким образом не используется <code>eval</code>, что существенно облегчает отладку.
 UI можно описывать как декларативно - через python-словарь, так и в старом стиле через описание классов.</p>
 <p>Пример использования декларативного стиля:</p>
 <div class="code"><pre><span class="n">win</span> <span class="o">=</span> <span class="p">{</span>
@@ -417,11 +415,9 @@ UI можно описывать как декларативно - через py
 
 <h4><a name="client-ui">UI на клиенте</a></h4>
 <p>Более подробную информацию по каждому компоненту и его работе можете найти в
-<a href="https://bitbucket.org/barsgroup/m3-ext/src/1cac8604bcc3c4e2979d014a062b60fa5c91e960/src/m3_ext/demo/?at=client-rendering">примерах использования</a>.
-Достаточно поставить проект <a href="https://bitbucket.org/barsgroup/m3-blank">m3-blank</a> и подключить в качестве приложения
-<em>m3_ext.demo</em></p>
-<p>До версии m3 3 функцию генерации UI выполнял django-шаблонизатор, который на каждый запрос отдавал js-представление.
-Оно впоследствии eval-лилось на клиенте с помощью функции <em>smart_eval</em>.</p>
+<a href="../stories/migration-guide-to-m3-30.html#links">примерах использования</a>.</p>
+<p>До версии m3 3 функцию генерации UI выполнял <em>django</em>-шаблонизатор, который на каждый запрос отдавал <em>js</em>-представление.
+Оно впоследствии <code>eval</code>-лилось на клиенте с помощью функции <code>smart_eval</code>.</p>
 <p>Это выглядело примерно так:</p>
 <div class="code"><pre><span class="kd">var</span> <span class="nx">form</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.form.client_id}}"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">tab_panel</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.tab_panel.client_id}}"</span><span class="p">);</span>
@@ -501,9 +497,9 @@ UI можно описывать как декларативно - через py
 
 
 <ul>
-<li><em>component.form.client_id</em> - Возвращается идентификатор, по которому в дальнейшем производится поиск компонента
+<li><code>component.form.client_id</code> - возвращается идентификатор, по которому в дальнейшем производится поиск компонента
 в отрендеренном пространстве браузера;</li>
-<li><em>component.select_bank_url</em> - так передается url для последующего Ajax-запроса.</li>
+<li><code>component.select_bank_url</code> - так передается <em>url</em> для последующего <em>Ajax</em>-запроса.</li>
 </ul>
 <p>Как стало сейчас:</p>
 <div class="code"><pre><span class="nx">Ext</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">'Ext.paidserv.BankPropsDictAddWindow'</span><span class="p">,</span> <span class="p">{</span>
@@ -598,10 +594,10 @@ UI можно описывать как декларативно - через py
 </li>
 <li>
 <p>js-представление, должно находиться в <strong>static</strong>-файлах так же должно иметь <em>xtype</em>. Для этого в <em>settings.py</em> в кортеж
-<strong>STATICFILES_FINDERS</strong> должен быть добавлен следующий элемент - <em>'m3.finders.RecursiveAppDirectoriesFinder'</em> -
+<strong>STATICFILES_FINDERS</strong> должен быть добавлен следующий элемент - <code>m3.finders.RecursiveAppDirectoriesFinder</code> -
 это позволит иметь папку <em>static</em> в любой вложенности приложения</p>
 </li>
-<li>Фактически на каждый старый <em>template-globals</em> необходимо создать новый класс в стиле ExtJs</li>
+<li>Фактически на каждый старый <em>template-globals</em> необходимо создать новый класс в стиле ExtJS</li>
 <li>
 <p>Получение ссылки на вложенный компонент производится через вызов метода окна - <strong>findByItemId</strong>, поиск ведется по
 атрибуту <em>itemId</em>. Этот параметр можно задавать из python-кода, по-умолчанию подставляется название атрибута, например:</p>
@@ -638,7 +634,7 @@ UI можно описывать как декларативно - через py
 
 </li>
 <li>
-<p>Все функции превратились в <strong>методы</strong> класса <em>Ext.paidserv.BankPropsDictAddWindow</em></p>
+<p>Все функции превратились в <strong>методы</strong> класса <code>Ext.paidserv.BankPropsDictAddWindow</code></p>
 </li>
 <li>Инициализация ссылок на компоненты производится в методе <strong>initComponent</strong></li>
 <li>В методе <strong>bind</strong> в качестве параметра <em>data</em> могут прийти различные urls, данные для формы и прочие данные, которые
@@ -654,9 +650,9 @@ json</li>
 Примеры работы и документацию можно найти на <a href="http://documentup.com/kriskowal/q/#tutorial">офф. сайте</a>.</p>
 <h5><a name="">API на основе promise-ов</a></h5>
 <ul>
-<li><strong>UI.evalResult</strong> - Сериализует в json и обрабатывает полученное значение, создавая экземпляр компонента</li>
+<li><code>UI.evalResult</code> - Сериализует в <em>json</em> и обрабатывает полученное значение, создавая экземпляр компонента</li>
 <li>
-<p><strong>UI.ajax</strong> - Загружает JSON AJAX-запросом и кладёт в promise, пример использования:</p>
+<p><code>UI.ajax</code> - Загружает JSON AJAX-запросом и кладёт в promise, пример использования:</p>
 <div class="code"><pre><span class="c1">// Пример отправки запроса на сервер и отображение окна, если в качестве результата возвращается окно</span>
 <span class="nx">UI</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
     <span class="nx">url</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
@@ -668,7 +664,7 @@ json</li>
 
 </li>
 <li>
-<p><strong>UI.callAction</strong> - Производит вызов ajax-запроса, обработку его и возвращает promise. Внутри себя производит все
+<p><code>UI.callAction</code> - Производит вызов <em>ajax</em>-запроса, обработку его и возвращает <em>promise</em>. Внутри себя производит все
 необходимые действия по отображению окна, работе с масками, модальностью. Примеры:</p>
 <div class="code"><pre><span class="c1">// Пример отправки запроса на сервер с параметрами, получения json-результата и обработка результата</span>
 <span class="nx">UI</span><span class="p">.</span><span class="nx">callAction</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
@@ -685,7 +681,7 @@ json</li>
 </pre></div>
 
 
-<p>В случае успеха будет установлено значение в поле <em>this.query_str</em>.</p>
+<p>В случае успеха будет установлено значение в поле <code>this.query_str</code>.</p>
 <div class="code"><pre><span class="c1">// Пример отправки запроса на сервер, получение json-конфигурации окна и подписка на событие</span>
 <span class="nx">UI</span><span class="p">.</span><span class="nx">callAction</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">url</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">grid_edit_url</span><span class="p">,</span>
@@ -702,7 +698,7 @@ json</li>
 <p>В случае успеха происходит подписание экземпляра окна на событие <em>addRow</em> совместно с реализацией обработчика.</p>
 </li>
 <li>
-<p><strong>UI.require</strong> - подгрузка модулей и их зависимостей. Пример использования:</p>
+<p><code>UI.require</code> - подгрузка модулей и их зависимостей. Пример использования:</p>
 <div class="code"><pre><span class="c1">// Пример отправки запроса на сервер, сириализация ответа и подтягивание зависимостей</span>
 <span class="c1">// перед созданием и отображением окна</span>
 <span class="nx">UI</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
@@ -820,7 +816,7 @@ json</li>
 </pre></div>
 
 
-<p>Необходимо, чтобы функция <em>AutoRenderer</em>, <em>FloatRenderer</em> и <em>enableRegistration</em> были в ExtJs-классе окна, например:</p>
+<p>Необходимо, чтобы функция <em>AutoRenderer</em>, <em>FloatRenderer</em> и <em>enableRegistration</em> были в ExtJS-классе окна, например:</p>
 <div class="code"><pre><span class="nx">Ext</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">'Ext.paidserv.CorrDocsArchiveWindow'</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">extend</span><span class="o">:</span> <span class="s1">'Ext.m3.Window'</span><span class="p">,</span>
     <span class="nx">xtype</span><span class="o">:</span> <span class="s1">'corrdocs-archive-window'</span><span class="p">,</span>
@@ -974,182 +970,22 @@ json</li>
 </li>
 </ul>
 <h3><a name="example">Пример перевода</a></h3>
-<p>Возьмем для примера задачу, которая отрисовывает окно. Причем окно наследуется от продуктового базового класса, которое
-имеет определенную логику на javascript.</p>
-<h4><a name="example-in-2">Пример написания кода на версии m3 2 и ранее</a></h4>
-<p>Реализация экшена:</p>
-<div class="code"><pre><span class="k">class</span> <span class="nc">CompensationInfoReportWindowAction</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Вызов диалога "Информация о компенсации"</span>
-<span class="sd">    """</span>
-    <span class="n">shortname</span> <span class="o">=</span> <span class="s">"compensation-info-report-window"</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s">'/</span><span class="si">%s</span><span class="s">'</span> <span class="o">%</span> <span class="n">shortname</span>
-    <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">u'Окно настроек печати'</span>
-
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="n">win</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">CompensationInfoReportWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">ExtUIScriptResult</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Реализация UI:</p>
-<div class="code"><pre><span class="k">class</span> <span class="nc">CompensationInfoReportWindow</span><span class="p">(</span><span class="n">BaseReportWindow</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Окно настроек печати оборотки по районам</span>
-<span class="sd">    """</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CompensationInfoReportWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s">"compensation-info-report"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">verbose_name</span> <span class="k">if</span> <span class="n">parent</span> <span class="k">else</span> <span class="s">u''</span>
-
-        <span class="c"># скорректируем высоту</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">370</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">290</span>
-
-        <span class="c"># соберем нужные блоки</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sp_cont</span>
-        <span class="p">])</span>
-</pre></div>
-
-
-<p>Класс-наследник для UI <em>BaseReportWindow</em>:</p>
-<div class="code"><pre><span class="k">class</span> <span class="nc">BaseReportWindow</span><span class="p">(</span><span class="n">ExtWindow</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Базовое окно настроек ПФ с некоторыми частоиспользуемыми контролами</span>
-<span class="sd">    При наследовании от него нужно будет только переопределять</span>
-<span class="sd">    функции сборки отдельных блоков.</span>
-<span class="sd">    """</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BaseReportWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">u""</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">template_globals</span> <span class="o">=</span> <span class="s">"BaseReportWindow.js"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">480</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">380</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">minimizable</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maximizable</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">modal</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="c"># Компонент формы</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">form</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="s">''</span>
-        <span class="c"># Период</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="s">'hbox'</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-                                   <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">'padding'</span><span class="p">:</span> <span class="s">'2px'</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ds_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="s">'form'</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label_width</span><span class="o">=</span><span class="mi">59</span><span class="p">,</span>
-                                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">"padding-right"</span><span class="p">:</span> <span class="s">"5px"</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period_since</span> <span class="o">=</span> <span class="n">ExtDictSelectField</span><span class="p">(</span>
-            <span class="n">anchor</span><span class="o">=</span><span class="s">'100%'</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s">'period_since'</span><span class="p">,</span>
-            <span class="n">display_field</span><span class="o">=</span><span class="s">'locale_period'</span><span class="p">,</span>
-            <span class="n">value_field</span><span class="o">=</span><span class="s">"id"</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s">u'Период с'</span><span class="p">,</span>
-            <span class="n">trigger_action_all</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">ask_before_deleting</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">hide_trigger</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">hide_edit_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">hide_clear_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">hide_dict_select_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period_since</span><span class="o">.</span><span class="n">pack</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_pack</span><span class="p">(</span><span class="s">"global-periods"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ds_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">period_since</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">du_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="s">'form'</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label_width</span><span class="o">=</span><span class="mi">59</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period_until</span> <span class="o">=</span> <span class="n">ExtDictSelectField</span><span class="p">(</span>
-            <span class="n">anchor</span><span class="o">=</span><span class="s">'100%'</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s">'period_until'</span><span class="p">,</span>
-            <span class="n">display_field</span><span class="o">=</span><span class="s">'locale_period'</span><span class="p">,</span>
-            <span class="n">value_field</span><span class="o">=</span><span class="s">"id"</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s">u'по'</span><span class="p">,</span>
-            <span class="n">trigger_action_all</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">ask_before_deleting</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">hide_trigger</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">hide_edit_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">hide_clear_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">hide_dict_select_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period_until</span><span class="o">.</span><span class="n">pack</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_pack</span><span class="p">(</span><span class="s">"global-periods"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">du_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">period_until</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ds_cont</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">du_cont</span><span class="p">])</span>
-
-        <span class="c"># Поля</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_all_sps</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_all_sps</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_all_sps"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_all_sps</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"Печатать по всему учреждению"</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_ent_detail</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_ent_detail</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_ent_detail"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_ent_detail</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"Детализация по учреждениям"</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_serv_detail</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_serv_detail</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_serv_detail"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_serv_detail</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"Детализация по услугам"</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_state_serv</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_state_serv</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_state_serv"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_state_serv</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"По государственным услугам"</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_paid_serv</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_paid_serv</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_paid_serv"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_paid_serv</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"По платным услугам"</span>
-
-        <span class="c"># Контейнер для них</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">field_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span>
-            <span class="n">label_width</span><span class="o">=</span><span class="mi">335</span><span class="p">,</span>
-            <span class="n">layout</span><span class="o">=</span><span class="s">'form'</span><span class="p">,</span>
-            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">'padding'</span><span class="p">:</span> <span class="s">'2px'</span><span class="p">}</span>
-        <span class="p">)</span>
-
-        <span class="c"># Грид с группами</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span> <span class="o">=</span> <span class="n">ExtObjectGrid</span><span class="p">(</span><span class="n">sm</span><span class="o">=</span><span class="n">ExtGridCheckBoxSelModel</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">paging_bar</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="s">u"Группа"</span><span class="p">,</span> <span class="n">data_index</span><span class="o">=</span><span class="s">"name"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">action_data</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s">"report-group-rows"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'servicepoint_id'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">150</span>
-        <span class="c"># Контейнер для него</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">'padding'</span><span class="p">:</span> <span class="s">'2px'</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="p">])</span>
-
-        <span class="c"># Грид с детьми</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span> <span class="o">=</span> <span class="n">ExtObjectGrid</span><span class="p">(</span><span class="n">sm</span><span class="o">=</span><span class="n">ExtGridCheckBoxSelModel</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">paging_bar</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="s">u"Ребенок"</span><span class="p">,</span> <span class="n">data_index</span><span class="o">=</span><span class="s">"name"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">action_data</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s">"report-kinder-rows"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'kinder_id'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">150</span>
-        <span class="c"># Контейнер для него</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">'padding'</span><span class="p">:</span> <span class="s">'2px'</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="p">])</span>
-
-        <span class="c"># Грид с районами</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span> <span class="o">=</span> <span class="n">ExtObjectGrid</span><span class="p">(</span><span class="n">sm</span><span class="o">=</span><span class="n">ExtGridCheckBoxSelModel</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">paging_bar</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="s">u"Районы"</span><span class="p">,</span> <span class="n">data_index</span><span class="o">=</span><span class="s">"name"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">action_data</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s">"report-rayon-rows"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'rayon_id'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">150</span>
-        <span class="c"># Контейнер для него</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">'padding'</span><span class="p">:</span> <span class="s">'2px'</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="p">])</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="p">)</span>
-
-        <span class="c"># Описание кнопок</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span> <span class="o">=</span> <span class="n">ExtButton</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'print_btn'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">u"Печатать"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="s">'okHandler'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span> <span class="o">=</span> <span class="n">ExtButton</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'cancel_btn'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">u"Закрыть"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="s">'closeHandler'</span>
-        <span class="c"># Добавление кнопок в окно</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="p">])</span>
-</pre></div>
-
-
-<p>Файл логики на javascript - <em>~/templates/ui-js/BaseReportWindow.js</em>:</p>
+<ul>
+<li><a href="https://www.diffchecker.com/67gc3cfg">Отличия</a> реализация экшена</li>
+<li><a href="https://www.diffchecker.com/77zencej">Отличия</a> реализации UI</li>
+<li>
+<p><a href="https://www.diffchecker.com/st0qdykz">Отличия</a> класса-наследника для UI <em>BaseReportWindow</em></p>
+<ul>
+<li>практически не изменился за исключением появления <em>xtype</em>, удаления <em>template-globals</em></li>
+<li>modal=True - уже не нужен, так как этот механизм заложен на уровне платформы</li>
+<li>используется нативное событие <em>close</em>, для кнопки "Выход".</li>
+</ul>
+</li>
+<li>
+<p>Отличия файлов логики:</p>
+<ul>
+<li>
+<p>Файл логики на javascript для версии m3 2 - <em>~/templates/ui-js/BaseReportWindow.js</em>:</p>
 <div class="code"><pre><span class="kd">var</span> <span class="nx">win</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.client_id}}"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">form</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.form.client_id}}"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">sp_grid</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.sp_grid.client_id}}"</span><span class="p">);</span>
@@ -1163,7 +999,6 @@ json</li>
 <span class="kd">var</span> <span class="nx">print_serv_detail</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.print_serv_detail.client_id}}"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">print_ent_detail</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.print_ent_detail.client_id}}"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">service</span> <span class="o">=</span> <span class="nx">Ext</span><span class="p">.</span><span class="nx">getCmp</span><span class="p">(</span><span class="s2">"{{component.service_field.client_id}}"</span><span class="p">);</span>
-
 
 <span class="kd">function</span> <span class="nx">collectGridIds</span><span class="p">(</span><span class="nx">grid</span><span class="p">){</span>
     <span class="kd">var</span> <span class="nx">selIds</span> <span class="o">=</span> <span class="p">[];</span>
@@ -1260,185 +1095,9 @@ json</li>
 </pre></div>
 
 
-<h4><a name="example-in-3">Как решается эта же задача на версии m3 3</a></h4>
-<p>Реализация экшена (<a href="https://www.diffchecker.com/67gc3cfg">diff</a>):</p>
-<div class="code"><pre><span class="k">class</span> <span class="nc">CompensationInfoReportWindowAction</span><span class="p">(</span><span class="n">UIAction</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Вызов диалога "Информация о компенсации"</span>
-<span class="sd">    """</span>
-    <span class="n">shortname</span> <span class="o">=</span> <span class="s">"compensation-info-report-window"</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s">'/</span><span class="si">%s</span><span class="s">'</span> <span class="o">%</span> <span class="n">shortname</span>
-    <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">u'Окно настроек печати'</span>
-
-    <span class="n">get_ui</span> <span class="o">=</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ui</span><span class="o">.</span><span class="n">CompensationInfoReportWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Реализация UI (<a href="https://www.diffchecker.com/77zencej">diff</a>):</p>
-<div class="code"><pre><span class="k">class</span> <span class="nc">CompensationInfoReportWindow</span><span class="p">(</span><span class="n">BaseReportWindow</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Окно настроек печати оборотки по районам</span>
-<span class="sd">    """</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CompensationInfoReportWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">submit_url</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s">"compensation-info-report"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">verbose_name</span> <span class="k">if</span> <span class="n">parent</span> <span class="k">else</span> <span class="s">u''</span>
-
-        <span class="c"># скорректируем высоту</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">370</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">290</span>
-
-        <span class="c"># соберем нужные блоки</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sp_cont</span>
-        <span class="p">])</span>
-</pre></div>
-
-
-<p>Класс-наследник для UI <em>BaseReportWindow</em>,</p>
-<ul>
-<li>практически <a href="https://www.diffchecker.com/st0qdykz">не изменился</a> за исключением появления <em>xtype</em>, удаления <em>template-globals</em></li>
-<li>modal=True - уже не нужен, так как этот механизм заложен на уровне платформы</li>
-<li>используется нативное событие <em>close</em>, для кнопки "Выход".<div class="code"><pre><span class="k">class</span> <span class="nc">BaseReportWindow</span><span class="p">(</span><span class="n">ExtWindow</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Базовое окно настроек ПФ с некоторыми частоиспользуемыми контролами</span>
-<span class="sd">    При наследовании от него нужно будет только переопределять</span>
-<span class="sd">    функции сборки отдельных блоков.</span>
-<span class="sd">    """</span>
-    <span class="n">_xtype</span> <span class="o">=</span> <span class="s">'base-report-window'</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BaseReportWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">u""</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">480</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">380</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">minimizable</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maximizable</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="c"># self.modal = True</span>
-        <span class="c"># Компонент формы</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">form</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="s">''</span>
-        <span class="c"># Период</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="s">'hbox'</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-                                   <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">'padding'</span><span class="p">:</span> <span class="s">'5px'</span><span class="p">}</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ds_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="s">'form'</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label_width</span><span class="o">=</span><span class="mi">59</span><span class="p">,</span>
-                                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">"padding-right"</span><span class="p">:</span> <span class="s">"5px"</span><span class="p">}</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period_since</span> <span class="o">=</span> <span class="n">ExtDictSelectField</span><span class="p">(</span>
-            <span class="n">anchor</span><span class="o">=</span><span class="s">'100%'</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s">'period_since'</span><span class="p">,</span>
-            <span class="n">display_field</span><span class="o">=</span><span class="s">'locale_period'</span><span class="p">,</span>
-            <span class="n">value_field</span><span class="o">=</span><span class="s">"id"</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s">u'Период с'</span><span class="p">,</span>
-            <span class="n">trigger_action</span><span class="o">=</span><span class="n">ExtDictSelectField</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span>
-            <span class="n">ask_before_deleting</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">hide_trigger</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">hide_edit_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">hide_clear_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">hide_dict_select_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period_since</span><span class="o">.</span><span class="n">pack</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_pack</span><span class="p">(</span><span class="s">"global-periods"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ds_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">period_since</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">du_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="s">'form'</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label_width</span><span class="o">=</span><span class="mi">59</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period_until</span> <span class="o">=</span> <span class="n">ExtDictSelectField</span><span class="p">(</span>
-            <span class="n">anchor</span><span class="o">=</span><span class="s">'100%'</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s">'period_until'</span><span class="p">,</span>
-            <span class="n">display_field</span><span class="o">=</span><span class="s">'locale_period'</span><span class="p">,</span>
-            <span class="n">value_field</span><span class="o">=</span><span class="s">"id"</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s">u'по'</span><span class="p">,</span>
-            <span class="n">trigger_action_all</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">ask_before_deleting</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">hide_trigger</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-            <span class="n">hide_edit_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">hide_clear_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-            <span class="n">hide_dict_select_trigger</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">period_until</span><span class="o">.</span><span class="n">pack</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_pack</span><span class="p">(</span><span class="s">"global-periods"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">du_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">period_until</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ds_cont</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">du_cont</span><span class="p">])</span>
-
-        <span class="c"># Поля</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_all_sps</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_all_sps</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_all_sps"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_all_sps</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"Печатать по всему учреждению"</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_ent_detail</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_ent_detail</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_ent_detail"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_ent_detail</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"Детализация по учреждениям"</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_serv_detail</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_serv_detail</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_serv_detail"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_serv_detail</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"Детализация по услугам"</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_state_serv</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_state_serv</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_state_serv"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_state_serv</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"По государственным услугам"</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_paid_serv</span> <span class="o">=</span> <span class="n">ExtCheckBox</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_paid_serv</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"print_paid_serv"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_paid_serv</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s">u"По платным услугам"</span>
-
-        <span class="c"># Контейнер для них</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">field_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">(</span>
-            <span class="n">label_width</span><span class="o">=</span><span class="mi">335</span><span class="p">,</span>
-            <span class="n">layout</span><span class="o">=</span><span class="s">'form'</span><span class="p">,</span>
-            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s">'padding'</span><span class="p">:</span> <span class="s">'5px'</span><span class="p">}</span>
-        <span class="p">)</span>
-
-        <span class="c"># Грид с группами</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span> <span class="o">=</span> <span class="n">ExtObjectGrid</span><span class="p">(</span><span class="n">sm</span><span class="o">=</span><span class="n">ExtGridCheckBoxSelModel</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">allow_paging</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="s">u"Группа"</span><span class="p">,</span> <span class="n">data_index</span><span class="o">=</span><span class="s">"name"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">action_data</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s">"report-group-rows"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'servicepoint_id'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">150</span>
-        <span class="c"># Контейнер для него</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sp_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">sp_grid</span><span class="p">])</span>
-
-        <span class="c"># Грид с детьми</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span> <span class="o">=</span> <span class="n">ExtObjectGrid</span><span class="p">(</span><span class="n">sm</span><span class="o">=</span><span class="n">ExtGridCheckBoxSelModel</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">allow_paging</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="s">u"Ребенок"</span><span class="p">,</span> <span class="n">data_index</span><span class="o">=</span><span class="s">"name"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">action_data</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s">"report-kinder-rows"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'kinder_id'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">150</span>
-        <span class="c"># Контейнер для него</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">knd_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">knd_grid</span><span class="p">])</span>
-
-        <span class="c"># Грид с районами</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span> <span class="o">=</span> <span class="n">ExtObjectGrid</span><span class="p">(</span><span class="n">sm</span><span class="o">=</span><span class="n">ExtGridCheckBoxSelModel</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">allow_paging</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="s">u"Районы"</span><span class="p">,</span> <span class="n">data_index</span><span class="o">=</span><span class="s">"name"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">action_data</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="s">"report-rayon-rows"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'rayon_id'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">150</span>
-        <span class="c"># Контейнер для него</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_cont</span> <span class="o">=</span> <span class="n">ExtContainer</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rayon_cont</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rayon_grid</span><span class="p">])</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="p">)</span>
-
-        <span class="c"># Описание кнопок</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span> <span class="o">=</span> <span class="n">ExtButton</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'print_btn'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">u"Печатать"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="s">'okHandler'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span> <span class="o">=</span> <span class="n">ExtButton</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">'cancel_btn'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">u"Закрыть"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="s">'close'</span>
-        <span class="c"># Добавление кнопок в окно</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">print_btn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cancel_btn</span><span class="p">])</span>
-</pre></div>
-
-
 </li>
-</ul>
-<p>Файл логики на javascript - <em>~/static/js/base-report-window.js</em></p>
+<li>
+<p>Файл логики на javascript для версии m3 3 - <em>~/static/js/base-report-window.js</em></p>
 <div class="code"><pre><span class="nx">Ext</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="s1">'Ext.paidserv.BaseReportWindow'</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">extend</span><span class="o">:</span> <span class="s1">'Ext.m3.Window'</span><span class="p">,</span>
     <span class="nx">xtype</span><span class="o">:</span> <span class="s1">'base-report-window'</span><span class="p">,</span>
@@ -1457,7 +1116,6 @@ json</li>
         <span class="k">this</span><span class="p">.</span><span class="nx">print_serv_detail</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'print_serv_detail'</span><span class="p">);</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">print_ent_detail</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'print_ent_detail'</span><span class="p">);</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">service</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">findByItemId</span><span class="p">(</span><span class="s1">'service'</span><span class="p">);</span>
-
 
         <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">print_all_sps</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">print_all_sps</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"check"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -1580,7 +1238,69 @@ json</li>
 </pre></div>
 
 
-<p>Как видим отличия как правило заключаются в качественно другом представлении javascript-кода.</p></div>
+</li>
+</ul>
+</li>
+</ul>
+<p>Как видим отличия как правило заключаются в качественно другом представлении javascript-кода.</p>
+<h3><a name="links">Ссылки на примеры</a></h3>
+<p>Доступны множество разнообразных примеров на версии m3 3:</p>
+<ul>
+<li><a href="https://bitbucket.org/barsgroup/m3-ext/src/1cac8604bcc3c4e2979d014a062b60fa5c91e960/src/m3_ext/demo/actions/?at=client-rendering">Экшены и разнообразный UI</a></li>
+<li><a href="https://bitbucket.org/barsgroup/objectpack/src/1539ca35f6a40db343734c616ea9cb6d0a59202b/src/objectpack/demo/?at=2.1">Экшены и паки на основе objectpack</a></li>
+</ul>
+<p>Чтобы посмотреть работу примеров необходимо сделать несколько шагов:</p>
+<ul>
+<li>
+<p>Создать рабочее окружение для демо</p>
+<div class="code"><pre><span class="nv">$ </span>workon m3-tests
+</pre></div>
+
+
+</li>
+<li>
+<p>Склонировать <a href="https://bitbucket.org/barsgroup/m3-blank">m3-blank</a></p>
+<div class="code"><pre><span class="o">(</span>m3-tests<span class="o">)</span><span class="nv">$ </span>hg clone https://bitbucket.org/barsgroup/m3-blank
+</pre></div>
+
+
+</li>
+<li>
+<p>Установить обновленные версии <em>objectpack</em>, <em>m3-ext</em>, <em>m3-core</em></p>
+<div class="code"><pre><span class="o">(</span>m3-tests<span class="o">)</span><span class="nv">$ </span>pip install m3-core m3-ext objectpack
+</pre></div>
+
+
+<p>Предварительно позаботившись, чтобы была установлена переменная окружения
+<code>PIP_INDEX_URL=http://pypi.bars-open.ru/simple/</code></p>
+</li>
+<li>
+<p>Добавить в <code>INSTALLED_APPS</code> демо-приложения, например:</p>
+<div class="code"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">'django.contrib.staticfiles'</span><span class="p">,</span>
+
+    <span class="s">'m3'</span><span class="p">,</span>
+    <span class="s">'m3_ext'</span><span class="p">,</span>
+    <span class="s">'m3_ext.ui'</span><span class="p">,</span>
+
+    <span class="s">'m3_ext.demo'</span><span class="p">,</span>
+
+    <span class="s">'objectpack'</span><span class="p">,</span>
+    <span class="s">'objectpack.demo'</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Запустить демо-сервер:</p>
+<div class="code"><pre><span class="o">(</span>m3-tests<span class="o">)</span><span class="nv">$ </span>python manage.py runserver
+</pre></div>
+
+
+</li>
+</ul>
+<p>Должен запуститься рабочий стол с заполненным пунктом меню и ярлыками на рабочем столе.</p></div>
 
     </div>
     </div>

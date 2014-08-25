@@ -20,7 +20,7 @@
         - [Сериализация объекта модели](#serialization)
         - [Изменения в описании Context Declaration](#context-declaration)
         - [Перевод справочников на objectpack](#migration-to-objectpack)
-        - [Компоненты master-detail](#master-detail)
+        - [Компонент master-detail](#master-detail)
     - [UI](#ui)
         - [UI на сервере](#server-ui)
         - [UI на клиенте](#client-ui)
@@ -307,7 +307,10 @@ UIAction. Экшены, не отдающие ui менять не нужно.
 *objectpack*.
 
 
-### <a name="master-detail">Компоненты master-detail</a>
+### <a name="master-detail">Компонент master-detail</a>
+
+Типичная задача, решаемая этим компонентом - зависимые гриды или деревья. Например, слева отображается таблица (или дерево)
+и по выбору элементов в этой таблице - в другой таблице, например, справа данные будут обновляться.
 
 *MD*-представление теперь реализуется двумя паками - для master-грида(дерева) и для detail-грида соответственно.
 

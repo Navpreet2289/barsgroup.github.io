@@ -5,55 +5,219 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
-  <loc>http://barsgroup.github.io/2014/index.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <loc>http://barsgroup.github.io/2013/index.html</loc>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
-  <loc>http://barsgroup.github.io/_source/files/index.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <loc>http://barsgroup.github.io/2014/index.html</loc>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/archive.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/blog/index.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/categories/index.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/galleries/index.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/galleries/projects/index.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/galleries/projects/rss.xml</loc>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/galleries/rss.xml</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/index.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/listings/index.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/main.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/modules.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/archive.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/categories/index.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/galleries/index.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/galleries/projects/index.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/galleries/projects/rss.xml</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/galleries/rss.xml</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/index.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/listings/index.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/listings/index.html.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/rss.xml</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/output/stories/comment-for-08-04-2014.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/posts/changelog-08-04-2014.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/posts/changelog-10-02-2014.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/posts/changelog-3122013.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/posts/m3-30.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/posts/move-to-m3-20.html</loc>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/posts/post.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/posts/release-m3-10.html</loc>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/rss.xml</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/comment-changelog-08-04-2014.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/how-install-send-metrics.html</loc>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/stories/index.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/license.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/main.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/migration-guide-to-m3-30.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/modules.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/move-to-m3-20.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/move-to-python3.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/podkliuchenie-otpravki-metrik.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/resources-for-developers.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/rules-documentation.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/style-guide-python.html</loc>
+  <lastmod>2014-08-25</lastmod>
  </url>
  <url>
   <loc>http://barsgroup.github.io/stories/title.html</loc>
-  <lastmod>2014-03-14</lastmod>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/usage.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/usage2.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/usages.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/versioning.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/versions.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/stories/where-usages.html</loc>
+  <lastmod>2014-08-25</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/usages.html</loc>
+  <lastmod>2014-08-18</lastmod>
+ </url>
+ <url>
+  <loc>http://barsgroup.github.io/where-usages.html</loc>
+  <lastmod>2014-08-25</lastmod>
  </url>
 </urlset>

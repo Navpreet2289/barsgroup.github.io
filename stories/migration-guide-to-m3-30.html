@@ -84,7 +84,7 @@
 <li><a href="../stories/migration-guide-to-m3-30.html#serialization">Сериализация объекта модели</a></li>
 <li><a href="../stories/migration-guide-to-m3-30.html#context-declaration">Изменения в описании Context Declaration</a></li>
 <li><a href="../stories/migration-guide-to-m3-30.html#migration-to-objectpack">Перевод справочников на objectpack</a></li>
-<li><a href="../stories/migration-guide-to-m3-30.html#master-detail">Компоненты master-detail</a></li>
+<li><a href="../stories/migration-guide-to-m3-30.html#master-detail">Компонент master-detail</a></li>
 </ul>
 </li>
 <li><a href="../stories/migration-guide-to-m3-30.html#ui">UI</a><ul>
@@ -366,7 +366,9 @@ UI-окна должны совпадать. Если по неким причи
 <code>BaseTreeDictionaryModelActions</code>.</p>
 <p>Поэтому перед переводом на версию M3 3 необходимо в качестве первой итерации <strong>перевести</strong> все подобные механизмы на
 <em>objectpack</em>.</p>
-<h4><a name="master-detail">Компоненты master-detail</a></h4>
+<h4><a name="master-detail">Компонент master-detail</a></h4>
+<p>Типичная задача, решаемая этим компонентом - зависимые гриды или деревья. Например, слева отображается таблица (или дерево)
+и по выбору элементов в этой таблице - в другой таблице, например, справа данные будут обновляться.</p>
 <p><em>MD</em>-представление теперь реализуется двумя паками - для master-грида(дерева) и для detail-грида соответственно.</p>
 <p>Master-pack имеет вид:</p>
 <div class="code"><pre><span class="k">class</span> <span class="nc">ArticlePack</span><span class="p">(</span><span class="n">objectpack</span><span class="o">.</span><span class="n">ObjectPack</span><span class="p">):</span>

@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Mon, 25 Aug 2014 13:32:22 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>M3 3.0</title><link>http://barsgroup.github.io/posts/m3-30.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;M3 3.0&lt;/strong&gt; - это новая версия m3, заточенная под клиентский рендеринг, разделение данных и графического интерфейса. Проведен
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Wed, 24 Sep 2014 17:18:55 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Changelog 24-09-2014</title><link>http://barsgroup.github.io/posts/changelog-24-09-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;m3-ui (m3-ext) 3.0.1&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Добавлена загрузка локализации ux-компонент (&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;ux-lang-ru.js&lt;/span&gt;&lt;/tt&gt;)&lt;/li&gt;
+&lt;li&gt;Потомки &lt;tt class="docutils literal"&gt;AdvancedComboBox&lt;/tt&gt; теперь не меняют размеры при переключении режима &lt;tt class="docutils literal"&gt;readOnly&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;DesktopView&lt;/tt&gt; исправлена на использование базового &lt;tt class="docutils literal"&gt;context_processors&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Добавлена возможность отображения корневого узла в серверном отображении &lt;tt class="docutils literal"&gt;TreeGrid&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;m3-ui (m3-ext) 2.0.7.1&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Потомки &lt;tt class="docutils literal"&gt;AdvancedComboBox&lt;/tt&gt; теперь не меняют размеры при переключении режима &lt;tt class="docutils literal"&gt;readOnly&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Добавлена возможность отображения корневого узла в серверном отображении &lt;tt class="docutils literal"&gt;TreeGrid&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Теперь в &lt;tt class="docutils literal"&gt;MultiGroupingGrid&lt;/tt&gt; группировка и тултипы могут существовать независимо друг от друга&lt;/li&gt;
+&lt;li&gt;Часть &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;js-listeners&lt;/span&gt;&lt;/tt&gt; теперь может быть задекларирована как отключаемая при рендеринге, когда компонент - &lt;tt class="docutils literal"&gt;read_only&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Поправлено включение/отключение обработчика двойного щелчка в &lt;tt class="docutils literal"&gt;ExtObjectGrid.make_read_only&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Теперь можно перереопределить произвольный процессор для обработки &lt;tt class="docutils literal"&gt;Desktop&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Метароли теперь опять учитываются при постройке &lt;tt class="docutils literal"&gt;Desktop&lt;/tt&gt; (метароли теперь подтягиваются в &lt;tt class="docutils literal"&gt;DesktopLoader&lt;/tt&gt;, если user присутствует в request)&lt;/li&gt;
+&lt;li&gt;Меню, содежащие только разделители, теперь тоже схлопываются&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;Desktop&lt;/tt&gt; теперь допускает полную кастомизацию&lt;/li&gt;
+&lt;li&gt;Исправлена ошибка в методе &lt;tt class="docutils literal"&gt;find_by_name&lt;/tt&gt; класса &lt;tt class="docutils literal"&gt;BaseExtContainer&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Переделан override &lt;tt class="docutils literal"&gt;Ext.form.Action.Submit&lt;/tt&gt;, так как вместо учитывания &lt;tt class="docutils literal"&gt;lazyRender&lt;/tt&gt; он выдавал &lt;tt class="docutils literal"&gt;assert&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;У поля выбора из справочника может отсутствовать окно - в этом случае маска теперь не будет показываться.&lt;/li&gt;
+&lt;li&gt;Исправление отображения столбцов грида в &lt;tt class="docutils literal"&gt;Webkit&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Если в DesktopShortcut указывают pack не &lt;tt class="docutils literal"&gt;Action&lt;/tt&gt;, а &lt;tt class="docutils literal"&gt;ActionPack&lt;/tt&gt;, проверка прав осуществляться не будет (раньше падало).&lt;/li&gt;
+&lt;li&gt;Исправлены мелкие ошибки в тултипах гридов&lt;/li&gt;
+&lt;li&gt;Добавлена загрузка локализации ux-компонент (&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;ux-lang-ru.js&lt;/span&gt;&lt;/tt&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;m3-core 2.0.12, 3.0.1&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Вызов &lt;tt class="docutils literal"&gt;BaseObjectModel.safe_delete&lt;/tt&gt; теперь возвращает &lt;tt class="docutils literal"&gt;True&lt;/tt&gt; в случае успеха теперь &lt;tt class="docutils literal"&gt;DeclarativeActionContext&lt;/tt&gt; поддерживает режимы (документация по фиче будет позже)&lt;/li&gt;
+&lt;li&gt;Реализован рекурсивный поисковик статики (&lt;tt class="docutils literal"&gt;RecursiveAppDirectoriesFinder&lt;/tt&gt;)&lt;/li&gt;
+&lt;li&gt;Проверка прав древовидном справочнике полностью переведена на спользование &lt;tt class="docutils literal"&gt;has_perm&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;objectpack 2.0.22, 3.0.1&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;DoesNotExists&lt;/tt&gt; теперь корректно обрабатывается при сериализации объектов для отображения в гридах.&lt;/li&gt;
+&lt;li&gt;Observer теперь конфигурируется при первом запросе, а не при старте проекта (т.с. значительно сокращается время запуска dev-server)&lt;/li&gt;
+&lt;li&gt;При автогорерации контролов для численных полей теперь учитывается специфика этих полей (целые/добные, неотрицательные и проч.)&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;Icon&lt;/tt&gt; для меню, рабочего стола и тулбара берется из пака, а также индекс сортировки элементов интерфейса можно задать в паке&lt;/li&gt;
+&lt;li&gt;Колоночные фильтры теперь нормально работают и для вложенных полей (см демо)&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;parent_id&lt;/tt&gt; в &lt;tt class="docutils literal"&gt;TreeObjectPack&lt;/tt&gt; теперь проверяется на &lt;tt class="docutils literal"&gt;None&lt;/tt&gt; при биндинге&lt;/li&gt;
+&lt;li&gt;В контексте при неуказанном &lt;tt class="docutils literal"&gt;parent_id&lt;/tt&gt; для экшнов &lt;tt class="docutils literal"&gt;TreeObjectPack&lt;/tt&gt; будет &lt;tt class="docutils literal"&gt;perent_id=None&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Метакласс для &lt;tt class="docutils literal"&gt;ModelProxy&lt;/tt&gt; теперь представлен классом, вместо функции и будет нормально наследоваться&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://barsgroup.github.io/posts/changelog-24-09-2014.html</guid><pubDate>Wed, 24 Sep 2014 12:55:03 GMT</pubDate></item><item><title>M3 3.0</title><link>http://barsgroup.github.io/posts/m3-30.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;M3 3.0&lt;/strong&gt; - это новая версия m3, заточенная под клиентский рендеринг, разделение данных и графического интерфейса. Проведен
 значительный рефакторинг UI, удалены неиспользуемые компоненты, упрощена работа с существующими контролами.
 Значительно сократился объем данных, занимаемых в памяти, а так же время рендеринга компонентов.&lt;/p&gt;
 &lt;p&gt;Более того, переведен проект &lt;a href="http://bars-open.ru/solution/byudzhet-onlayn/platnye-uslugi/"&gt;БАРС Родительская Плата&lt;/a&gt;

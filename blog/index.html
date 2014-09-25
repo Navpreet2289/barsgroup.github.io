@@ -103,7 +103,7 @@
 </ul>
 <p><strong>m3-core 2.0.12, 3.0.1</strong></p>
 <ul class="simple">
-<li>Вызов <tt class="docutils literal">BaseObjectModel.safe_delete</tt> теперь возвращает <tt class="docutils literal">True</tt> в случае успеха теперь <tt class="docutils literal">DeclarativeActionContext</tt> поддерживает режимы (документация по фиче будет позже)</li>
+<li>Вызов <tt class="docutils literal">BaseObjectModel.safe_delete</tt> теперь возвращает <tt class="docutils literal">True</tt> в случае успеха, теперь <tt class="docutils literal">DeclarativeActionContext</tt> поддерживает режимы (документация по фиче будет позже)</li>
 <li>Реализован рекурсивный поисковик статики (<tt class="docutils literal">RecursiveAppDirectoriesFinder</tt>)</li>
 <li>Проверка прав древовидном справочнике полностью переведена на спользование <tt class="docutils literal">has_perm</tt></li>
 </ul>
@@ -111,11 +111,11 @@
 <ul class="simple">
 <li><tt class="docutils literal">DoesNotExists</tt> теперь корректно обрабатывается при сериализации объектов для отображения в гридах.</li>
 <li>Observer теперь конфигурируется при первом запросе, а не при старте проекта (т.с. значительно сокращается время запуска dev-server)</li>
-<li>При автогорерации контролов для численных полей теперь учитывается специфика этих полей (целые/добные, неотрицательные и проч.)</li>
+<li>При автогенерации контролов для численных полей теперь учитывается специфика этих полей (целые/добные, неотрицательные и проч.)</li>
 <li><tt class="docutils literal">Icon</tt> для меню, рабочего стола и тулбара берется из пака, а также индекс сортировки элементов интерфейса можно задать в паке</li>
 <li>Колоночные фильтры теперь нормально работают и для вложенных полей (см демо)</li>
 <li><tt class="docutils literal">parent_id</tt> в <tt class="docutils literal">TreeObjectPack</tt> теперь проверяется на <tt class="docutils literal">None</tt> при биндинге</li>
-<li>В контексте при неуказанном <tt class="docutils literal">parent_id</tt> для экшнов <tt class="docutils literal">TreeObjectPack</tt> будет <tt class="docutils literal">perent_id=None</tt></li>
+<li>В контексте при неуказанном <tt class="docutils literal">parent_id</tt> для экшнов <tt class="docutils literal">TreeObjectPack</tt> будет <tt class="docutils literal">parent_id=None</tt></li>
 <li>Метакласс для <tt class="docutils literal">ModelProxy</tt> теперь представлен классом, вместо функции и будет нормально наследоваться</li>
 </ul></div>
         </div>

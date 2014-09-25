@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Wed, 24 Sep 2014 17:18:55 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Changelog 24-09-2014</title><link>http://barsgroup.github.io/posts/changelog-24-09-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;m3-ui (m3-ext) 3.0.1&lt;/strong&gt;&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>M3</title><link>http://barsgroup.github.io/</link><description>Default Description</description><atom:link href="http://barsgroup.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ru</language><lastBuildDate>Thu, 25 Sep 2014 09:45:31 GMT</lastBuildDate><generator>Nikola &lt;http://getnikola.com/&gt;</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Changelog 24-09-2014</title><link>http://barsgroup.github.io/posts/changelog-24-09-2014.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;m3-ui (m3-ext) 3.0.1&lt;/strong&gt;&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;Добавлена загрузка локализации ux-компонент (&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;ux-lang-ru.js&lt;/span&gt;&lt;/tt&gt;)&lt;/li&gt;
 &lt;li&gt;Потомки &lt;tt class="docutils literal"&gt;AdvancedComboBox&lt;/tt&gt; теперь не меняют размеры при переключении режима &lt;tt class="docutils literal"&gt;readOnly&lt;/tt&gt;&lt;/li&gt;
@@ -27,7 +27,7 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;m3-core 2.0.12, 3.0.1&lt;/strong&gt;&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;Вызов &lt;tt class="docutils literal"&gt;BaseObjectModel.safe_delete&lt;/tt&gt; теперь возвращает &lt;tt class="docutils literal"&gt;True&lt;/tt&gt; в случае успеха теперь &lt;tt class="docutils literal"&gt;DeclarativeActionContext&lt;/tt&gt; поддерживает режимы (документация по фиче будет позже)&lt;/li&gt;
+&lt;li&gt;Вызов &lt;tt class="docutils literal"&gt;BaseObjectModel.safe_delete&lt;/tt&gt; теперь возвращает &lt;tt class="docutils literal"&gt;True&lt;/tt&gt; в случае успеха, теперь &lt;tt class="docutils literal"&gt;DeclarativeActionContext&lt;/tt&gt; поддерживает режимы (документация по фиче будет позже)&lt;/li&gt;
 &lt;li&gt;Реализован рекурсивный поисковик статики (&lt;tt class="docutils literal"&gt;RecursiveAppDirectoriesFinder&lt;/tt&gt;)&lt;/li&gt;
 &lt;li&gt;Проверка прав древовидном справочнике полностью переведена на спользование &lt;tt class="docutils literal"&gt;has_perm&lt;/tt&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -35,11 +35,11 @@
 &lt;ul class="simple"&gt;
 &lt;li&gt;&lt;tt class="docutils literal"&gt;DoesNotExists&lt;/tt&gt; теперь корректно обрабатывается при сериализации объектов для отображения в гридах.&lt;/li&gt;
 &lt;li&gt;Observer теперь конфигурируется при первом запросе, а не при старте проекта (т.с. значительно сокращается время запуска dev-server)&lt;/li&gt;
-&lt;li&gt;При автогорерации контролов для численных полей теперь учитывается специфика этих полей (целые/добные, неотрицательные и проч.)&lt;/li&gt;
+&lt;li&gt;При автогенерации контролов для численных полей теперь учитывается специфика этих полей (целые/добные, неотрицательные и проч.)&lt;/li&gt;
 &lt;li&gt;&lt;tt class="docutils literal"&gt;Icon&lt;/tt&gt; для меню, рабочего стола и тулбара берется из пака, а также индекс сортировки элементов интерфейса можно задать в паке&lt;/li&gt;
 &lt;li&gt;Колоночные фильтры теперь нормально работают и для вложенных полей (см демо)&lt;/li&gt;
 &lt;li&gt;&lt;tt class="docutils literal"&gt;parent_id&lt;/tt&gt; в &lt;tt class="docutils literal"&gt;TreeObjectPack&lt;/tt&gt; теперь проверяется на &lt;tt class="docutils literal"&gt;None&lt;/tt&gt; при биндинге&lt;/li&gt;
-&lt;li&gt;В контексте при неуказанном &lt;tt class="docutils literal"&gt;parent_id&lt;/tt&gt; для экшнов &lt;tt class="docutils literal"&gt;TreeObjectPack&lt;/tt&gt; будет &lt;tt class="docutils literal"&gt;perent_id=None&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;В контексте при неуказанном &lt;tt class="docutils literal"&gt;parent_id&lt;/tt&gt; для экшнов &lt;tt class="docutils literal"&gt;TreeObjectPack&lt;/tt&gt; будет &lt;tt class="docutils literal"&gt;parent_id=None&lt;/tt&gt;&lt;/li&gt;
 &lt;li&gt;Метакласс для &lt;tt class="docutils literal"&gt;ModelProxy&lt;/tt&gt; теперь представлен классом, вместо функции и будет нормально наследоваться&lt;/li&gt;
 &lt;/ul&gt;&lt;/div&gt;</description><guid>http://barsgroup.github.io/posts/changelog-24-09-2014.html</guid><pubDate>Wed, 24 Sep 2014 12:55:03 GMT</pubDate></item><item><title>M3 3.0</title><link>http://barsgroup.github.io/posts/m3-30.html</link><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;M3 3.0&lt;/strong&gt; - это новая версия m3, заточенная под клиентский рендеринг, разделение данных и графического интерфейса. Проведен
 значительный рефакторинг UI, удалены неиспользуемые компоненты, упрощена работа с существующими контролами.

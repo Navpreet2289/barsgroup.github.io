@@ -357,7 +357,10 @@ _string_types_ равен _(basestring,)_ для Python 2.x и _(str, )_ для 
 
 **Что делать:**
 
-- Переделать все относительные импорты на _from ._
+- Добавить absolute_import и переделать все относительные импорты на _from_.
+
+        ::python
+        from __future__ import absolute_import
 
 ## <a name="metaclass">Метаклассы</a>
 
